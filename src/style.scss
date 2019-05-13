@@ -73,6 +73,7 @@ div#page-inner {
   min-height: 100%;
   height: 100%;
   font-family: 'Raleway',Verdana, Geneva, sans-serif;
+  font-weight: 300;
   background-image:url(https://nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
 }
 
@@ -111,7 +112,6 @@ textarea:focus {
 a { 
 	outline: none; 
 	border:none;
-	font-weight:normal; 
 	text-decoration:none;
 	color:#616161;
 	-webkit-transition: color .3s ease;

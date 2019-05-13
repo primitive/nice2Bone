@@ -4,7 +4,7 @@
  * This is your standard WordPress
  * functions.php file.
  *
- * @since Primitive One 1.0
+ * @since Nice2b One 1.0
  */
 
 /*-----------------------------------------------------------------------------------*/
@@ -18,6 +18,8 @@ function primitive_scripts() {
 	wp_enqueue_style( 'font-awesome-css', 'https://use.fontawesome.com/releases/v5.7.2/css/all.css' );
 	//wp_enqueue_style( 'primitive-style-dist', get_stylesheet_directory_uri() . '/dist/style.css');
 	wp_enqueue_style( 'primitive-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'primitive-fonts', 'https://fonts.googleapis.com/css?family=Allura|Raleway:300,400,500|Lobster|Roboto+Condensed', false ); 
+
 
     // Load scripts.
 	wp_enqueue_script( 'jquery','https://code.jquery.com/jquery-3.3.1.slim.min.js', array( 'jquery' ),'',true );

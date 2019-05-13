@@ -1,6 +1,7 @@
 import React from "react";
 import PostList from "./post-list";
 import LoadingIcon from "./loading-icon.gif";
+import ReactGA from 'react-ga';
 
 class Posts extends React.Component {
   constructor(props) {
@@ -21,6 +22,9 @@ class Posts extends React.Component {
 
   componentDidMount() {
     console.log("mount posts", this.props.match);
+    ReactGA.initialize('UA-7143300-34');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    console.log("GA pageview");
     window.onbeforeunload = function() {
       window.scrollTo(0, 0);
     };

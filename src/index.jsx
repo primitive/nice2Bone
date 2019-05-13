@@ -5,16 +5,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './header';
 import Footer from './footer';
-import Posts from './posts';
+import Page from './page';
 import Post from './post';
+import Posts from './posts';
 import Categories from './categories';
 import Tags from './tags';
-import Products from './products';
-import Product from './product';
-import Page from './page';
 
 // Load the Sass file
 require('./style.scss');
+
 
 const App = () => (
     <div id="page-inner">
@@ -30,9 +29,6 @@ const App = () => (
                 <Route exact path={PrimitiveSettings.path + 'tag'} component={withRouter(Tags)} />
                 <Route exact path={PrimitiveSettings.path + 'tag/:slug'} component={withRouter(Post)} />
 
-                <Route exact path={PrimitiveSettings.path + 'products'} component={withRouter(Products)} />
-                <Route exact path={PrimitiveSettings.path + 'products/:product'} component={withRouter(Product)} />
-                
                 <Route exact path={PrimitiveSettings.path + ':slug'} component={withRouter(Page)} />
             </Switch>
         </main>
