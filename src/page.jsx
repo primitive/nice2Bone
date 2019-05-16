@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from 'react-router';
 import ReactGA from 'react-ga';
+import { isEmpty } from './helpers'
 import NotFound from "./not-found";
 
 class Page extends React.Component {
@@ -9,6 +10,7 @@ class Page extends React.Component {
     this.state = {
       page: {}
     };
+
   }
 
   componentWillUnmount() {
@@ -35,9 +37,11 @@ class Page extends React.Component {
       })
       .then(res => {
         this.setState({ page: res[0] });
-        document.title = res[0] === undefined ? "404 Page Not Found | Nice2b.me" : (res[0].title.rendered + " | Nice2b.me");
-        
+        console.log("new");
         console.log("response", res[0]);
+        document.title = isEmpty(res[0]) ? "404 Page Not Found | Nice2b.me" : (res[0].title.rendered + " | Nice2b.me");
+        
+        
       });
   };
 

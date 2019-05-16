@@ -1,21 +1,32 @@
 // External dependencies
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import LoadingIcon from "./loading-icon.gif";
 import ReactGA from 'react-ga';
+import LoadingIcon from "./loading-icon.gif";
+import { isEmpty } from './helpers'
+import NotFound from "./not-found";
 
 class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      post: {}
+      post: {},
+      isLoading: true
     };
   }
 
   componentDidMount() {
     this.fetchData();
     ReactGA.pageview(window.location.pathname + window.location.search);
-    console.log("GA single post");
+    //console.log("GA single post");
+  }
+
+  isEmpty = (obj) => {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
   }
 
   fetchData = () => {
@@ -32,9 +43,9 @@ class Post extends React.Component {
       })
       .then(res => {
         this.setState({ post: res[0] });
-        document.title = res[0] === undefined ? "404 Post Not Found | Nice2b.me" : (res[0].title.rendered + " | Nice2b.me");
-
         console.log("response", res[0] );
+        document.title = isEmpty(res[0]) ? "404 Post Not Found | Nice2b.me" : (res[0].title.rendered + " | Nice2b.me");
+        this.setState({ isLoading: false });
       });
   };
 
@@ -95,15 +106,20 @@ class Post extends React.Component {
   }
 
   renderEmpty() {
+    if (this.state.isLoading) {
     return (
       <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-    );
+      );
+    }
+    else {
+      return <NotFound />;
+    }
   }
 
   render() {
     return (
       <div className="container post-entry">
-        {this.state.post.title ? this.renderPosts() : this.renderEmpty()}
+        {isEmpty(this.state.post) ? this.renderEmpty() : this.renderPosts()}
       </div>
     );
   }

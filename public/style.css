@@ -1,22 +1,6 @@
-/*
-Theme Name: Nice2b One
-Theme URI: https://wordpress.org/
-Author: Shaun Knowles @ Primitive Digital
-Author URI: https://primitivedigital.uk
-Description: A basic theme using the React and the WordPress REST API
-Version: 1.0
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: wordpress, decoupled, react, rest-api
-
-This theme is licensed under the GPL. Have fun with it.
-*/
-
 /* --------------------------------------
 =========================================
-1. Set your custom styles in src directory
-2. Import all styles from dist directory
-
+Set your custom styles in style.scss in the src directory
 --------------------------------------------------------*/
 
 /* import styles from the distribution directory */

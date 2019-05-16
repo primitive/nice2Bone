@@ -15,14 +15,14 @@
         <meta name="viewport" content="width=device-width">
         <link rel="profile" href="http://gmpg.org/xfn/11">
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-        <title>Celestial</title>
+        <title>Nice2b.me</title>
         <?php wp_head(); ?>
     </head>
     <body <?php body_class(); ?>>
         <div id="page" class="hfeed site">
             <div id="content">
                 <div class="loader-gif">
-                    <img src="<?php echo home_url() ?>/wp-content/themes/celestial/dist/images/loading-icon.gif" alt="Loader">
+                    <img src="<?php echo home_url() ?>/wp-content/themes/celestial/dist/images/loading-icon.gif" alt="Loading Content">
                 </div>
             </div>
             <?php wp_footer(); ?>

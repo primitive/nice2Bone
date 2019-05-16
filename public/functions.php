@@ -1,9 +1,7 @@
 <?php
 
 /**
- * This is your standard WordPress
- * functions.php file.
- *
+ * This is your standard WordPress functions.php file.
  * @since Nice2b One 1.0
  */
 
@@ -237,4 +235,5 @@ function primitive_excerpt_length( $length ) {
 }
 add_filter( 'excerpt_length', 'primitive_excerpt_length' );
 
+add_theme_support( 'automatic-feed-links' );
 add_theme_support( 'post-thumbnails' );

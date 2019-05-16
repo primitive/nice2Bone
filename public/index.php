@@ -2,8 +2,7 @@
 /**
  * The main template file
  *
- * @package WordPress
- * @subpackage Nice2B One
+ * @package Nice2B One
  * @since Nice2B One 1.0
  */
  ?>

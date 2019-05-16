@@ -1,14 +1,13 @@
 /*
-Theme Name: Primitive One
+Theme Name: Nice2b One
 Theme URI: https://wordpress.org/
-Author: Shaun Knowles
+Author: Shaun Knowles @ Primitive Digital
 Author URI: https://primitivedigital.uk
 Description: A basic theme using the React and the WordPress REST API
-Version: 1.0
+Version: 1.3
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: wordpress, decoupled, react, rest-api
-Text Domain: Primitive
 
 This theme is licensed under the GPL. Have fun with it.
 */
@@ -133,13 +132,8 @@ a:focus {
   flex-grow: 1;
 }
 
-.posts-title,
-.navbar {
+.posts-title {
   padding-left: 1rem;
-}
-
-.navbar {
-  border-bottom: solid 4px #ff6644;
 }
 
 .site-content-contain {
@@ -657,6 +651,13 @@ nav {
     position: relative;
     z-index: 8;
 }
+.navbar {
+  padding-left: 1rem;
+  border-bottom: solid 4px #ff6644;
+}
+a.dropdown-item {
+  font-weight: 300;
+}
 
 .navigation {
     width: 250px;
@@ -732,6 +733,7 @@ nav {
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;
 }
+
 .nav-menu ul.dm-align-2, .nav-menu ul .dropdown-toggle::after{
 	display: none;
 }
