@@ -17,14 +17,11 @@ class Posts extends React.Component {
 
   componentWillUnmount() {
     this.getMorePosts = null;
-    console.log("unmount posts", this.getMorePosts);
+    console.log("unmount posts");
   }
 
   componentDidMount() {
-    console.log("mount posts", this.props.match);
-    ReactGA.initialize('UA-7143300-34');
-    ReactGA.pageview(window.location.pathname + window.location.search);
-    console.log("GA pageview");
+    
     window.onbeforeunload = function() {
       window.scrollTo(0, 0);
     };
@@ -43,6 +40,10 @@ class Posts extends React.Component {
           this.getMorePosts();
         }
       });
+
+      document.title = "Nice2b.me - Posts and Articles";
+      ReactGA.pageview(window.location.pathname + window.location.search);
+      console.log("GA posts");
   }
 
   getMorePosts() {
@@ -100,11 +101,15 @@ class Posts extends React.Component {
 
   render() {
     if (!this.state.posts.length === 0) {
-      return <img src={LoadingIcon} alt="loader active gif" id="loader" />;
+      return (
+      <>
+        <img src={LoadingIcon} alt="loader active gif" id="loader" />
+        <p>No matching posts</p>
+      </>
+      );
     }
     console.log("this.state.posts", this.state.posts);
     return (
-      
       <div>
         <div className="container">
           <h1 className="posts-title">Posts</h1>

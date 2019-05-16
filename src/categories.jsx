@@ -1,8 +1,9 @@
 // External dependencies
 import React from "react";
+import { withRouter } from 'react-router';
 import CategoryList from "./category-list";
 import LoadingIcon from "./loading-icon.gif";
-
+import ReactGA from 'react-ga';
 
 class Categories extends React.Component {
   constructor(props) {
@@ -20,14 +21,10 @@ class Categories extends React.Component {
 
   componentWillUnmount() {
     this.getMorePostsInCat = null;
-    console.log("unmount categories", this.getMorePostsInCat);
   }
 
   componentDidMount() {
-    console.log("mount categories", this.props.match);
-    //console.log("params", this.props.match.params);
 
-    
     window.onbeforeunload = function() {
       window.scrollTo(0, 0);
     };
@@ -46,6 +43,9 @@ class Categories extends React.Component {
           this.getMorePostsInCat();
         }
       });
+
+      console.log("GA categories", this.props.match);
+      ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
   getMorePostsInCat() {
@@ -76,6 +76,7 @@ class Categories extends React.Component {
           }
         }
         if (!response.ok) {
+          document.title = response.statusText + "| Nice2b.me";
           throw Error(response.statusText);
         }
         return response.json();
@@ -86,6 +87,7 @@ class Categories extends React.Component {
           allPostsInCat.push(single);
         });
         this.setState({ posts: allPostsInCat });
+        document.title = "Category: " + this.state.category + " | Nice2b.me";
       })
       .catch(error => {
         console.log(
@@ -127,4 +129,4 @@ class Categories extends React.Component {
   }
 }
 
-export default Categories
+export default withRouter(Categories);

@@ -5,18 +5,19 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
-const devMode = process.env.NODE_ENV !== 'development'
-
 module.exports = {
+	mode: 'development',
   entry: {
     app: "./src/index.jsx"
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].js",
-    //publicPath: "/dist/"
+		filename: "[name].js",
+		path: path.resolve(__dirname, "dist"),
+		//themePath: "C:\\wamp64\\www\\wp\\wp-content\\themes\\n2bone\\",
+		//themeDist: themePath + "dist\\",
   },
   optimization: {
 		minimizer: [
@@ -72,6 +73,13 @@ module.exports = {
 			test: /\.(js|css)/
 		}),
 		new UglifyJsPlugin(),
+		new CopyPlugin([
+			//{ from: '.public\', to: themePath },
+			//{ from: '.dist\', to: themeDist },
+
+			{ from: 'public/', to:  'C:/wamp64/www/wp/wp-content/themes/nice2bone/'},
+			{ from: 'dist/', to: 'C:/wamp64/www/wp/wp-content/themes/nice2bone/dist/'},
+    ]),
 		new WebpackShellPlugin({
 			onBuildStart: ['echo "Webpack Start"'],
       //onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css','echo "Webpack End"']
@@ -118,7 +126,18 @@ module.exports = {
         loader: "file-loader?name=fonts/[name].[ext]"
       }
     ]
-  },
+	},
+	/*
+	externals: {
+		'Config': JSON.stringify(process.env.NODE_ENV === 'production' ? {
+			serverUrl: "https://nice2b.me/",
+			gaId: "UA-7143300-34"
+		} : {
+			serverUrl: "http://127.0.0.1/wp/",
+			gaId: "UA-7143300-34"
+		})
+	},
+	*/
   resolve: {
     extensions: [".js", ".jsx"],
 		modules: [

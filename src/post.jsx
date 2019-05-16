@@ -1,7 +1,8 @@
 // External dependencies
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import LoadingIcon from "./loading-icon.gif";
+import ReactGA from 'react-ga';
 
 class Post extends React.Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class Post extends React.Component {
 
   componentDidMount() {
     this.fetchData();
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    console.log("GA single post");
   }
 
   fetchData = () => {
@@ -22,12 +25,16 @@ class Post extends React.Component {
     fetch(PrimitiveSettings.URL.api + "posts?slug=" + slug)
       .then(response => {
         if (!response.ok) {
+          document.title = response.statusText + "| Nice2b.me";
           throw Error(response.statusText);
         }
         return response.json();
       })
       .then(res => {
         this.setState({ post: res[0] });
+        document.title = res[0] === undefined ? "404 Post Not Found | Nice2b.me" : (res[0].title.rendered + " | Nice2b.me");
+
+        console.log("response", res[0] );
       });
   };
 
@@ -69,7 +76,7 @@ class Post extends React.Component {
             <span ><i className="fas fa-folder-open"></i>
               {this.state.post.post_category.length ? this.state.post.post_category.map((item, index) =>
                 (<Link key={item.toString()} 
-                  rel="category" to={"category/" + this.state.post.post_category_slug[index]}>{item + " "}
+                  rel="category" to={PrimitiveSettings.path + "category/" + this.state.post.post_category_slug[index]}>{item + " "}
                   </Link>)) : ', '
               }
             </span>   
@@ -77,7 +84,7 @@ class Post extends React.Component {
             <span><i className="fas fa-tag"></i>
               {this.state.post.post_tag.length ? this.state.post.post_tag.map((item, index) =>
                 (<Link key={item.toString()} 
-                  rel="tag" to={"tag/" + this.state.post.post_tag_slug[index]}>{item + " "}
+                  rel="tag" to={PrimitiveSettings.path + "tag/" + this.state.post.post_tag_slug[index]}>{item + " "}
                   </Link>)) : ', '
               }
               </span>        	
@@ -102,4 +109,4 @@ class Post extends React.Component {
   }
 }
 
-export default Post;
+export default withRouter(Post);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { withRouter } from 'react-router';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
 
 import Header from './header';
 import Footer from './footer';
@@ -11,11 +10,14 @@ import Posts from './posts';
 import Categories from './categories';
 import Tags from './tags';
 
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-7143300-34');
+
 // Load the Sass file
 require('./style.scss');
 
-
 const App = () => (
+
     <div id="page-inner">
         <Header />
         <main id="content">
@@ -38,9 +40,9 @@ const App = () => (
 
 // Routes
 const routes = (
-    <Router>
+    <BrowserRouter>
         <Route path="/" component={App} />
-    </Router>
+    </BrowserRouter>
 );
 
 render(

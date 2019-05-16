@@ -1,14 +1,19 @@
 # Nice2b One Theme
 A WordPress REST API based blog theme.
-Theme Created with Node.js, using React 16, Bootstrap 4 and Webpack 4.
+Theme Created with Node.js, React 16, Bootstrap 4 and Webpack 4.
 
-1st Release (April 01, 2019):
-1. Beta version, supports posts and pages
+Beta Release (April 01, 2019):
+1. Beta version, supports posts, pages and categories
 2. Browser sync navigation withRouter additions
+
+2nd Release (May 15, 2019):
+1. Added Google analytics
+2. 
+
 
 To Do
 1. Optimise FontAwsome use
-2. Integrate Google analytics
+2. Add WP theme support
 
 
 ![screenshot](screenshot.jpg)
