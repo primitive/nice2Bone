@@ -1,6 +1,8 @@
 // External dependencies
 import React from "react";
 import { withRouter } from 'react-router';
+import { isEmpty } from './helpers';
+import NotFound from "./not-found";
 import CategoryList from "./category-list";
 import LoadingIcon from "./loading-icon.gif";
 import ReactGA from 'react-ga';
@@ -14,7 +16,8 @@ class Categories extends React.Component {
       category: "",
       page: 0,
       getPostsInCat: true,
-      controller: false
+      controller: false,
+      isLoading: true,
     };
     this.getMorePostsInCat = this.getMorePostsInCat.bind(this);
   }
@@ -24,7 +27,6 @@ class Categories extends React.Component {
   }
 
   componentDidMount() {
-
     window.onbeforeunload = function() {
       window.scrollTo(0, 0);
     };
@@ -46,6 +48,7 @@ class Categories extends React.Component {
 
       console.log("GA categories", this.props.match);
       ReactGA.pageview(window.location.pathname + window.location.search);
+      this.setState({ isLoading: false });
   }
 
   getMorePostsInCat() {
@@ -112,12 +115,7 @@ class Categories extends React.Component {
           .addTo(FadeInController);
       });
   }
-
-  render() {
-    if (!this.state.posts.length === 0) {
-      return <img src={LoadingIcon} alt="loader active gif" id="loader" />;
-    }
-    //console.log("preload", this.state.posts);
+  renderPosts() {
     return (
       <div>
         <div className="container">
@@ -125,6 +123,28 @@ class Categories extends React.Component {
           <CategoryList posts={this.state.posts} />
         </div>
       </div>
+    );
+  }
+  renderEmpty() {
+    if (this.state.isLoading) {
+      return (
+        <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+        );
+    }
+    else {
+      return <NotFound />;
+    }
+  }
+
+  render() {
+    //if (!this.state.posts.length === 0) {
+    //  return <img src={LoadingIcon} alt="loader active gif" id="loader" />;
+    //}
+    //console.log("preload", this.state.posts);
+    return (
+        <div className="container page">
+          {isEmpty(this.state.posts) ? this.renderEmpty() : this.renderPosts()}
+        </div>
     );
   }
 }

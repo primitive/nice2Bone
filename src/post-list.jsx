@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Placeholder from "./placeholder.jpg";
 import LoadingIcon from "./loading-icon.gif";
+// import PreLoader from "./loader";
 
 class PostList extends React.Component {
   renderPosts() {
@@ -66,6 +67,11 @@ class PostList extends React.Component {
   renderEmpty() {
     return (
       <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+      //<PreLoader
+      //height='90'
+      //width='10'
+      //color='#6b5ce7'
+      ///>
     );
   }
 

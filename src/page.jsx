@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from 'react-router';
 import ReactGA from 'react-ga';
-import { isEmpty } from './helpers'
+import { isEmpty } from './helpers';
 import NotFound from "./not-found";
 
 class Page extends React.Component {

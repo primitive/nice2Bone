@@ -6,14 +6,22 @@ Beta Release (April 01, 2019):
 1. Beta version, supports posts, pages and categories
 2. Browser sync navigation withRouter additions
 
-2nd Release (May 15, 2019):
+1st Release (May 15, 2019):
 1. Added Google analytics
-2. 
+2. Fixed title sync
+
+2nd Release (May 16, 2019):
+1. 404 handling and preloaders for pages, posts and categories
+
+3nd Release (May 29, 2019):
+1. 
 
 
 To Do
 1. Optimise FontAwsome use
-2. Add WP theme support
+2. Optimise Font use
+3. Add tag support
+4. Add WP theme support and user configurables
 
 
 ![screenshot](screenshot.jpg)

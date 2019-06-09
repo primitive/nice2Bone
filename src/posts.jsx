@@ -1,6 +1,8 @@
 import React from "react";
 import PostList from "./post-list";
 import LoadingIcon from "./loading-icon.gif";
+// import PreLoader from "./loader";
+//import Loader from 'react-loader-spinner'
 import ReactGA from 'react-ga';
 
 class Posts extends React.Component {
@@ -103,8 +105,8 @@ class Posts extends React.Component {
     if (!this.state.posts.length === 0) {
       return (
       <>
-        <img src={LoadingIcon} alt="loader active gif" id="loader" />
-        <p>No matching posts</p>
+      <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+      <p>No matching posts</p>
       </>
       );
     }

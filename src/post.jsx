@@ -3,7 +3,8 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import ReactGA from 'react-ga';
 import LoadingIcon from "./loading-icon.gif";
-import { isEmpty } from './helpers'
+// import PreLoader from "./loader";
+import { isEmpty } from './helpers';
 import NotFound from "./not-found";
 
 class Post extends React.Component {
@@ -87,7 +88,7 @@ class Post extends React.Component {
             <span ><i className="fas fa-folder-open"></i>
               {this.state.post.post_category.length ? this.state.post.post_category.map((item, index) =>
                 (<Link key={item.toString()} 
-                  rel="category" to={PrimitiveSettings.path + "category/" + this.state.post.post_category_slug[index]}>{item + " "}
+                  rel="category" to={PrimitiveSettings.path + "category/" + this.state.post.post_category_slug[index] + "/"}>{item + " "}
                   </Link>)) : ', '
               }
             </span>   
@@ -95,7 +96,7 @@ class Post extends React.Component {
             <span><i className="fas fa-tag"></i>
               {this.state.post.post_tag.length ? this.state.post.post_tag.map((item, index) =>
                 (<Link key={item.toString()} 
-                  rel="tag" to={PrimitiveSettings.path + "tag/" + this.state.post.post_tag_slug[index]}>{item + " "}
+                  rel="tag" to={PrimitiveSettings.path + "tag/" + this.state.post.post_tag_slug[index] + "/"}>{item + " "}
                   </Link>)) : ', '
               }
               </span>        	
@@ -107,9 +108,14 @@ class Post extends React.Component {
 
   renderEmpty() {
     if (this.state.isLoading) {
-    return (
-      <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-      );
+      return (
+        <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+              //<PreLoader
+      //height='90'
+      //width='10'
+      //color='#6b5ce7'
+      ///>
+        );
     }
     else {
       return <NotFound />;

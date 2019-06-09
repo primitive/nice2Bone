@@ -28,10 +28,16 @@ const App = () => (
                 <Route exact path={PrimitiveSettings.path + 'category/'} component={withRouter(Categories)}/>
                 <Route exact path={PrimitiveSettings.path + 'category/:slug'} component={withRouter(Categories)}/>
 
-                <Route exact path={PrimitiveSettings.path + 'tag'} component={withRouter(Tags)} />
+                <Route exact path={PrimitiveSettings.path + 'tag/'} component={withRouter(Tags)} />
                 <Route exact path={PrimitiveSettings.path + 'tag/:slug'} component={withRouter(Post)} />
 
+                <Route exact path={PrimitiveSettings.path + 'think/:slug'} component={withRouter(Page)} />
+                <Route exact path={PrimitiveSettings.path + 'life/:slug'} component={withRouter(Page)} />
+
+                <Route exact path={PrimitiveSettings.path + 'jokes/:slug'} component={withRouter(Page)} />
+
                 <Route exact path={PrimitiveSettings.path + ':slug'} component={withRouter(Page)} />
+                
             </Switch>
         </main>
         <Footer />

@@ -16,8 +16,7 @@ function primitive_scripts() {
 	wp_enqueue_style( 'font-awesome-css', 'https://use.fontawesome.com/releases/v5.7.2/css/all.css' );
 	//wp_enqueue_style( 'primitive-style-dist', get_stylesheet_directory_uri() . '/dist/style.css');
 	wp_enqueue_style( 'primitive-style', get_stylesheet_uri() );
-	wp_enqueue_style( 'primitive-fonts', 'https://fonts.googleapis.com/css?family=Allura|Raleway:300,400,500|Lobster|Roboto+Condensed', false ); 
-
+	wp_enqueue_style( 'primitive-fonts', 'https://fonts.googleapis.com/css?family=Allura|Raleway:300,400,500|Muli|Lobster|Roboto+Condensed&display=swap', false ); 
 
     // Load scripts.
 	wp_enqueue_script( 'jquery','https://code.jquery.com/jquery-3.3.1.slim.min.js', array( 'jquery' ),'',true );
@@ -36,7 +35,8 @@ function primitive_scripts() {
 		'description' => get_bloginfo( 'description', 'display' ),
 		'path' => $path,
 		'URL' => array(
-			'api' => esc_url_raw( get_rest_url( null, '/wp/v2/' ) ),
+			//'api' => esc_url_raw( get_rest_url( null, '/wp/v2/' ) ),
+			'api' => esc_url_raw( 'https://nice2b.me/wp-json/wp/v2/' ),
 			'root' => esc_url_raw( $url ),
 		),
 		'woo' => array(

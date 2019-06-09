@@ -45,53 +45,100 @@ const Header = () => (
                 </Link>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  About
+                <a className="nav-link dropdown-toggle" href="#" id="thinkDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Deep Thought
                 </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div className="dropdown-menu" aria-labelledby="thinkDropdown">
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "whats-goin-on-ere-then/"}
+                  to={PrimitiveSettings.path + "think/about-what/"}
                 >
                   What?
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "a-brief-history-of-me/"}
+                  to={PrimitiveSettings.path + "think/about-who/"}
                 >
                   Who?
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "where-am-i/"}
+                  to={PrimitiveSettings.path + "think/about-where/"}
                 >
                   Where?
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "why-oh-why/"}
+                  to={PrimitiveSettings.path + "think/about-when/"}
+                >
+                  When?
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "think/about-why/"}
                 >
                   Why?
                 </Link>
-                  <div className="dropdown-divider">And</div>
+                <div className="dropdown-divider">And</div>
                   <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "how-do-you-do/"}
+                  to={PrimitiveSettings.path + "about-how/"}
                 >
                   How?
+                </Link>
+                <div className="dropdown-divider">And</div>
+                  <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "think/analysis-of-images/"}
+                >
+                  Analysis of Images
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "think/analysis-of-text/"}
+                >
+                  Analysis of Text
                 </Link>
                 </div>
               </li>
               
-              <li className="nav-item">
-
-              </li>
-              <li className="nav-item">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="lifeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Life
+                </a>
+                <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
-                  className="nav-item nav-link"
-                  to={PrimitiveSettings.path + "quotes/"}
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "life/inspiration/"}
+                >
+                  Inspiration
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "life/heros-and-heroines/"}
+                >
+                  Heros &amp; Heroines
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "life/quotes/"}
                 >
                   Quotes
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "life/bucket-list/"}
+                >
+                  Bucket List
+                </Link>
+                </div>
+              </li>
+              <li className="nav-item d-none">
+                <Link
+                  className="nav-item nav-link"
+                  to={PrimitiveSettings.path + "contact/"}
+                >
+                  Contact
                 </Link>
               </li>
             </ul>

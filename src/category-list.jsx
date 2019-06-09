@@ -12,7 +12,7 @@ class CategoryList extends React.Component {
         <article className="col-md-4 card-outer" key={i}>
           <div className="card">
             <div className="img-outer">
-              <Link to={PrimitiveSettings.path + "posts/" + post.slug}>
+              <Link to={PrimitiveSettings.path + "posts/" + post.slug + "/"}>
                 <img
                   className="card-img-top"
                   src={
@@ -28,7 +28,7 @@ class CategoryList extends React.Component {
             <div className="card-body post-article post-details">
 
               <h3 className="card-title">
-                <Link to={PrimitiveSettings.path + "posts/" + post.slug} dangerouslySetInnerHTML={{ __html: post.title.rendered}}></Link>
+                <Link to={PrimitiveSettings.path + "posts/" + post.slug + "/"} dangerouslySetInnerHTML={{ __html: post.title.rendered}}></Link>
               </h3>
 
               <div className="card-meta"> 
@@ -38,7 +38,7 @@ class CategoryList extends React.Component {
                     //<Link key={item.toString()} 
                     //    rel="category" to={{ pathname: PrimitiveSettings.path + "category/" + post.post_category_slug[index], state: 'flushDeal'}}>{item + " "}
                     //    </Link>
-                    <a key={item.toString()} href={PrimitiveSettings.path + 'category/' + post.post_category_slug[index]}>{item + " "}</a>) 
+                    <a key={item.toString()} href={PrimitiveSettings.path + 'category/' + post.post_category_slug[index] + "/"}>{item + " "}</a>) 
                     ) : ', '
                     }
                   </span>        	
@@ -54,7 +54,7 @@ class CategoryList extends React.Component {
 
             <div className="read-more">
               <span className="button default">
-                <Link className="button default" to={PrimitiveSettings.path + "posts/" + post.slug}>Read More</Link>
+                <Link className="button default" to={PrimitiveSettings.path + "posts/" + post.slug + "/"}>Read More</Link>
               </span>
             </div>
             </div>

@@ -6,15 +6,7 @@ background-image:url(http://127.0.0.1/primitivedigital/wp-content/uploads/2019/0
 https://nice2b.me/wp-json/wp/v2/posts?filter[taxonomy]=category&filter[term]=uncategorised&page=1
 https://nice2b.me/wp-json/wp/v2/posts?filter[taxonomy]=category&filter[term]=neuroscience&page=1
 
-	// Add Tag
-	register_rest_field( 'post',
-        'post_tag',
-        array(
-            'get_callback'		=> 'primitive_tag',
-            'update_callback'	=> null,
-            'schema'			=> null
-        )
-	);
+
 	// Add Tag slug
 	register_rest_field( 'post',
         'post_tag_slug',
