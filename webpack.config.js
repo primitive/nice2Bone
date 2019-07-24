@@ -9,7 +9,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = {
-	mode: 'development',
+	mode: 'production',
   entry: {
     app: "./src/index.jsx"
   },
@@ -113,7 +113,7 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
-          "file-loader?name=[name].[ext]&outputPath=images/&publicPath=https://nice2b.me/wp-content/themes/primitiveone/dist/images",
+          "file-loader?name=[name].[ext]&outputPath=images/&publicPath=https://nice2b.me/wp-content/themes/nice2bone/dist/images",
           "image-webpack-loader"
         ]
       },
@@ -127,24 +127,12 @@ module.exports = {
       }
     ]
 	},
-	/*
-	externals: {
-		'Config': JSON.stringify(process.env.NODE_ENV === 'production' ? {
-			serverUrl: "https://nice2b.me/",
-			gaId: "UA-7143300-34"
-		} : {
-			serverUrl: "http://127.0.0.1/wp/",
-			gaId: "UA-7143300-34"
-		})
-	},
-	*/
   resolve: {
     extensions: [".js", ".jsx"],
 		modules: [
       path.resolve('./dist/app'),
       //path.resolve('./dist/js/App'),
 			//path.resolve('./React/js/App/Modules/Client'),
-			//path.resolve('./React/js/App/Modules/Admin'),
 			path.resolve('./node_modules')
 		]
 	},
