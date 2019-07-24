@@ -1,11 +1,11 @@
 import React from "react";
-import PostList from "./post-list";
+import JokeList from "./joke-list";
 import LoadingIcon from "./loading-icon.gif";
 // import PreLoader from "./loader";
 //import Loader from 'react-loader-spinner'
 import ReactGA from 'react-ga';
 
-class Posts extends React.Component {
+class Jokes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,11 +14,11 @@ class Posts extends React.Component {
       getPosts: true,
       controller: false
     };
-    this.getMorePosts = this.getMorePosts.bind(this);
+    this.getMoreJokes = this.getMoreJokes.bind(this);
   }
 
   componentWillUnmount() {
-    this.getMorePosts = null;
+    this.getMoreJokes = null;
     console.log("unmount posts");
   }
 
@@ -38,25 +38,27 @@ class Posts extends React.Component {
     })
       .addTo(this.controller)
       .on("enter", e => {
-        if (this.state.getPosts && this.getMorePosts !== null) {
-          this.getMorePosts();
+        if (this.state.getPosts && this.getMoreJokes !== null) {
+          this.getMoreJokes();
         }
       });
 
-      document.title = "Nice2b.me - Posts and Articles";
+      document.title = "Nice2b.me - Jokes. Both Funny HaHa and Funny Peculiar varieties stocked. ";
       ReactGA.pageview(window.location.pathname + window.location.search);
       document.body.className = "";
-      document.body.classList.add('blog');
+      document.body.classList.add('jokes-list');
 
-      console.log("blog");
+      console.log("jokes-list");
   }
 
-  getMorePosts() {
+  getMoreJokes() {
     let totalPages;
 
     this.setState({ page: this.state.page + 1 });
 
-    fetch(PrimitiveSettings.URL.api + "posts/?page=" + this.state.page)
+    // fetch( 'jokes?filter[meta_key]=currency&filter[meta_value]=AUD'); // here 'cars' is the endpoint for CPT
+
+    fetch(PrimitiveSettings.URL.api + "jokes/?page=" + this.state.page)
       .then(response => {
         for (const pair of response.headers.entries()) {
           // getting the total number of pages
@@ -108,7 +110,9 @@ class Posts extends React.Component {
     if (!this.state.posts.length === 0) {
       return (
       <>
-      <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+
+      <Loader type="Circles" color="#00BFFF" height={80} width={80}/>
+
       <p>No matching posts</p>
       </>
       );
@@ -117,12 +121,12 @@ class Posts extends React.Component {
     return (
       <div>
         <div className="container">
-          <h1 className="posts-title">All Posts &amp; Ramblings</h1>
-          <PostList posts={this.state.posts} />
+          <h1 className="posts-title">Jokes</h1>
+          <JokeList posts={this.state.posts} />
         </div>
       </div>
     );
   }
 }
 
-export default Posts;
+export default Jokes;

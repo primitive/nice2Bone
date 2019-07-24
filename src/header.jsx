@@ -41,12 +41,12 @@ const Header = () => (
                   className="nav-item nav-link active"
                   to={PrimitiveSettings.path}
                 >
-                  Home <span className="sr-only">(current)</span>
+                  Blog <span className="sr-only">(current)</span>
                 </Link>
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="thinkDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Deep Thought
+                  About
                 </a>
                 <div className="dropdown-menu" aria-labelledby="thinkDropdown">
                 <Link
@@ -82,7 +82,7 @@ const Header = () => (
                 <div className="dropdown-divider">And</div>
                   <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "about-how/"}
+                  to={PrimitiveSettings.path + "think/about-how/"}
                 >
                   How?
                 </Link>
@@ -91,13 +91,13 @@ const Header = () => (
                   className="dropdown-item"
                   to={PrimitiveSettings.path + "think/analysis-of-images/"}
                 >
-                  Analysis of Images
+                  Analysing Images
                 </Link>
                 <Link
                   className="dropdown-item"
                   to={PrimitiveSettings.path + "think/analysis-of-text/"}
                 >
-                  Analysis of Text
+                  Analysing Text
                 </Link>
                 </div>
               </li>
@@ -133,13 +133,70 @@ const Header = () => (
                 </Link>
                 </div>
               </li>
-              <li className="nav-item d-none">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="loveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Loves
+                </a>
+                <div className="dropdown-menu" aria-labelledby="lifeDropdown">
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "category/mind/"}
+                >
+                  Mind
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "category/consciousness/"}
+                >
+                  Consciousness
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "category/perception/"}
+                >
+                  Perception
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "category/philosophy/"}
+                >
+                  Philosophy
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "category/social-sciences/"}
+                >
+                  Social Sciences
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "category/psychology/"}
+                >
+                  Psychology
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PrimitiveSettings.path + "category/web-design/"}
+                >
+                  Web Design
+                </Link>
+                </div>
+              </li>
+              <li className="navbar-text">
+                  and
+              </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="laughDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Laughter
+                </a>
+                <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
                   className="nav-item nav-link"
-                  to={PrimitiveSettings.path + "contact/"}
+                  to={PrimitiveSettings.path + "jokes/"}
                 >
-                  Contact
+                  Jokes
                 </Link>
+                </div>
               </li>
             </ul>
           </div>

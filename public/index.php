@@ -1,7 +1,8 @@
 <?php
 /**
- * The main template file
- *
+ * This is the main template file
+ * Used by default by all layouts. React router will serve the appropriate content
+ * 
  * @package Nice2B One
  * @since Nice2B One 1.0
  */
@@ -23,6 +24,7 @@
         
         <link rel="profile" href="http://gmpg.org/xfn/11">
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+        <!-- Let WordPress set Initial Page Title -->
         <title>
             <?php if (function_exists('is_tag') && is_tag()) { 
                 echo 'Tag Archive for &quot;'.$tag.'&quot; - '; 
@@ -44,12 +46,15 @@
         * as styles, scripts, and meta tags.
         -->
         <?php wp_head(); ?>
+        <!-- YOAST / SEO
+        * document meta does not get updated
+        -->
     </head>
     <body <?php body_class(); ?>>
-        <div id="page" class="hfeed site">
+        <div id="page">
             <div id="content">
                 <div class="loader-gif">
-                    <img src="<?php echo home_url() ?>/wp-content/themes/primitiveone/dist/images/loading-icon.gif" alt="Loader">
+                    <img src="<?php echo home_url() ?>/wp-content/themes/nice2bone/dist/images/loading-icon.gif" alt="Brain is Loading...">
                 </div>
             </div>
             <?php wp_footer(); ?>

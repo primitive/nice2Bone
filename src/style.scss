@@ -11,7 +11,7 @@ This theme is licensed under the GPL. Have fun with it.
 
 /* --------------------------------------
 =========================================
-1. Common
+1. Common & Theme Styles
 	+ Common styles	
 	+ Typography
 	+ Preloader
@@ -20,7 +20,7 @@ This theme is licensed under the GPL. Have fun with it.
 	+ Space
 	+ Animations
 	
-2. Sections
+2. Sections & Layout
 	+ Navigation
 	+ Burger
 	+ Header
@@ -35,21 +35,87 @@ This theme is licensed under the GPL. Have fun with it.
 	+ Footer
 --------------------------------------------------------*/
 
+/* -------------------------------------------
+
+Theme Variables
+######
+------------------------------------------- */
+
+$body-font: 'Open Sans',Geneva, sans-serif;
+$title-font: 'Lobster', serif;
+$meta-font: 'Roboto Condensed',Verdana, sans-serif;
+$display-font: 'Bowlby One SC',Geneva, sans-serif; 
+$head-font: 'Playfair Display', serif; 
+$subhead-font: 'Lato',Geneva, sans-serif; 
+
+$primary-color: #7CBF69;
+$primary-dark:#438132;
+$primary-highlight: #ff6644;
+$secondary-color: #ff6644;
+$secondary-dark: #d14a2b;
+$tertiary-color: #f783ac;
+$tertiary-dark: #f44e88;
+$quaternary-color: cadetblue;
+
+$body-color: #212529;
+$title-color: darkslategray;
+$meta-color:#616161;
+
+$lowlight: #616161;
+$dark-color:#2d2d2d;
+$button-color: #FDFDFF;
+
+$blue-mute: #6D728C;
+$purple-mute: #c49cba;
+
+
+$orange: #ff6644;
+$orange-dark: #F23E16;
+$orange-darker:#d14a2b;
+
+$green: #70BF5A;
+$green-light: #7CBF69;
+$green-dark: #438132;
+$green-mute:#90cd7e;
+
+$pink: #f783ac;
+$pink-dark: #f44e88;
+
+$blue: #4c6ef5;
+
+
+$teal: cadetblue;
+
+$retro-tan: #736439;
+$retro-brown: #594834;
+$retro-orange: #FF9933;
+
+
+
 /**************************************** 
 
 Device Styles
 
 ****************************************/
 
+// SCREENS (min-width 1200px)
 @media (min-width: 1200px) {
   .container {
     max-width: 1200px;
   }
 }
-
+// TABLETS (min-width 768px)
 @media screen and (min-width: 48em) {
   .site-content {
     padding: 2.5em 0 0;
+  }
+  nav#main-nav {
+    padding-bottom: 1rem;
+  }
+  .page .card-text {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
   }
 }
 
@@ -68,9 +134,40 @@ div#page-inner {
   background-color:#f3f3f3;
   min-height: 100%;
   height: 100%;
-  font-family: 'Raleway',Verdana, Geneva, sans-serif;
-  font-weight: 300;
   background-image:url(https://nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
+}
+
+a:hover,a:active,a:focus,
+button:hover,button:active,button:focus,
+input:hover,input:active,input:focus,
+textarea:hover, textarea:active, textarea:focus {
+	outline:none !important;
+	text-decoration:none !important;
+}
+
+::selection {
+	background: $primary-color;
+	color:#fff; 
+}
+
+::-moz-selection {
+	background: $primary-color;
+	color:#fff; 
+}
+
+a { 
+	outline: none; 
+	border:none;
+	text-decoration:none;
+	color:$lowlight;
+	-webkit-transition: color .3s ease;
+	-moz-transition: color .3s ease;
+	-ms-transition: color .3s ease;
+	-o-transition: color .3s ease;
+	transition: color .3s ease;
+}
+a:hover,a:active,a:focus {
+	color:$primary-highlight;
 }
 
 select {
@@ -82,57 +179,13 @@ select {
   border-color: #ddd;
 }
 
-button:hover ,
-button:active ,
-button:focus ,
-input:hover ,
-input:active ,
-input:focus ,
-textarea:hover ,
-textarea:active ,
-textarea:focus {
-	outline:none !important;
-	text-decoration:none !important;
-}
-
-::selection {
-	background: #ff6644;
-	color:#fff; 
-}
-
-::-moz-selection {
-	background: #ff6644;
-	color:#fff; 
-}
-
-a { 
-	outline: none; 
-	border:none;
-	text-decoration:none;
-	color:#616161;
-	-webkit-transition: color .3s ease;
-	-moz-transition: color .3s ease;
-	-ms-transition: color .3s ease;
-	-o-transition: color .3s ease;
-	transition: color .3s ease;
-}
-
-a:hover ,
-a:active ,
-a:focus {
-	color:#d14a2b;
-	outline:none;
-	text-decoration:none;
-}
-
 #content {
   flex-grow: 1;
 }
 
-.posts-title {
-  padding-left: 1rem;
-}
 
+
+/*
 .site-content-contain {
   background-color: transparent !important;
   margin-top: 60px;
@@ -143,69 +196,114 @@ a:focus {
   width: 75%;
   margin: 0 auto;
 }
-
+*/
+/*
 #primary #main .post {
   clear: left;
   float: left;
   width: 100%;
 }
 
-.post-excerpt {
-  background: #f4f4f4;
-  padding: 10px;
-  margin-bottom: 20px;
-}
 
-img#loader {
-  clear: both;
-  margin: 0 auto;
-}
-#loader {
-  text-align: center;
-  display: none;
-}
-#loader.active {
-  display: block;
-}
-.loader-gif {
-  text-align: center;
-  margin-top: 10em;
-}
+.post-excerpt { background: #f4f4f4; padding: 10px; margin-bottom: 20px; }
+*/
+
+img#loader { clear: both; margin: 0 auto; }
+#loader { text-align: center; display: none; }
+#loader.active { display: block; }
+.loader-gif { text-align: center; margin-top: 10em; }
+
+
+
 
 /* -------------------------------------------
 
 Typography
 
 ------------------------------------------- */
+html {
+    font-size: 16px;
+}
+body {
+  color: $body-color;
+  font-family: $body-font;
+}
 h1, h2, h3, h4, h5, h6,
 h1.title a, h2.title a, h3.title a, h4.title a, h5.title a, h6.title a {
-  font-family: 'Raleway',Verdana, Geneva, sans-serif;
-  line-height: 1.6em;
-  font-size: inherit; }
-
+  color: $title-color;
+  font-family: $title-font;
+}
 h1 {
-  font-size: 2em;
-  font-family: 'Lobster',Verdana, Geneva, sans-serif; }
-
+  font-size: 2.6rem;
+  padding-left: 1rem;
+}
 h2 {
-  font-size: 1.5em; }
-
-h3, h3.title a {
-  font-size: 1.2em;
-  font-family: 'Roboto Condensed',Verdana, Geneva, sans-serif; }
-
+  font-size: 1.6rem;
+}
+h2.intro {
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+  font-family: $display-font;
+  font-size: 2.5rem;
+}
+p.intro {
+  font-family: $meta-font;
+  font-size: 1.3rem;
+}
+h3,
+h3.title a {
+  margin: 1.5rem 0;
+  font-size: 1.6rem;
+  font-family: $display-font;
+}
 h4 {
+  padding-bottom: .5rem;
+  margin: 1.5rem 0;
+  font-family: $head-font;
+  font-size: 1.6rem;
+  font-weight:bold;
+}
+h5 {
   font-size: 1.2em; }
 
-h5 {
-  font-size: 1.1em; }
-
 h6 {
-  font-size: 1.1em; }
+  font-size: 1.1em;
+}
 
 nav#main-nav {
-  font-size: 18px;
+  font-size: 1.4rem;
+  padding-bottom: 0;
+  font-family: $meta-font;
 }
+nav#main-nav .navbar-text {
+color: $primary-color;
+}
+nav#main-nav .dropdown-menu,
+#lifeDropdown,
+#loveDropdown,
+#laughDropdown,
+#page h2.intro em {
+  font-family: $title-font;
+}
+.card-meta {
+  font-family: $meta-font;
+}
+
+.card-text strong {
+  font-family: $display-font;
+  color: $secondary-dark;
+  font-weight: normal;
+}
+.card-text h4 a {
+  padding-bottom: .5rem;
+}
+.card-text a {
+  border-bottom: 2px solid $tertiary-color;
+}
+.card-text a:hover {
+  border-bottom: 2px solid $primary-highlight;
+}
+
 
 
 /**************************************** 
@@ -214,7 +312,8 @@ Buttons
 
 ****************************************/
 button:focus, .button:focus {
-  outline: inherit; }
+  outline: inherit;
+}
 
 .button, .button-default, .button-transparent {
   display: inline-block;
@@ -224,8 +323,8 @@ button:focus, .button:focus {
   font-size: 14px;
   border: none;
   text-transform: uppercase;
-  color: #FDFDFF;
-  border-radius: 30px;
+  color: $button-color;
+  border-radius: 3px;
   cursor: pointer;
   -webkit-transition: .3s;
   transition: .3s;
@@ -236,23 +335,12 @@ a.button,
 .button-default:hover,
 .button-transparent:hover {
   transform: scale(1.03);
-  color: #FDFDFF; }
-
-.read-more {
-  display: block;
-  margin: 40px 0 0 0;
-  text-align: center; }
-
-.read-more.left-button {
-  text-align: left; }
-
-.read-more.right-button {
-  text-align: right; }
+  color: $button-color; }
 
 span.button {
-  background: #ff6644;
+  background: $primary-color;
   padding: 10px 15px;
-  color: #fff;
+  color: $button-color;
   text-align: center;
   position: relative;
   display: inline-block;
@@ -266,9 +354,12 @@ span.button {
   transition: background-color .3s ease; }
 
 span.button:hover {
-  background: #d14a2b;
+  background: $primary-dark;
   color: #fff;
-  text-decoration: none; }
+  text-decoration: none;
+}
+
+
   
 
 /**************************************** 
@@ -281,9 +372,9 @@ Posts
   position: relative;
   z-index: 998;
   display: block;
-  margin: 30px 0;
+  margin: 1rem 0;
   text-align: center;
-  min-height: 11px;
+  min-height: 1rem;
 }
 .col-md-3 .card-meta, .col-md-4 .card-meta, .col-md-6 .card-meta {
   width: auto;
@@ -293,7 +384,9 @@ Posts
 .post-container.col-md-4 .card-meta {
   margin: 30px 0;
 }
-
+.post-entry {
+  padding-top: 1.6em;
+}
 .entry-info {
   background: #fff;
   display: inline;
@@ -336,10 +429,7 @@ Posts
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #616161;
-  //color: #f783ac;
-  //color: #4c6ef5;
-  //color: #be4bdb;
+  color: $lowlight;
 }
 
 .card-outer {
@@ -365,6 +455,7 @@ Posts
 }
 .card-title {
   text-align: center;
+  line-height: 1.5;
 }
 
 .card-subtext {
@@ -378,6 +469,11 @@ Posts
   text-align: center;
   display: none;
  }
+ .read-more {
+  display: block;
+  margin: 40px 0 0 0;
+  text-align: center;
+}
 
 
 /**************************************** 
@@ -386,23 +482,73 @@ Pages
 
 ****************************************/
 
-#page h1.card-title {
-display: none;
+.page h1.card-title {
+  margin-bottom: 2.5rem;
+  padding: 0 0 1.5rem;
+  font-size: 3rem;
+  line-height: 2;
+  border-bottom: 1px solid $lowlight;
+}
+.page .hasHeader h1.card-title {
+  color: $body-color;
+  font-family: $head-font;
+  font-weight: bold;
+  border-bottom: 1px solid $lowlight;
+  
+}
+.page h2 {
+  font-size: 2rem;
+  margin-bottom: 1.3rem;
+  margin-top: 1.3rem;
+}
+.page .card-title a {
+  color: $tertiary-color;
 }
 
-#page div.wp-block-cover {
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
-  min-height: 360px;
+/**************************************** 
+
+ACF - Jokes
+
+****************************************/
+
+.jokes-list .card-body {
+  text-align: center;
+ }
+.jokes-list .card-title a {
+ color: $quaternary-color;
+}
+.jokes-list .card-title a:hover, .jokes-list .card-title a:active {
+  color: $tertiary-dark;
+}
+.jokes-list .card-body .collapse {
+  color: $tertiary-color;
+  font-family: $title-font;
+  font-size: 1.8rem;
+}
+.jokes-list span.button {
+  padding: 0;
+}
+.jokes-list span.button a {
+  padding: .6rem 1rem;
+  margin:0;
+  font-family: $meta-font;
+  background: $blue-mute;
+  text-transform: none;
+}
+.jokes-list span.button a:hover {
+  background: $blue-mute;
+}
+.jokes-list span.button-punch a {
+  font-family: $title-font;
+  background: $tertiary-color;
+  text-transform: none;
+  border-radius: 3px;
+}
+.jokes-list span.button-punch a:hover {
+  background: $tertiary-dark;
 }
 
-#page p.wp-block-cover-text {
-  font-family: 'Lobster',Verdana, Geneva, sans-serif; 
-}
 
-#page .post-entry {
-  padding-top: 1.6em;
-}
 
 /**************************************** 
 
@@ -412,11 +558,10 @@ Header
 
 .header {
   position: relative;
+  text-align: center;
 }
 
 .header-1 {
-  position: relative;
-  text-align: center;
   margin: 0 auto;
   padding-top: 0;
   padding-bottom: 0;
@@ -434,7 +579,7 @@ Header
   font-family: 'Allura',Verdana,Geneva,sans-serif;
 }
 .header-1 .site-brand a.site-logo{
-  color:#616161;
+  color:$lowlight;
   font-size: 70px;
   text-decoration:none;
   line-height:inherit;
@@ -445,14 +590,10 @@ Header
   transition:color .3s ease
 }
   
-a.site-logo:hover {
-  text-decoration:none;
-}
-
 .header-1 .site-brand p.site-description {
   margin-top: 0;
   font-size: 14px;
-  font-family: 'Raleway',Verdana, Geneva, sans-serif;
+  font-family: $head-font;
   display: block;
   text-align: center;
 }
@@ -475,50 +616,33 @@ a.site-logo:hover {
  FOOTER
  =============================================== */
 
-footer.footer-1 { 
-margin-top: 4em;
-color:#2d2d2d;	
-width:100%;
+footer { 
+margin-top: 2rem;
+padding: 2rem 1rem;
 bottom:0;
-border-top:solid 4px #ff6644;
+color:$meta-color;	
+font-family: $meta-font;
+font-size: 1rem;
+text-align: center;
+line-height:1.5rem;
+border-top:solid 4px $primary-color;
 z-index:998
 }
-footer.footer-2 { 
-  margin-top: 4em;
-  color:#fff;	
-  background:#212121;
-  width:100%;
-  bottom:0;
-  border-top:solid 4px #ff6644;
-  z-index:998
-  }
 
-footer.footer-1 {
-  padding: 25px 0;
-  text-align: center;
-}
-
-footer.footer-1 p {
-  width: 100%;
-  text-align: center;
-  font-size: .8em;
-  line-height:1.4em
-}
-footer.footer-1 .copyright a {
-  margin:10ps 0;
+footer .copyright a {
+  color: $secondary-color;
+  font-size: 1.2rem;
   font-weight: bold;
 }
-
-/* ===============================================
- 404
- =============================================== */
-
+footer .copyright a:hover {
+  color: $secondary-dark;
+}
 
 
 
 /**************************************** 
 
-Animations
+Animation
 
 ****************************************/
 
@@ -650,7 +774,7 @@ nav {
 }
 .navbar {
   padding-left: 1rem;
-  border-bottom: solid 4px #ff6644;
+  border-bottom: solid 4px $primary-color;
 }
 a.dropdown-item {
   font-weight: 300;
@@ -847,12 +971,12 @@ a.dropdown-item {
 .back-to-home div {
     background-color: transparent;
     border: none;
-    color: #FDFDFF;
+    color: $button-color;
     font-size: 24px;
 }
 
 /*Dropdown*/
-@media (min-width: 992px) {
+@media (min-width: 48em) {
 .nav-menu ul.sub-menu li > a{
 	font-size: 14px;
 	font-weight: 600;

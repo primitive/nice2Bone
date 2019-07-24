@@ -7,9 +7,9 @@ const NotFound = () => (
     <article className="container post-entry">
       <div className="card">
         <div className="card-body">
-          <h4 className="card-title">404 Page Not Found!</h4>
+          <h1 className="card-title">404 Page Not Found!</h1>
           <p className="card-text">The page you requested does not exist.</p>
-          <p className="card-text">
+          <p className="card-text button">
             <Link to={PrimitiveSettings.path}>Return to homepage</Link>
           </p>
         </div>

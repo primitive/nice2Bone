@@ -1,7 +1,6 @@
-webpack --mode=development
+
 
 background-image:url(http://127.0.0.1/primitivedigital/wp-content/uploads/2019/03/bg-scribble-1.png)
-
 
 https://nice2b.me/wp-json/wp/v2/posts?filter[taxonomy]=category&filter[term]=uncategorised&page=1
 https://nice2b.me/wp-json/wp/v2/posts?filter[taxonomy]=category&filter[term]=neuroscience&page=1

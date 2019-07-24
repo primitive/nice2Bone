@@ -32,9 +32,10 @@ Setup
 The following pre-requisites should be in place for the theme to work:
 
 1. WordPress version 5.0 or later
-2. ACF Plugin Installed
 2. Posts permalink set set to: Custom Structure - `/posts/%postname%/`
-3. ACF Category permalink to be set as: Custom base - `/products/`
+
+3. ACF Plugin Installed
+4. ACF Category permalink to be set as: Custom base - `/jokes/`
 
 Installing and beginning development
 ------------------------------------
@@ -42,7 +43,7 @@ Installing and beginning development
 1. `git clone https://github.com/primitiveshaun/nice2bone`
 2. `cd nice2bone`
 3. `npm install`
-4. `npm run build`
+4. `npm run build` or webpack --mode=development
 5. In the WordPress Admin Dashboard go to Appearances > Themes and Activate `Nice2B One`
 
 The code is opensource so continue to play, develop or break the theme as you see fit.
@@ -54,5 +55,5 @@ Support
 -------
 
 If you find any problems with this theme, please report an issue at:
-(https://github.com/primitiveshaun/primitiveone/issues).
+(https://github.com/primitiveshaun/nice2bone/issues).
 

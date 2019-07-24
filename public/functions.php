@@ -16,7 +16,7 @@ function primitive_scripts() {
 	wp_enqueue_style( 'font-awesome-css', 'https://use.fontawesome.com/releases/v5.7.2/css/all.css' );
 	//wp_enqueue_style( 'primitive-style-dist', get_stylesheet_directory_uri() . '/dist/style.css');
 	wp_enqueue_style( 'primitive-style', get_stylesheet_uri() );
-	wp_enqueue_style( 'primitive-fonts', 'https://fonts.googleapis.com/css?family=Allura|Raleway:300,400,500|Muli|Lobster|Roboto+Condensed&display=swap', false ); 
+	wp_enqueue_style( 'primitive-fonts', 'https://fonts.googleapis.com/css?family=Open+San|Allura|Bowlby+One+SC|Lobster|Lato|Roboto+Condensed|Playfair+Display:400,900&display=swap', false ); 
 
     // Load scripts.
 	wp_enqueue_script( 'jquery','https://code.jquery.com/jquery-3.3.1.slim.min.js', array( 'jquery' ),'',true );
@@ -146,6 +146,16 @@ function primitive_register_fields() {
         )
 	);
 
+	
+	// Add Header Image to Pages
+	register_rest_field( 'page',
+        'page_header', // shown in the response
+        array(
+            'get_callback'		=> 'primitive_page_header',
+            'update_callback'	=> null,
+            'schema'			=> null
+        )
+	);
 
 
 
@@ -201,7 +211,7 @@ function primitive_category_link( $object, $field_name, $request ) {
 
 function primitive_tag( $object, $field_name, $request ) {
 	$formatted_tags = array();
-	$tags = get_tags( $object['id'] );
+	$tags = get_the_tags( $object['id'] );
 
     foreach ($tags as $tag) {
 		$formatted_tags[] = $tag->name;
@@ -211,7 +221,7 @@ function primitive_tag( $object, $field_name, $request ) {
 }
 function primitive_tag_slug( $object, $field_name, $request ) {
 	$formatted_tag_slug = array();
-	$tags = get_tags( $object['id'] );
+	$tags = get_the_tags( $object['id'] );
 
     foreach ($tags as $tag) {
 		$formatted_tag_slug[] = $tag->slug;
@@ -221,7 +231,7 @@ function primitive_tag_slug( $object, $field_name, $request ) {
 }
 function primitive_tag_link( $object, $field_name, $request ) {
 	$formatted_tag_links = array();
-	$tags = get_tags( $object['id'] );
+	$tags = get_the_tags( $object['id'] );
 
     foreach ($tags as $tag) {
 		$formatted_tag_links[] = get_tag_link($object['id']);
@@ -231,8 +241,20 @@ function primitive_tag_link( $object, $field_name, $request ) {
 }
 
 function primitive_excerpt_length( $length ) {
-    return 20;
+    return 25;
 }
+function primitive_page_header( $object, $field_name, $request  ) {
+		// Check if ACF plugin activated
+		if ( function_exists( 'get_field' ) ) {
+			// Get the value
+			if ( $image = get_field('header_image', $object['id'] ) ) :
+				return get_field('header_image', $object['id'] );
+			endif;
+		} else {
+			return '';
+		}
+}
+
 add_filter( 'excerpt_length', 'primitive_excerpt_length' );
 
 add_theme_support( 'automatic-feed-links' );

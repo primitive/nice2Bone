@@ -8,7 +8,7 @@ import NotFound from "./not-found";
 import He from "he";
 
 
-class Post extends React.Component {
+class Joke extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,10 +20,7 @@ class Post extends React.Component {
   componentDidMount() {
     this.fetchData();
     ReactGA.pageview(window.location.pathname + window.location.search);
-    document.body.className = "";
-    document.body.classList.add('single-post');
-
-    console.log("GA single-post");
+    console.log("GA single Joke");
   }
 
   isEmpty = (obj) => {
@@ -49,12 +46,12 @@ class Post extends React.Component {
       .then(res => {
         this.setState({ post: res[0] });
         console.log("response", res[0] );
-        document.title = isEmpty(res[0]) ? "404 Post Not Found | Nice2b.me" : (He.decode(res[0].title.rendered) + " | Nice2b.me");
+        document.title = isEmpty(res[0]) ? "404 Joke Not Found | Nice2b.me" : (He.decode(res[0].title.rendered) + " | Nice2b.me");
         this.setState({ isLoading: false });
       });
   };
 
-  renderPosts() {
+  renderJokes() {
     return (
       <article className="card">
         <div className="img-outer">
@@ -62,7 +59,7 @@ class Post extends React.Component {
         </div>
 
         <div className="card-body">
-          <h1 className="card-title test2" dangerouslySetInnerHTML={{__html: this.state.post.title.rendered}} />
+          <h1 className="card-title test3" dangerouslySetInnerHTML={{__html: this.state.post.title.rendered}} />
 {/*
           {this.state.post.featured_image_src ? (
             <img
@@ -128,11 +125,11 @@ class Post extends React.Component {
 
   render() {
     return (
-      <div className="container post-entry">
-        {isEmpty(this.state.post) ? this.renderEmpty() : this.renderPosts()}
+      <div className="container joke-entry">
+        {isEmpty(this.state.post) ? this.renderEmpty() : this.renderJokes()}
       </div>
     );
   }
 }
 
-export default withRouter(Post);
+export default withRouter(Joke);
