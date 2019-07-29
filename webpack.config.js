@@ -9,7 +9,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = {
-	mode: 'production',
+  mode: 'production',
   entry: {
     app: "./src/index.jsx"
   },
@@ -48,17 +48,6 @@ module.exports = {
 				debug: false
 			}
 		}),
-		/*
-		new GoogleFontsPlugin({
-			fonts: [
-					{ family: "Lobster Two" },
-					{ family: "Raleway" },
-					{ family: "Roboto", variants: [ "400", "700italic" ] }
-			],
-			name: "fonts",
-			filename: "fonts.css",
-		}),
-		*/
 		new MiniCssExtractPlugin({
 			//filename: "[name].css",
 			filename: "style.css",

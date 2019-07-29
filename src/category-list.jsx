@@ -1,5 +1,6 @@
 // External dependencies
 import React from "react";
+import { withRouter } from 'react-router';									  
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Placeholder from "./placeholder.jpg";
@@ -66,7 +67,7 @@ class CategoryList extends React.Component {
 
   renderEmpty() {
     return (
-      <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+      <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />
     );
   }
 
@@ -83,7 +84,7 @@ class CategoryList extends React.Component {
   }
 }
 
-export default CategoryList;
+export default withRouter(CategoryList);
 
 CategoryList.propTypes = {
   posts: PropTypes.array.isRequired

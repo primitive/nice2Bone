@@ -12,15 +12,15 @@ class Joke extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      post: {},
-      isLoading: true
+      post: {}
     };
   }
 
   componentDidMount() {
     this.fetchData();
     ReactGA.pageview(window.location.pathname + window.location.search);
-    console.log("GA single Joke");
+    document.body.className = "";
+    document.body.classList.add('single-joke');
   }
 
   isEmpty = (obj) => {
@@ -35,7 +35,7 @@ class Joke extends React.Component {
     let url = window.location.href.split("/");
     let slug = url.pop() || url.pop();
 
-    fetch(PrimitiveSettings.URL.api + "posts?slug=" + slug)
+    fetch(PrimitiveSettings.URL.api + "jokes?slug=" + slug)
       .then(response => {
         if (!response.ok) {
           document.title = response.statusText + "| Nice2b.me";
@@ -47,7 +47,6 @@ class Joke extends React.Component {
         this.setState({ post: res[0] });
         console.log("response", res[0] );
         document.title = isEmpty(res[0]) ? "404 Joke Not Found | Nice2b.me" : (He.decode(res[0].title.rendered) + " | Nice2b.me");
-        this.setState({ isLoading: false });
       });
   };
 
@@ -59,17 +58,7 @@ class Joke extends React.Component {
         </div>
 
         <div className="card-body">
-          <h1 className="card-title test3" dangerouslySetInnerHTML={{__html: this.state.post.title.rendered}} />
-{/*
-          {this.state.post.featured_image_src ? (
-            <img
-              className="featured-image"
-              src={this.state.post.featured_image_src}
-              alt="featured image"
-            />
-          ) : null}
-*/}
-          
+          <h1 className="card-title" dangerouslySetInnerHTML={{__html: this.state.post.title.rendered}} />          
           <p
             className="card-text"
             dangerouslySetInnerHTML={{
@@ -79,28 +68,28 @@ class Joke extends React.Component {
         </div>
         <div className="card-meta"> 
         
-        <p className="card-text">
+        <p>
             <small className="text-muted">
-              {this.state.post.author_name} &ndash;{" "}
-              {this.state.post.published_date}
+               Post Type &ndash; 
+               {this.state.post.type}
             </small>
           </p>
           <div className="entry-info">
             <span ><i className="fas fa-folder-open"></i>
-              {this.state.post.post_category.length ? this.state.post.post_category.map((item, index) =>
+            {this.state.post.fun_category.length ? this.state.post.fun_category.map((item, index) =>
                 (<Link key={item.toString()} 
-                  rel="category" to={PrimitiveSettings.path + "category/" + this.state.post.post_category_slug[index] + "/"}>{item + " "}
+                  rel="category" to={PrimitiveSettings.path + "jokes/by-type/" + item.replace(/\s+/g, '-').toLowerCase() + "/"}>{item + " "}
                   </Link>)) : ', '
               }
             </span>   
             
             <span><i className="fas fa-tag"></i>
-              {this.state.post.post_tag.length ? this.state.post.post_tag.map((item, index) =>
+            {this.state.post.joke_tags.length ? this.state.post.joke_tags.map((item, index) =>
                 (<Link key={item.toString()} 
-                  rel="tag" to={PrimitiveSettings.path + "tag/" + this.state.post.post_tag_slug[index] + "/"}>{item + " "}
+                  rel="tag" to={PrimitiveSettings.path + "jokes/about/" + item.replace(/\s+/g, '-').toLowerCase() + "/"}>{item + " "}
                   </Link>)) : ', '
               }
-              </span>        	
+            </span>        	
           </div>
           </div>
       </article>
@@ -108,19 +97,9 @@ class Joke extends React.Component {
   }
 
   renderEmpty() {
-    if (this.state.isLoading) {
-      return (
-        <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-              //<PreLoader
-      //height='90'
-      //width='10'
-      //color='#6b5ce7'
-      ///>
-        );
-    }
-    else {
-      return <NotFound />;
-    }
+     return (
+        <img src={LoadingIcon} alt="Loading Joke" className="active" id="loader" />
+    );
   }
 
   render() {

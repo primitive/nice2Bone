@@ -8,6 +8,7 @@ import Page from './page';
 import Post from './post';
 import Posts from './posts';
 import Jokes from './jokes';
+import Joke from './joke';
 import Categories from './categories';
 import Tags from './tags';
 
@@ -36,7 +37,7 @@ const App = () => (
                 <Route exact path={PrimitiveSettings.path + 'life/:slug'} component={withRouter(Page)} />
 
                 <Route exact path={PrimitiveSettings.path + 'jokes/'} component={withRouter(Jokes)} />
-                <Route exact path={PrimitiveSettings.path + 'joke/:slug'} component={withRouter(Post)} />
+                <Route exact path={PrimitiveSettings.path + 'jokes/:slug'} component={withRouter(Joke)} />
 
                 <Route path={PrimitiveSettings.path + ':slug'} component={withRouter(Page)} />
                 

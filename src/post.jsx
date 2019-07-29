@@ -22,8 +22,6 @@ class Post extends React.Component {
     ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
     document.body.classList.add('single-post');
-
-    console.log("GA single-post");
   }
 
   isEmpty = (obj) => {
@@ -62,7 +60,7 @@ class Post extends React.Component {
         </div>
 
         <div className="card-body">
-          <h1 className="card-title test2" dangerouslySetInnerHTML={{__html: this.state.post.title.rendered}} />
+          <h1 className="card-title" dangerouslySetInnerHTML={{__html: this.state.post.title.rendered}} />
 {/*
           {this.state.post.featured_image_src ? (
             <img

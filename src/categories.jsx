@@ -1,8 +1,6 @@
 // External dependencies
 import React from "react";
 import { withRouter } from 'react-router';
-import { isEmpty } from './helpers';
-import NotFound from "./not-found";
 import CategoryList from "./category-list";
 import LoadingIcon from "./loading-icon.gif";
 import ReactGA from 'react-ga';
@@ -11,13 +9,11 @@ class Categories extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFlushed: false,
       posts: [],
       category: "",
       page: 0,
       getPostsInCat: true,
-      controller: false,
-      isLoading: true,
+      controller: false
     };
     this.getMorePostsInCat = this.getMorePostsInCat.bind(this);
   }
@@ -26,7 +22,7 @@ class Categories extends React.Component {
     this.getMorePostsInCat = null;
   }
 
-  componentDidMount() {
+  componentDidMount() {				   
     window.onbeforeunload = function() {
       window.scrollTo(0, 0);
     };
@@ -46,9 +42,9 @@ class Categories extends React.Component {
         }
       });
 
-      console.log("GA categories", this.props.match);
       ReactGA.pageview(window.location.pathname + window.location.search);
-      this.setState({ isLoading: false });
+      document.body.className = "";
+      document.body.classList.add('category-list');						   
   }
 
   getMorePostsInCat() {
@@ -115,35 +111,14 @@ class Categories extends React.Component {
           .addTo(FadeInController);
       });
   }
-  renderPosts() {
-    return (
-      <div>
-        <div className="container">
-          <h1 className="posts-title">Posts by Category: {this.state.category}</h1>
-          <CategoryList posts={this.state.posts} />
-        </div>
-      </div>
-    );
-  }
-  renderEmpty() {
-    if (this.state.isLoading) {
-      return (
-        <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-        );
-    }
-    else {
-      return <NotFound />;
-    }
-  }
-
   render() {
-    //if (!this.state.posts.length === 0) {
-    //  return <img src={LoadingIcon} alt="loader active gif" id="loader" />;
-    //}
-    //console.log("preload", this.state.posts);
+    if (!this.state.posts.length === 0) {
+      return <img src={LoadingIcon} alt="Loading Categories" className="active" id="loader" />
+    }
     return (
-        <div className="container page">
-          {isEmpty(this.state.posts) ? this.renderEmpty() : this.renderPosts()}
+        <div className="container">
+		  <h1 className="posts-title">Posts by Category: {this.state.category}</h1>
+          <CategoryList posts={this.state.posts} />								   
         </div>
     );
   }

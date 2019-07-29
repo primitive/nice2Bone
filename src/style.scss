@@ -109,13 +109,16 @@ Device Styles
   .site-content {
     padding: 2.5em 0 0;
   }
-  nav#main-nav {
-    padding-bottom: 1rem;
-  }
   .page .card-text {
     -webkit-column-count: 2; /* Chrome, Safari, Opera */
     -moz-column-count: 2; /* Firefox */
     column-count: 2;
+  }
+}
+// Mobile (max-width 767px)
+@media screen and (max-width: 48em) {
+  nav#main-nav {
+    padding-bottom: .8rem;
   }
 }
 
@@ -270,15 +273,15 @@ h6 {
   font-size: 1.1em;
 }
 
-nav#main-nav {
-  font-size: 1.4rem;
+#main-nav {
   padding-bottom: 0;
+  font-size: 1.4rem;
   font-family: $meta-font;
 }
-nav#main-nav .navbar-text {
-color: $primary-color;
+#main-nav .navbar-text {
+  color: $primary-color;
 }
-nav#main-nav .dropdown-menu,
+#main-nav .dropdown-menu,
 #lifeDropdown,
 #loveDropdown,
 #laughDropdown,
@@ -288,7 +291,6 @@ nav#main-nav .dropdown-menu,
 .card-meta {
   font-family: $meta-font;
 }
-
 .card-text strong {
   font-family: $display-font;
   color: $secondary-dark;
@@ -384,7 +386,7 @@ Posts
 .post-container.col-md-4 .card-meta {
   margin: 30px 0;
 }
-.post-entry {
+.post-entry, .joke-entry {
   padding-top: 1.6em;
 }
 .entry-info {
@@ -520,7 +522,7 @@ ACF - Jokes
 .jokes-list .card-title a:hover, .jokes-list .card-title a:active {
   color: $tertiary-dark;
 }
-.jokes-list .card-body .collapse {
+.jokes-list .card-body .collapse, .jokes-list .card-body .collapsing {
   color: $tertiary-color;
   font-family: $title-font;
   font-size: 1.8rem;
@@ -547,6 +549,18 @@ ACF - Jokes
 .jokes-list span.button-punch a:hover {
   background: $tertiary-dark;
 }
+
+.joke-entry .card-title {
+  color: $retro-brown;
+}
+.joke-entry .card-text {
+  text-align: center;
+  font-size: 1.6rem;
+  font-family: $display-font;
+  color: $secondary-color;
+}
+// ###
+
 
 
 

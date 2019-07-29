@@ -1,3 +1,4 @@
+// External dependencies					
 import React from "react";
 import JokeList from "./joke-list";
 import LoadingIcon from "./loading-icon.gif";
@@ -19,7 +20,6 @@ class Jokes extends React.Component {
 
   componentWillUnmount() {
     this.getMoreJokes = null;
-    console.log("unmount posts");
   }
 
   componentDidMount() {
@@ -47,8 +47,6 @@ class Jokes extends React.Component {
       ReactGA.pageview(window.location.pathname + window.location.search);
       document.body.className = "";
       document.body.classList.add('jokes-list');
-
-      console.log("jokes-list");
   }
 
   getMoreJokes() {
@@ -71,6 +69,7 @@ class Jokes extends React.Component {
           }
         }
         if (!response.ok) {
+		  document.title = response.statusText + "| Nice2b.me";												   
           throw Error(response.statusText);
         }
         return response.json();
@@ -117,14 +116,13 @@ class Jokes extends React.Component {
       </>
       );
     }
-    console.log("this.state.posts", this.state.posts);
+
     return (
-      <div>
         <div className="container">
           <h1 className="posts-title">Jokes</h1>
           <JokeList posts={this.state.posts} />
         </div>
-      </div>
+
     );
   }
 }

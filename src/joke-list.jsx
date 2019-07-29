@@ -15,7 +15,7 @@ class JokeList extends React.Component {
             <div className="card-body post-article post-details">
 
               <h3 className="card-title">
-                <Link to={"/joke/" + post.slug + "/"} dangerouslySetInnerHTML={{ __html: post.title.rendered}}></Link>
+                <Link to={PrimitiveSettings.path + "jokes/" + post.slug + "/"} dangerouslySetInnerHTML={{ __html: post.title.rendered}}></Link>
               </h3>
 
               <p className="card-subtext">
@@ -35,7 +35,7 @@ class JokeList extends React.Component {
               </span>
 
               <span className="button">
-                <Link className="button" to={"joke/" + post.slug + "/"}>Go on, go on...</Link>
+                <Link className="button" to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}>Go on, go on...</Link>
               </span>
 
             </div>
@@ -48,12 +48,7 @@ class JokeList extends React.Component {
 
   renderEmpty() {
     return (
-      <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-      //<PreLoader
-      //height='90'
-      //width='10'
-      //color='#6b5ce7'
-      ///>
+      <img src={LoadingIcon} alt="Loading Jokes" className="active" id="loader" />
     );
   }
 

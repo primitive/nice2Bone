@@ -191,7 +191,7 @@ const Header = () => (
                 </a>
                 <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
-                  className="nav-item nav-link"
+                  className="dropdown-item"
                   to={PrimitiveSettings.path + "jokes/"}
                 >
                   Jokes

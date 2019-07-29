@@ -2,7 +2,7 @@
 
 /**
  * This is your standard WordPress functions.php file.
- * @since Nice2b One 1.0
+ * @since Nice2B One 1.0
  */
 
 /*-----------------------------------------------------------------------------------*/
@@ -136,17 +136,16 @@ function primitive_register_fields() {
             'schema'			=> null
         )
 	);
-	// Add Tag Links
+
+	// Add Header Image to Posts
 	register_rest_field( 'post',
-        'post_tag_link',
+        'post_header', // shown in the response
         array(
-            'get_callback'		=> 'primitive_tag_link',
+            'get_callback'		=> 'primitive_post_header',
             'update_callback'	=> null,
             'schema'			=> null
         )
 	);
-
-	
 	// Add Header Image to Pages
 	register_rest_field( 'page',
         'page_header', // shown in the response
@@ -158,14 +157,53 @@ function primitive_register_fields() {
 	);
 
 
+	// CUSTOM POST TYPES
+	// Header Image for Jokes
+	register_rest_field( 'jokes',
+        'joke_header',
+        array(
+            'get_callback'		=> 'primitive_joke_header',
+            'update_callback'	=> null,
+            'schema'			=> null
+        )
+	);
+	// Joke Tags
+	register_rest_field( 'jokes',
+        'joke_tags',
+        array(
+            'get_callback'		=> 'primitive_joke_tags',
+            'update_callback'	=> null,
+            'schema'			=> null
+        )
+	);
+	
+	// CUSTOM TAXONOMIES
+	// Fun Category
+	register_rest_field( 'jokes',
+        'fun_category',
+        array(
+            'get_callback'		=> 'primitive_fun_category',
+            'update_callback'	=> null,
+            'schema'			=> null
+        )
+	);
+	// Structure Category
+	register_rest_field( 'jokes',
+        'structure_category',
+        array(
+            'get_callback'		=> 'primitive_structure_category',
+            'update_callback'	=> null,
+            'schema'			=> null
+        )
+	);
 
 }
 add_action( 'rest_api_init', 'primitive_register_fields' );
 
+// ALL WordPress Fields
 function primitive_get_author_name( $object, $field_name, $request ) {
 	return get_the_author_meta( 'display_name' );
 }
-
 function primitive_get_image_src( $object, $field_name, $request ) {
     if($object[ 'featured_media' ] == 0) {
         return $object[ 'featured_media' ];
@@ -173,11 +211,9 @@ function primitive_get_image_src( $object, $field_name, $request ) {
 	$feat_img_array = wp_get_attachment_image_src( $object[ 'featured_media' ], 'thumbnail', true );
     return $feat_img_array[0];
 }
-
 function primitive_published_date( $object, $field_name, $request ) {
 	return get_the_time('F j, Y');
 }
-
 function primitive_category( $object, $field_name, $request ) {
 	$formatted_categories = array();
 	$categories = get_the_category( $object['id'] );
@@ -185,7 +221,6 @@ function primitive_category( $object, $field_name, $request ) {
     foreach ($categories as $category) {
 		$formatted_categories[] = $category->name;
     }
-
     return $formatted_categories;
 }
 function primitive_category_slug( $object, $field_name, $request ) {
@@ -205,10 +240,8 @@ function primitive_category_link( $object, $field_name, $request ) {
     foreach ($categories as $category) {
 		$formatted_links[] = get_category_link($object['id']);
     }
-
     return $formatted_links;
 }
-
 function primitive_tag( $object, $field_name, $request ) {
 	$formatted_tags = array();
 	$tags = get_the_tags( $object['id'] );
@@ -216,7 +249,6 @@ function primitive_tag( $object, $field_name, $request ) {
     foreach ($tags as $tag) {
 		$formatted_tags[] = $tag->name;
     }
-
     return $formatted_tags;
 }
 function primitive_tag_slug( $object, $field_name, $request ) {
@@ -226,7 +258,6 @@ function primitive_tag_slug( $object, $field_name, $request ) {
     foreach ($tags as $tag) {
 		$formatted_tag_slug[] = $tag->slug;
     }
-
     return $formatted_tag_slug;
 }
 function primitive_tag_link( $object, $field_name, $request ) {
@@ -236,23 +267,76 @@ function primitive_tag_link( $object, $field_name, $request ) {
     foreach ($tags as $tag) {
 		$formatted_tag_links[] = get_tag_link($object['id']);
     }
-
     return $formatted_tag_links;
+}
+
+function primitive_post_header( $object, $field_name, $request  ) {
+	// Check if ACF plugin activated
+	if ( function_exists( 'get_field' ) ) {
+		// Get the value
+		if ( $image = get_field('header_image', $object['id'] ) ) :
+			return get_field('header_image', $object['id'] );
+		endif;
+	} else {
+		return '';
+	}
+}
+function primitive_page_header( $object, $field_name, $request  ) {
+	// Check if ACF plugin activated
+	if ( function_exists( 'get_field' ) ) {
+		// Get the value
+		if ( $image = get_field('header_image', $object['id'] ) ) :
+			return get_field('header_image', $object['id'] );
+		endif;
+	} else {
+		return '';
+	}
+}
+function primitive_joke_header( $object, $field_name, $request  ) {
+// Check if ACF plugin activated
+if ( function_exists( 'get_field' ) ) {
+	// Get the image url
+	if ( $image = get_field('header_image', $object['id'] ) ) :
+		return get_field('header_image', $object['id'] );
+	endif;
+} else {
+	return '';
+}
+}
+function primitive_joke_tags( $object, $field_name, $request ) {
+	$formatted_categories = array();
+	$categories = get_the_terms( $object['id'], 'joke_tag' );
+
+    foreach ($categories as $category) {
+		$formatted_categories[] = $category->name;
+    }
+    return $formatted_categories;
+}
+function primitive_fun_category( $object, $field_name, $request ) {
+	$formatted_categories = array();
+	$categories = get_the_terms( $object['id'], 'fun' );
+
+	//( $category ) ) {
+    //   return $category;
+    //}
+
+    foreach ($categories as $category) {
+		$formatted_categories[] = $category->name;
+    }
+    return $formatted_categories;
+}
+function primitive_structure_category( $object, $field_name, $request ) {
+	$formatted_categories = array();
+	$categories = get_the_terms( $object['id'], 'structure' );
+
+    foreach ($categories as $category) {
+		$formatted_categories[] = $category->name;
+    }
+    return $formatted_categories;
 }
 
 function primitive_excerpt_length( $length ) {
     return 25;
-}
-function primitive_page_header( $object, $field_name, $request  ) {
-		// Check if ACF plugin activated
-		if ( function_exists( 'get_field' ) ) {
-			// Get the value
-			if ( $image = get_field('header_image', $object['id'] ) ) :
-				return get_field('header_image', $object['id'] );
-			endif;
-		} else {
-			return '';
-		}
 }
 
 add_filter( 'excerpt_length', 'primitive_excerpt_length' );
