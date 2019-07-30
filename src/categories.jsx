@@ -1,7 +1,7 @@
 // External dependencies
 import React from "react";
 import { withRouter } from 'react-router';
-import CategoryList from "./category-list";
+import PostList from "./post-list";
 import LoadingIcon from "./loading-icon.gif";
 import ReactGA from 'react-ga';
 
@@ -56,8 +56,6 @@ class Categories extends React.Component {
       page: this.state.page + 1,
       category: slug
      });
-
-    console.log("get more posts of: ", this.state.category, this.state.page);
 
     //fetch(PrimitiveSettings.URL.api + "posts?filter[taxonomy]=category&filter[term]=philosophy&page=" + this.state.page)
     fetch("https://nice2b.me/wp-json/wp/v2/posts/?filter[taxonomy]=category&filter[term]=" + this.state.category + "&page=" + this.state.page)
@@ -118,7 +116,7 @@ class Categories extends React.Component {
     return (
         <div className="container">
 		  <h1 className="posts-title">Posts by Category: {this.state.category}</h1>
-          <CategoryList posts={this.state.posts} />								   
+          <PostList posts={this.state.posts} />								   
         </div>
     );
   }

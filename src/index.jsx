@@ -7,10 +7,11 @@ import Footer from './footer';
 import Page from './page';
 import Post from './post';
 import Posts from './posts';
-import Jokes from './jokes';
-import Joke from './joke';
 import Categories from './categories';
 import Tags from './tags';
+import Jokes from './jokes';
+import Joke from './joke';
+import JokeTags from './joke-tags';
 
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-7143300-34');
@@ -29,16 +30,17 @@ const App = () => (
                 
                 <Route exact path={PrimitiveSettings.path + 'category/'} component={withRouter(Categories)}/>
                 <Route exact path={PrimitiveSettings.path + 'category/:slug'} component={withRouter(Categories)}/>
-
+                
                 <Route exact path={PrimitiveSettings.path + 'tag/'} component={withRouter(Tags)} />
-                <Route exact path={PrimitiveSettings.path + 'tag/:slug'} component={withRouter(Post)} />
-
-                <Route exact path={PrimitiveSettings.path + 'think/:slug'} component={withRouter(Page)} />
-                <Route exact path={PrimitiveSettings.path + 'life/:slug'} component={withRouter(Page)} />
+                <Route exact path={PrimitiveSettings.path + 'tag/:slug'} component={withRouter(Tags)} />
 
                 <Route exact path={PrimitiveSettings.path + 'jokes/'} component={withRouter(Jokes)} />
                 <Route exact path={PrimitiveSettings.path + 'jokes/:slug'} component={withRouter(Joke)} />
+                <Route exact path={PrimitiveSettings.path + 'jokes/about/:slug'} component={withRouter(JokeTags)} />
+                <Route exact path={PrimitiveSettings.path + 'jokes/by-type/:slug'} component={withRouter(JokeTags)} />
 
+                <Route exact path={PrimitiveSettings.path + 'think/:slug'} component={withRouter(Page)} />
+                <Route exact path={PrimitiveSettings.path + 'life/:slug'} component={withRouter(Page)} />
                 <Route path={PrimitiveSettings.path + ':slug'} component={withRouter(Page)} />
                 
             </Switch>

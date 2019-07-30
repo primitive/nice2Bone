@@ -4,24 +4,21 @@ Theme Created with Node.js, React 16, Bootstrap 4 and Webpack 4.
 
 Beta Release (April 01, 2019):
 1. Beta version, supports posts, pages and categories
-2. Browser sync navigation withRouter additions
 
 1st Release (May 15, 2019):
-1. Added Google analytics
-2. Fixed title sync
+1. Add: Google analytics
+2. Add: title sync 
+3. Add: 404 handling and preloaders for pages, posts and categories
 
-2nd Release (May 16, 2019):
-1. 404 handling and preloaders for pages, posts and categories
-
-3nd Release (May 29, 2019):
-1. 
+Add: tags support 
+Add: ACF / Custom post type support
+Add: ACF / Custom taxonomies support
 
 
 To Do
-1. Optimise FontAwsome use
-2. Optimise Font use
-3. Add tag support
-4. Add WP theme support and user configurables
+1. Optimise FontAwsome and Google Fonts use
+4. Add: WP theme support and user configurables
+5. Fix: PHP page title
 
 
 ![screenshot](screenshot.jpg)

@@ -3,8 +3,8 @@
  * The main template file
  *
  * @package WordPress
- * @subpackage Celestial
- * @since Celestial 1.0
+ * @package Nice2B One
+ * @since Nice2B One 1.0
  */
  ?>
  <!DOCTYPE html>

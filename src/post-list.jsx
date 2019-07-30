@@ -14,7 +14,7 @@ class PostList extends React.Component {
         <article className="col-md-4 card-outer" key={i}>
           <div className="card">
             <div className="img-outer">
-              <Link to={"posts/" + post.slug + "/"}>
+              <Link to={PrimitiveSettings.path + "posts/" + post.slug + "/"}>
                 <img
                   className="card-img-top"
                   src={
@@ -30,18 +30,17 @@ class PostList extends React.Component {
             <div className="card-body post-article post-details">
 
               <h3 className="card-title">
-                <Link to={"posts/" + post.slug + "/"} dangerouslySetInnerHTML={{ __html: post.title.rendered}}></Link>
+                <Link to={PrimitiveSettings.path + "posts/" + post.slug + "/"} dangerouslySetInnerHTML={{ __html: post.title.rendered}}></Link>
               </h3>
 
               <div className="card-meta"> 
                 <div className="entry-info">
                   <span ><i className="fas fa-folder-open"></i>
-                    {post.post_category.length ? post.post_category.map((item, index) =>
-                      (<Link key={item.toString()} 
-                        rel="category" to={"category/" + post.post_category_slug[index] + "/"}>{item + " "}
-                        </Link>)) : ', '
+                    {post.post_category.length ? post.post_category.map((item, index) => (
+                    <a key={item.toString()} href={PrimitiveSettings.path + 'category/' + post.post_category_slug[index] + "/"}>{item + " "}</a>) 
+                    ) : ', '
                     }
-                  </span>        	
+                  </span>          	
                 </div>
               </div>
               
@@ -54,7 +53,7 @@ class PostList extends React.Component {
 
             <div className="read-more">
               <span className="button default">
-                <Link className="button default" to={"posts/" + post.slug + "/"}>Read More</Link>
+                <Link className="button default" to={PrimitiveSettings.path + "posts/" + post.slug + "/"}>Read More</Link>
               </span>
             </div>
             </div>
@@ -66,12 +65,7 @@ class PostList extends React.Component {
 
   renderEmpty() {
     return (
-      <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-      //<PreLoader
-      //height='90'
-      //width='10'
-      //color='#6b5ce7'
-      ///>
+      <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />
     );
   }
 
@@ -88,7 +82,6 @@ class PostList extends React.Component {
   }
 }
 
-//export default PostList;
 export default withRouter(PostList)
 
 PostList.propTypes = {

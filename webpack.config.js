@@ -1,6 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-//const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
@@ -9,7 +8,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: {
     app: "./src/index.jsx"
   },

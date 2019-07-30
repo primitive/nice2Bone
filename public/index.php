@@ -3,6 +3,7 @@
  * This is the main template file
  * Used by default by all layouts. React router will serve the appropriate content
  * 
+ * @package WordPress
  * @package Nice2B One
  * @since Nice2B One 1.0
  */

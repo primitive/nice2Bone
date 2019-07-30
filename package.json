@@ -1,7 +1,7 @@
 {
   "name": "nice2bone",
-  "version": "1.0.4",
-  "description": "A basic blog theme built with React and the WordPress REST API",
+  "version": "1.0.6",
+  "description": "Blog theme built with React and the WordPress REST API",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",

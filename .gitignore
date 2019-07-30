@@ -2,3 +2,4 @@ _notes
 dist
 node_modules
 package-lock.json
+DEV_NOTES.txt

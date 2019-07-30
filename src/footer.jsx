@@ -1,5 +1,5 @@
 /**
- * The Footer
+ * The default Footer
  *
  * @package WordPress
  * @subpackage Nice2b One
