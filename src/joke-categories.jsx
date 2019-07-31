@@ -1,11 +1,11 @@
 // External dependencies
 import React from "react";
 import { withRouter } from 'react-router';
-import PostList from "./post-list";
+import PostList from './joke-list';
 import LoadingIcon from "./loading-icon.gif";
 import ReactGA from 'react-ga';
 
-class Categories extends React.Component {
+class JokeCategories extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,7 @@ class Categories extends React.Component {
 
     ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
-    document.body.classList.add('category-list');
+    document.body.classList.add('jokes-list');
   }
 
   getMorePostsInCat() {
@@ -57,14 +57,17 @@ class Categories extends React.Component {
       category: slug
     });
 
-    //fetch(PrimitiveSettings.URL.api + "posts?filter[taxonomy]=category&filter[term]=philosophy&page=" + this.state.page)
-    fetch("https://nice2b.me/wp-json/wp/v2/posts/?filter[taxonomy]=category&filter[term]=" + this.state.category + "&page=" + this.state.page)
+    //fetch(PrimitiveSettings.URL.api + "posts?filter[taxonomy]=fun_category&filter[term]=philosophy&page=" + this.state.page)
+    fetch("https://nice2b.me/wp-json/wp/v2/jokes/?filter[taxonomy]=fun&filter[term]=" + this.state.category + "&page=" + this.state.page)
       .then(response => {
+        console.log("response", response);
         for (const pair of response.headers.entries()) {
-          // get total number of pages
+          // getting the total number of pages
           if (pair[0] == "x-wp-totalpages") {
             totalPages = pair[1];
+            console.log("totalPages", totalPages);
           }
+
           if (this.state.page >= totalPages) {
             this.setState({ getPostsInCat: false });
           }
@@ -81,7 +84,7 @@ class Categories extends React.Component {
           allPostsInCat.push(single);
         });
         this.setState({ posts: allPostsInCat });
-        document.title = "Category: " + this.state.category + " | Nice2b.me";
+        document.title = "Joke Category: " + this.state.category + " | Nice2b.me";
       })
       .catch(error => {
         console.log(
@@ -112,11 +115,11 @@ class Categories extends React.Component {
     }
     return (
       <div className="container">
-        <h1 className="posts-title">Posts by Category: {this.state.category}</h1>
+        <h1 className="posts-title">Jokes by Category: {this.state.category}</h1>
         <PostList posts={this.state.posts} />
       </div>
     );
   }
 }
 
-export default withRouter(Categories);
+export default withRouter(JokeCategories);

@@ -23,8 +23,8 @@ class Jokes extends React.Component {
   }
 
   componentDidMount() {
-    
-    window.onbeforeunload = function() {
+
+    window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     };
 
@@ -43,10 +43,10 @@ class Jokes extends React.Component {
         }
       });
 
-      document.title = "Nice2b.me - Jokes. Both Funny HaHa and Funny Peculiar varieties stocked. ";
-      ReactGA.pageview(window.location.pathname + window.location.search);
-      document.body.className = "";
-      document.body.classList.add('jokes-list');
+    document.title = "Nice2b.me - Jokes. Both Funny HaHa and Funny Peculiar varieties stocked. ";
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    document.body.className = "";
+    document.body.classList.add('jokes-list');
   }
 
   getMoreJokes() {
@@ -69,7 +69,7 @@ class Jokes extends React.Component {
           }
         }
         if (!response.ok) {
-		  document.title = response.statusText + "| Nice2b.me";												   
+          document.title = response.statusText + "| Nice2b.me";
           throw Error(response.statusText);
         }
         return response.json();
@@ -93,7 +93,7 @@ class Jokes extends React.Component {
     const FadeInController = new ScrollMagic.Controller();
     document
       .querySelectorAll(".posts-container .col-md-4.card-outer")
-      .forEach(function(item) {
+      .forEach(function (item) {
         // build a scene
         const FadeInScene = new ScrollMagic.Scene({
           triggerElement: item.children[0],
@@ -108,20 +108,20 @@ class Jokes extends React.Component {
   render() {
     if (!this.state.posts.length === 0) {
       return (
-      <>
+        <>
 
-      <Loader type="Circles" color="#00BFFF" height={80} width={80}/>
+          <Loader type="Circles" color="#00BFFF" height={80} width={80} />
 
-      <p>No matching posts</p>
-      </>
+          <p>No matching posts</p>
+        </>
       );
     }
 
     return (
-        <div className="container">
-          <h1 className="posts-title">Jokes</h1>
-          <JokeList posts={this.state.posts} />
-        </div>
+      <div className="container">
+        <h1 className="posts-title">Jokes</h1>
+        <JokeList posts={this.state.posts} />
+      </div>
 
     );
   }

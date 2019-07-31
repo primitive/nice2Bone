@@ -24,9 +24,9 @@ class Joke extends React.Component {
   }
 
   isEmpty = (obj) => {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key))
+        return false;
     }
     return true;
   }
@@ -45,7 +45,7 @@ class Joke extends React.Component {
       })
       .then(res => {
         this.setState({ post: res[0] });
-        console.log("response", res[0] );
+        //console.log("response", res[0] );
         document.title = isEmpty(res[0]) ? "404 Joke Not Found | Nice2b.me" : (He.decode(res[0].title.rendered) + " | Nice2b.me");
       });
   };
@@ -58,7 +58,7 @@ class Joke extends React.Component {
         </div>
 
         <div className="card-body">
-          <h1 className="card-title" dangerouslySetInnerHTML={{__html: this.state.post.title.rendered}} />          
+          <h1 className="card-title" dangerouslySetInnerHTML={{ __html: this.state.post.title.rendered }} />
           <p
             className="card-text"
             dangerouslySetInnerHTML={{
@@ -66,39 +66,39 @@ class Joke extends React.Component {
             }}
           />
         </div>
-        <div className="card-meta"> 
-        
-        <p>
+        <div className="card-meta">
+
+          <p>
             <small className="text-muted">
-               Post Type &ndash; 
+              Post Type &ndash;
                {this.state.post.type}
             </small>
           </p>
           <div className="entry-info">
             <span ><i className="fas fa-folder-open"></i>
-            {this.state.post.fun_category.length ? this.state.post.fun_category.map((item, index) =>
-                (<Link key={item.toString()} 
+              {this.state.post.fun_category.length ? this.state.post.fun_category.map((item, index) =>
+                (<Link key={item.toString()}
                   rel="category" to={PrimitiveSettings.path + "jokes/by-type/" + item.replace(/\s+/g, '-').toLowerCase() + "/"}>{item + " "}
-                  </Link>)) : ', '
+                </Link>)) : ', '
               }
-            </span>   
-            
+            </span>
+
             <span><i className="fas fa-tag"></i>
-            {this.state.post.joke_tags.length ? this.state.post.joke_tags.map((item, index) =>
-                (<Link key={item.toString()} 
+              {this.state.post.joke_tags.length ? this.state.post.joke_tags.map((item, index) =>
+                (<Link key={item.toString()}
                   rel="tag" to={PrimitiveSettings.path + "jokes/about/" + item.replace(/\s+/g, '-').toLowerCase() + "/"}>{item + " "}
-                  </Link>)) : ', '
+                </Link>)) : ', '
               }
-            </span>        	
+            </span>
           </div>
-          </div>
+        </div>
       </article>
     );
   }
 
   renderEmpty() {
-     return (
-        <img src={LoadingIcon} alt="Loading Joke" className="active" id="loader" />
+    return (
+      <img src={LoadingIcon} alt="Loading Joke" className="active" id="loader" />
     );
   }
 

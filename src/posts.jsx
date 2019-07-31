@@ -19,12 +19,11 @@ class Posts extends React.Component {
 
   componentWillUnmount() {
     this.getMorePosts = null;
-    console.log("unmount posts");
   }
 
   componentDidMount() {
-    
-    window.onbeforeunload = function() {
+
+    window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     };
 
@@ -43,12 +42,10 @@ class Posts extends React.Component {
         }
       });
 
-      document.title = "Nice2b.me - Posts and Articles";
-      ReactGA.pageview(window.location.pathname + window.location.search);
-      document.body.className = "";
-      document.body.classList.add('blog');
-
-      console.log("blog");
+    document.title = "Nice2b.me - Posts and Articles";
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    document.body.className = "";
+    document.body.classList.add('blog');
   }
 
   getMorePosts() {
@@ -92,7 +89,7 @@ class Posts extends React.Component {
     const FadeInController = new ScrollMagic.Controller();
     document
       .querySelectorAll(".posts-container .col-md-4.card-outer")
-      .forEach(function(item) {
+      .forEach(function (item) {
         // build a scene
         const FadeInScene = new ScrollMagic.Scene({
           triggerElement: item.children[0],
@@ -107,10 +104,10 @@ class Posts extends React.Component {
   render() {
     if (!this.state.posts.length === 0) {
       return (
-      <>
-      <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-      <p>No matching posts</p>
-      </>
+        <>
+          <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+          <p>No matching posts</p>
+        </>
       );
     }
     console.log("this.state.posts", this.state.posts);

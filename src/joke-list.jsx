@@ -1,10 +1,9 @@
 // External dependencies
 import React from "react";
-import { withRouter } from 'react-router';
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import LoadingIcon from "./loading-icon.gif";
-// import PreLoader from "./loader";
+
 
 class JokeList extends React.Component {
   renderPosts() {
@@ -15,7 +14,7 @@ class JokeList extends React.Component {
             <div className="card-body post-article post-details">
 
               <h3 className="card-title">
-                <Link to={PrimitiveSettings.path + "jokes/" + post.slug + "/"} dangerouslySetInnerHTML={{ __html: post.title.rendered}}></Link>
+                <Link to={PrimitiveSettings.path + "jokes/" + post.slug + "/"} dangerouslySetInnerHTML={{ __html: post.title.rendered }}></Link>
               </h3>
 
               <p className="card-subtext">
@@ -25,20 +24,20 @@ class JokeList extends React.Component {
               </p>
 
               <div className="collapse" id={"jk-" + post.slug}>
-              <p dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+                <p dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
               </div>
 
-            <div className="read-more">
+              <div className="read-more">
 
-              <span className="button button-punch"> 
-                <a className="button" href={"#jk-" + post.slug} data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">Go on...</a>
-              </span>
+                <span className="button button-punch">
+                  <a className="button" href={"#jk-" + post.slug} data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">Go on...</a>
+                </span>
 
-              <span className="button">
-                <Link className="button" to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}>Go on, go on...</Link>
-              </span>
+                <span className="button">
+                  <Link className="button" to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}>Go on, go on...</Link>
+                </span>
 
-            </div>
+              </div>
             </div>
           </div>
         </article>
@@ -65,8 +64,7 @@ class JokeList extends React.Component {
   }
 }
 
-//export default JokeList;
-export default withRouter(JokeList)
+export default JokeList;
 
 JokeList.propTypes = {
   posts: PropTypes.array.isRequired

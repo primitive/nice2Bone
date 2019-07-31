@@ -11,44 +11,44 @@ const Header = () => (
           <div className="col-md-12" >
             <div className="site-brand">
               <span className="site-title">
-                <Link className="site-logo" to={PrimitiveSettings.path} target="_self" dangerouslySetInnerHTML={{ __html: PrimitiveSettings.title}}></Link>
+                <Link className="site-logo" to={PrimitiveSettings.path} target="_self" dangerouslySetInnerHTML={{ __html: PrimitiveSettings.title }}></Link>
               </span>
-              <p className="site-description" dangerouslySetInnerHTML={{ __html: PrimitiveSettings.description}}></p>
+              <p className="site-description" dangerouslySetInnerHTML={{ __html: PrimitiveSettings.description }}></p>
             </div>
           </div>
         </div>
       </header>
     </div>
 
-      <nav id="main-nav" className="navbar navbar-expand-lg navbar-light ">
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarContent"
-          aria-controls="navbarContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
+    <nav id="main-nav" className="navbar navbar-expand-lg navbar-light ">
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarContent"
+        aria-controls="navbarContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon" />
+      </button>
 
-        <div className="collapse navbar-collapse" id="navbarContent">
-          <div className="navbar-nav">
+      <div className="collapse navbar-collapse" id="navbarContent">
+        <div className="navbar-nav">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-                <Link
-                  className="nav-item nav-link active"
-                  to={PrimitiveSettings.path}
-                >
-                  Blog <span className="sr-only">(current)</span>
-                </Link>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="thinkDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  About
+              <Link
+                className="nav-item nav-link active"
+                to={PrimitiveSettings.path}
+              >
+                Blog <span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="thinkDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                About
                 </a>
-                <div className="dropdown-menu" aria-labelledby="thinkDropdown">
+              <div className="dropdown-menu" aria-labelledby="thinkDropdown">
                 <Link
                   className="dropdown-item"
                   to={PrimitiveSettings.path + "think/about-what/"}
@@ -80,14 +80,14 @@ const Header = () => (
                   Why?
                 </Link>
                 <div className="dropdown-divider">And</div>
-                  <Link
+                <Link
                   className="dropdown-item"
                   to={PrimitiveSettings.path + "think/about-how/"}
                 >
                   How?
                 </Link>
                 <div className="dropdown-divider">And</div>
-                  <Link
+                <Link
                   className="dropdown-item"
                   to={PrimitiveSettings.path + "think/analysis-of-images/"}
                 >
@@ -99,14 +99,14 @@ const Header = () => (
                 >
                   Analysing Text
                 </Link>
-                </div>
-              </li>
-              
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="lifeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Life
+              </div>
+            </li>
+
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="lifeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Life
                 </a>
-                <div className="dropdown-menu" aria-labelledby="lifeDropdown">
+              <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
                   className="dropdown-item"
                   to={PrimitiveSettings.path + "life/inspiration/"}
@@ -131,13 +131,13 @@ const Header = () => (
                 >
                   Bucket List
                 </Link>
-                </div>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="loveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Loves
+              </div>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="loveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Loves
                 </a>
-                <div className="dropdown-menu" aria-labelledby="lifeDropdown">
+              <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
                   className="dropdown-item"
                   to={PrimitiveSettings.path + "category/mind/"}
@@ -180,29 +180,29 @@ const Header = () => (
                 >
                   Web Design
                 </Link>
-                </div>
+              </div>
+            </li>
+            <li className="navbar-text">
+              and
               </li>
-              <li className="navbar-text">
-                  and
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="laughDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Laughter
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="laughDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Laughter
                 </a>
-                <div className="dropdown-menu" aria-labelledby="lifeDropdown">
+              <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
                   className="dropdown-item"
                   to={PrimitiveSettings.path + "jokes/"}
                 >
                   Jokes
                 </Link>
-                </div>
-              </li>
-            </ul>
-          </div>
+              </div>
+            </li>
+          </ul>
         </div>
-      </nav>
-    
+      </div>
+    </nav>
+
   </div>
 );
 

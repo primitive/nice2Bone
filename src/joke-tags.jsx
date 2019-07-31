@@ -43,7 +43,7 @@ class Tags extends React.Component {
       });
     ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
-    document.body.classList.add('joke-list');
+    document.body.classList.add('jokes-list');
   }
 
   getMorePostsWithTag() {
@@ -58,13 +58,10 @@ class Tags extends React.Component {
     //fetch(PrimitiveSettings.URL.api + "jokes?filter[taxonomy]=joke_tag&filter[term]=philosophy&page=" + this.state.page)
     fetch("https://nice2b.me/wp-json/wp/v2/jokes/?filter[taxonomy]=joke_tag&filter[term]=" + this.state.tag + "&page=" + this.state.page)
       .then(response => {
-        console.log("tags response", response);
         for (const pair of response.headers.entries()) {
-          // getting the total number of pages
           if (pair[0] == "x-wp-totalpages") {
             totalPages = pair[1];
           }
-
           if (this.state.page >= totalPages) {
             this.setState({ getPostsWithTag: false });
           }
@@ -81,6 +78,7 @@ class Tags extends React.Component {
           allPosts.push(single);
         });
         this.setState({ posts: allPosts });
+        document.title = "Jokes About: " + this.state.tag + " | Nice2b.me";
       })
       .catch(error => {
         console.log(
@@ -90,7 +88,7 @@ class Tags extends React.Component {
   }
 
   componentDidUpdate() {
-    // use ScrollMagic for infinite scrolling
+    // infinite scrolling
     const FadeInController = new ScrollMagic.Controller();
     document
       .querySelectorAll(".posts-container .col-md-4.card-outer")
@@ -108,13 +106,12 @@ class Tags extends React.Component {
 
   render() {
     if (!this.state.posts.length === 0) {
-      return <img src={LoadingIcon} alt="loading Tags" className="active" id="loader" />;
+      return <img src={LoadingIcon} alt="Loading Tags" className="active" id="loader" />;
     }
     return (
-
       <div>
         <div className="container">
-          <h1 className="posts-title">Posts with Tag: </h1>
+          <h1 className="posts-title">Jokes About: {this.state.tag} </h1>
           <PostList posts={this.state.posts} />
         </div>
       </div>

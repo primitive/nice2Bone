@@ -24,13 +24,7 @@ class Post extends React.Component {
     document.body.classList.add('single-post');
   }
 
-  isEmpty = (obj) => {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-  }
+
 
   fetchData = () => {
     let url = window.location.href.split("/");
@@ -46,7 +40,7 @@ class Post extends React.Component {
       })
       .then(res => {
         this.setState({ post: res[0] });
-        console.log("response", res[0] );
+        console.log("response", res[0]);
         document.title = isEmpty(res[0]) ? "404 Post Not Found | Nice2b.me" : (He.decode(res[0].title.rendered) + " | Nice2b.me");
         this.setState({ isLoading: false });
       });
@@ -60,8 +54,8 @@ class Post extends React.Component {
         </div>
 
         <div className="card-body">
-          <h1 className="card-title" dangerouslySetInnerHTML={{__html: this.state.post.title.rendered}} />
-{/*
+          <h1 className="card-title" dangerouslySetInnerHTML={{ __html: this.state.post.title.rendered }} />
+          {/*
           {this.state.post.featured_image_src ? (
             <img
               className="featured-image"
@@ -70,7 +64,7 @@ class Post extends React.Component {
             />
           ) : null}
 */}
-          
+
           <p
             className="card-text"
             dangerouslySetInnerHTML={{
@@ -78,9 +72,9 @@ class Post extends React.Component {
             }}
           />
         </div>
-        <div className="card-meta"> 
-        
-        <p className="card-text">
+        <div className="card-meta">
+
+          <p className="card-text">
             <small className="text-muted">
               {this.state.post.author_name} &ndash;{" "}
               {this.state.post.published_date}
@@ -89,21 +83,21 @@ class Post extends React.Component {
           <div className="entry-info">
             <span ><i className="fas fa-folder-open"></i>
               {this.state.post.post_category.length ? this.state.post.post_category.map((item, index) =>
-                (<Link key={item.toString()} 
+                (<Link key={item.toString()}
                   rel="category" to={PrimitiveSettings.path + "category/" + this.state.post.post_category_slug[index] + "/"}>{item + " "}
-                  </Link>)) : ', '
+                </Link>)) : ', '
               }
-            </span>   
-            
+            </span>
+
             <span><i className="fas fa-tag"></i>
               {this.state.post.post_tag.length ? this.state.post.post_tag.map((item, index) =>
-                (<Link key={item.toString()} 
+                (<Link key={item.toString()}
                   rel="tag" to={PrimitiveSettings.path + "tag/" + this.state.post.post_tag_slug[index] + "/"}>{item + " "}
-                  </Link>)) : ', '
+                </Link>)) : ', '
               }
-              </span>        	
+            </span>
           </div>
-          </div>
+        </div>
       </article>
     );
   }
@@ -112,12 +106,12 @@ class Post extends React.Component {
     if (this.state.isLoading) {
       return (
         <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-              //<PreLoader
-      //height='90'
-      //width='10'
-      //color='#6b5ce7'
-      ///>
-        );
+        //<PreLoader
+        //height='90'
+        //width='10'
+        //color='#6b5ce7'
+        ///>
+      );
     }
     else {
       return <NotFound />;
