@@ -21,6 +21,7 @@ class Joke extends React.Component {
     ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
     document.body.classList.add('single-joke');
+    console.log("mount joke");
   }
 
   isEmpty = (obj) => {
@@ -45,7 +46,7 @@ class Joke extends React.Component {
       })
       .then(res => {
         this.setState({ post: res[0] });
-        //console.log("response", res[0] );
+        console.log("response", res[0] );
         document.title = isEmpty(res[0]) ? "404 Joke Not Found | Nice2b.me" : (He.decode(res[0].title.rendered) + " | Nice2b.me");
       });
   };
@@ -82,9 +83,8 @@ class Joke extends React.Component {
                 </Link>)) : ', '
               }
             </span>
-
             <span><i className="fas fa-tag"></i>
-              {this.state.post.joke_tags.length ? this.state.post.joke_tags.map((item, index) =>
+              {this.state.post.fun_subject.length ? this.state.post.fun_subject.map((item, index) =>
                 (<Link key={item.toString()}
                   rel="tag" to={PrimitiveSettings.path + "jokes/about/" + item.replace(/\s+/g, '-').toLowerCase() + "/"}>{item + " "}
                 </Link>)) : ', '

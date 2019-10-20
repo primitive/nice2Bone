@@ -65,8 +65,10 @@ module.exports = {
 			//{ from: '.public\', to: themePath },
 			//{ from: '.dist\', to: themeDist },
 
-			{ from: 'public/', to:  'C:/wamp64/www/wp/wp-content/themes/nice2bone/'},
-			{ from: 'dist/', to: 'C:/wamp64/www/wp/wp-content/themes/nice2bone/dist/'},
+			{ from: 'public/', to:  'D:/built'},
+			{ from: 'dist/', to: 'D:/built/dist/'},
+			//{ from: 'public/', to:  'C:/wamp64/www/wp/wp-content/themes/nice2bone/'},
+			//{ from: 'dist/', to: 'C:/wamp64/www/wp/wp-content/themes/nice2bone/dist/'},
     ]),
 		new WebpackShellPlugin({
 			onBuildStart: ['echo "Webpack Start"'],

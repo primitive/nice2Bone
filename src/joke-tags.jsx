@@ -56,7 +56,7 @@ class Tags extends React.Component {
     });
 
     //fetch(PrimitiveSettings.URL.api + "jokes?filter[taxonomy]=joke_tag&filter[term]=philosophy&page=" + this.state.page)
-    fetch("https://nice2b.me/wp-json/wp/v2/jokes/?filter[taxonomy]=joke_tag&filter[term]=" + this.state.tag + "&page=" + this.state.page)
+    fetch("https://nice2b.me/wp-json/wp/v2/jokes/?filter[taxonomy]=fun_tag&filter[term]=" + this.state.tag + "&page=" + this.state.page)
       .then(response => {
         for (const pair of response.headers.entries()) {
           if (pair[0] == "x-wp-totalpages") {
