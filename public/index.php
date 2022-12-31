@@ -1,7 +1,8 @@
 <?php
 /**
- * This is the main template file
- * Used by default by all layouts. React router will serve the appropriate content
+ * This is the main template file.
+ * The default app wrapper for all views.
+ * React router will serve the appropriate content
  * 
  * @package WordPress
  * @package Nice2B One
@@ -42,13 +43,13 @@
             ?>
         </title>
         <!-- Always have wp_head() just before the closing </head>
-        * tag of your theme, or you will break many plugins, which
-        * generally use this hook to add elements to <head> such
-        * as styles, scripts, and meta tags.
+            * tag of your theme, or you will break many plugins, which
+            * generally use this hook to add elements to <head> such
+            * as styles, scripts, and meta tags.
         -->
         <?php wp_head(); ?>
         <!-- YOAST / SEO
-        * document meta does not get updated
+            * document meta does not get updated
         -->
     </head>
     <body <?php body_class(); ?>>
