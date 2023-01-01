@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from 'react-router';
+import withRouter from './withrouter';
 import ReactGA from 'react-ga';
 import { isEmpty } from './helpers';
 import NotFound from "./not-found";

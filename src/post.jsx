@@ -1,6 +1,7 @@
 // External dependencies
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+import withRouter from './withrouter';
 import ReactGA from 'react-ga';
 import LoadingIcon from "./loading-icon.gif";
 import { isEmpty } from './helpers';
