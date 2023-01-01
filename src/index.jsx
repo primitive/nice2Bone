@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Switch } from 'react-router-dom';
+
+import withRouter from './withrouter';
 
 import Header from './header';
 import Footer from './footer';
@@ -25,7 +27,8 @@ const App = () => (
     <div id="page-inner">
         <Header />
         <main id="content">
-            <Switch>
+            <Routes>
+                
                 <Route exact path={PrimitiveSettings.path} component={withRouter(Posts)} />
                 <Route exact path={PrimitiveSettings.path + 'posts/:slug'} component={withRouter(Post)} />
 
@@ -34,6 +37,8 @@ const App = () => (
 
                 <Route exact path={PrimitiveSettings.path + 'tag/'} component={withRouter(Tags)} />
                 <Route exact path={PrimitiveSettings.path + 'tag/:slug'} component={withRouter(Tags)} />
+
+         
 
                 <Route exact path={PrimitiveSettings.path + 'jokes/'} component={withRouter(Jokes)} />
                 <Route exact path={PrimitiveSettings.path + 'jokes/:slug'} component={withRouter(Joke)} />
@@ -44,7 +49,7 @@ const App = () => (
                 <Route exact path={PrimitiveSettings.path + 'life/:slug'} component={withRouter(Page)} />
                 <Route path={PrimitiveSettings.path + ':slug'} component={withRouter(Page)} />
 
-            </Switch>
+            </Routes>
         </main>
         <Footer />
     </div>
