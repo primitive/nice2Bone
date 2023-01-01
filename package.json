@@ -1,7 +1,7 @@
 {
   "name": "nice2bone",
   "version": "1.0.9",
-  "description": "Blog theme built with React and the WordPress REST API",
+  "description": "Headless WordPress Blog theme with Infinite Scroll. React based SPA, CSR only (not SEO friendly).",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
@@ -23,7 +23,7 @@
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/primitiveshaun/nice2bone.git"
+    "url": "https://github.com/primitive/nice2bone.git"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.20.7",
