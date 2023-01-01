@@ -28,9 +28,10 @@ module.exports = {
     app: "./src/index.jsx",
   },
   output: {
-    hashFunction: "sha256",
-    filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
+    filename: '[name].[hash:8].js',
+    sourceMapFilename: '[name].[hash:8].map',
+    chunkFilename: '[id].[hash:8].js'
   },
   optimization: {
     minimizer: [
@@ -78,20 +79,20 @@ module.exports = {
       test: /\.(js|css)/,
     }),
     // new UglifyJsPlugin(),
-	// new CopyWebpackPlugin({
-	// 	patterns: [
-	// 	  { 
-  //       from: "public/",
-  //       to: "wp-theme/",
-  //       noErrorOnMissing: true
-  //     },
-	// 	  { 
-  //       from: "dist/",
-  //       to: "wp-theme/dist/",
-  //       noErrorOnMissing: true
-  //     },
-	// 	],
-	//   }),
+	new CopyWebpackPlugin({
+		patterns: [
+		  { 
+        from: "public/",
+        to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2bone",
+        noErrorOnMissing: true
+      },
+		  // { 
+      //   from: "dist/",
+      //   to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2bone/dist/",
+      //   noErrorOnMissing: true
+      // },
+		],
+	  }),
 	// new CopyPlugin([
 	// //{ from: '.public\', to: themePath },
 	// //{ from: '.dist\', to: themeDist },
