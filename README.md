@@ -10,14 +10,14 @@ Theme Created with Node.js, React 16, Bootstrap 4 and Webpack 4.
 4. Add: WP theme support and user configurables
 
 
-![screenshot](screenshot.jpg)
+![screenshot](public/screenshot.jpg)
 
 ### Setup
 -----
 
 The following pre-requisites should be in place for the theme to work:
 
-1. WordPress version 5.0 or later
+1. WordPress version 6.0 or later
 2. Posts permalink set set to: Custom Structure - `/posts/%postname%/`
 
 3. ACF and CPT Plugins Installed
@@ -28,7 +28,7 @@ The following pre-requisites should be in place for the theme to work:
 ### Installing and beginning development
 ------------------------------------
 
-1. `git clone https://github.com/primitiveshaun/nice2bone`
+1. `git clone https://github.com/primitive/nice2bone`
 2. `cd nice2bone`
 3. `npm install`
 4. `npm run build` or webpack --mode=development
@@ -41,16 +41,19 @@ Enjoy!
 
 ### Release History
 
+1.0.9
+Upgrade Webpack to V5
+Maintenance
+
 1.0.8
-Added 
-Adedd: tags support 
+Add: tags support 
 
 1.0.7
 Add: ACF / Custom post type support
 Add: ACF / Custom taxonomies support
 
 
-# Release (May 15, 2019):
+# Stable Release (May 15, 2019):
 1. Added: Google analytics
 2. Added: title sync 
 3. Added: 404 handling and preloaders for pages, posts and categories
