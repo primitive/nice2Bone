@@ -22,7 +22,7 @@
         <div id="page" class="hfeed site">
             <div id="content">
                 <div class="loader-gif">
-                    <img src="<?php echo home_url() ?>/wp-content/themes/celestial/dist/images/loading-icon.gif" alt="Loading Content">
+                    <img src="<?php echo home_url() ?>/wp-content/themes/nice2bone/dist/images/loading-icon.gif" alt="Loading Content">
                 </div>
             </div>
             <?php wp_footer(); ?>
