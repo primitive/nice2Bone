@@ -1,7 +1,7 @@
-/* --------------------------------------
+/* 
 =========================================
-Set your custom styles in style.scss in the src directory
---------------------------------------------------------*/
-
-/* import styles from the distribution directory */
+Set your custom styles in src/style.scss
+-----------------------------------------
+*/
+/* import styles from the dist directory */
 @import url("dist/style.css");
