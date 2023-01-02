@@ -1,12 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
-const devMode = process.env.NODE_ENV !== "production";
+//const devMode = process.env.NODE_ENV !== "production";
+const devMode = false;
 
-// process.traceDeprecation = true;
-// TRACE DEPRECIATED
-// const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-// const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-// const WebpackShellPlugin = require("webpack-shell-plugin");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // --> extracts CSS into separate files. It creates a CSS file per JS file which contains CSS.
@@ -28,10 +24,12 @@ module.exports = {
     app: "./src/index.jsx",
   },
   output: {
+    // hashFunction: "sha256",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
-    filename: '[name].[hash:8].js',
-    sourceMapFilename: '[name].[hash:8].map',
-    chunkFilename: '[id].[hash:8].js'
+    // filename: '[name].[hash:8].js',
+    // sourceMapFilename: '[name].[hash:8].map',
+    // chunkFilename: '[id].[hash:8].js'
   },
   optimization: {
     minimizer: [
@@ -60,11 +58,6 @@ module.exports = {
       false,
       /jsx$/
     ),
-    // new webpack.LoaderOptionsPlugin({
-    //   options: {
-    //     debug: false,
-    //   },
-    // }),
     new MiniCssExtractPlugin({
       //filename: "[name].css",
       filename: "style.css",
@@ -75,38 +68,25 @@ module.exports = {
       jQuery: "jquery",
       Popper: ["popper.js", "default"],
     }),
-    new CompressionPlugin({
-      test: /\.(js|css)/,
-    }),
-    // new UglifyJsPlugin(),
-	new CopyWebpackPlugin({
-		patterns: [
-		  { 
-        from: "public/",
-        to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2bone",
-        noErrorOnMissing: true
-      },
-		  // { 
-      //   from: "dist/",
-      //   to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2bone/dist/",
-      //   noErrorOnMissing: true
-      // },
-		],
-	  }),
-	// new CopyPlugin([
-	// //{ from: '.public\', to: themePath },
-	// //{ from: '.dist\', to: themeDist },
 
-	// { from: "public/", to: "D:/built" },
-	// { from: "dist/", to: "D:/built/dist/" },
-	// //{ from: 'public/', to:  'C:/wamp64/www/wp/wp-content/themes/nice2bone/'},
-	// //{ from: 'dist/', to: 'C:/wamp64/www/wp/wp-content/themes/nice2bone/dist/'},
-	// ]),
-    // new WebpackShellPlugin({
-    //   onBuildStart: ['echo "Webpack Start"'],
-    //   //onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css','echo "Webpack End"']
-    //   onBuildEnd: ['echo "Webpack End"'],
+    // new CompressionPlugin({
+    //   test: /\.js(\?.*)?$/i,
     // }),
+
+    new CopyWebpackPlugin({
+    	patterns: [
+    	  { 
+          from: "public/",
+          to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2bone",
+          noErrorOnMissing: true
+        },
+    	  { 
+          from: "dist/",
+          to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2bone/dist/",
+          noErrorOnMissing: true
+        },
+    	],
+      }),
 
 	new WebpackShellPluginNext({
 		onBuildStart:{
@@ -119,6 +99,7 @@ module.exports = {
 		  blocking: false,
 		  parallel: true
 		}
+    //// onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css','echo "Webpack End"']
 	  })
   ],
   module: {
@@ -183,3 +164,28 @@ module.exports = {
   },
   watch: false,
 };
+
+
+// process.traceDeprecation = true;
+// TRACE DEPRECIATED
+
+    // LEGACY: REMOVE
+    // new CopyPlugin([
+    // //{ from: '.public\', to: themePath },
+    // //{ from: '.dist\', to: themeDist },
+
+    // { from: "public/", to: "D:/built" },
+    // { from: "dist/", to: "D:/built/dist/" },
+    // //{ from: 'public/', to:  'C:/wamp64/www/wp/wp-content/themes/nice2bone/'},
+    // //{ from: 'dist/', to: 'C:/wamp64/www/wp/wp-content/themes/nice2bone/dist/'},
+    // ]),
+    // new WebpackShellPlugin({
+    //   onBuildStart: ['echo "Webpack Start"'],
+    //   //onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css','echo "Webpack End"']
+    //   onBuildEnd: ['echo "Webpack End"'],
+    // }),
+
+
+    // const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+// const WebpackShellPlugin = require("webpack-shell-plugin");
