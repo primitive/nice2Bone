@@ -24,21 +24,15 @@
         <meta name="MobileOptimized" content="320">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <link rel="profile" href="http://gmpg.org/xfn/11">
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
         <!-- Let WordPress set Initial Page Title -->
         <title>
-            <?php if (function_exists('is_tag') && is_tag()) { 
-                echo 'Tag Archive for &quot;'.$tag.'&quot; - '; 
-            } elseif (is_archive()) { 
-                wp_title(''); echo ' Archive - '; 
-            } elseif (is_search()) { 
-                echo 'Search for &quot;'.wp_specialchars($s).'&quot; - '; 
-            } elseif (!(is_404()) && (is_single()) || (is_page())) { 
-                wp_title(''); echo ' - '; 
-            } elseif (is_404()) {
-                echo 'Not Found - '; 
-            }
+            <?php
+            if (function_exists('is_tag') && is_tag()) { echo 'Tag Archive for &quot;'.$tag.'&quot; - '; } 
+            elseif (is_archive()) { wp_title(''); echo ' Archive - '; } 
+            elseif (is_search()) { echo 'Search for &quot;'.wp_specialchars($s).'&quot; - '; }
+            elseif (!(is_404()) && (is_single()) || (is_page())) { wp_title(''); echo ' - '; }
+            elseif (is_404()) { echo 'Not Found - '; }
             bloginfo('name'); 
             ?>
         </title>
@@ -48,18 +42,15 @@
             * as styles, scripts, and meta tags.
         -->
         <?php wp_head(); ?>
-        <!-- YOAST / SEO
-            * document meta does not get updated
-        -->
     </head>
-    <body <?php body_class(); ?>>
-        <div id="page">
+    <body <?php body_class(); ?> >
+        <div id="root">
             <div id="content">
                 <div class="loader-gif">
                     <img src="<?php echo home_url() ?>/wp-content/themes/nice2bone/dist/images/loading-icon.gif" alt="Brain is Loading...">
                 </div>
             </div>
-            <?php wp_footer(); ?>
-        </div>			
+        </div>
+        <?php wp_footer(); ?>
     </body>
 </html>

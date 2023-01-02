@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is your standard WordPress functions.php file.
+ * A 'Common or Garden' WordPress functions.php file.
  * @since Nice2B One 1.0
  */
 
