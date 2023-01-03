@@ -1,7 +1,9 @@
+/**
+ * The Main App
+ * @package Nice2B One
+ */
 import React from "react";
 import { Route, Routes, Outlet, Link} from "react-router-dom";
-
-import withRouter from "./withrouter";
 
 import Header from "./header";
 import Footer from "./footer";
@@ -27,75 +29,25 @@ export default function App() {
     <main id="content">
       {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
-            parent route elements. See the note about <Outlet> below. */}
+            parent route elements. */}
       <Routes>
-        <Route path="/n2b/" element={<Layout />}>
-          {/* <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} /> */}
+        <Route path={PrimitiveSettings.path} element={<Layout />}>
 
           <Route index element={<Posts />} />
+          <Route path="posts/:slug" element={<Post />}/>
+          <Route path={"category/"} element={<Categories />}/>
+          <Route path={"category/:slug"} element={<Categories />}/>
+          <Route path={"tag/"} element={<Tags />}/>
+          <Route path={"tag/:slug"} element={<Tags />}/>
 
-          <Route
-            path="posts/:slug"
-            element={<Post />}
-          />
+          <Route path={"jokes/"} element={<Jokes />}/>
+          <Route path={"jokes/:slug"} element={<Joke />}/>
+          <Route path={"jokes/about/:slug"} element={<JokeTags />}/>
+          <Route path={"jokes/by-type/:slug"} element={<JokeCats />}/>
 
-          <Route
-            path={PrimitiveSettings.path + "category/"}
-            element={withRouter(Categories)}
-          />
-          <Route
-            path={PrimitiveSettings.path + "category/:slug"}
-            element={withRouter(Categories)}
-          />
-
-          <Route
-            exact
-            path={PrimitiveSettings.path + "tag/"}
-            element={withRouter(Tags)}
-          />
-          <Route
-            exact
-            path={PrimitiveSettings.path + "tag/:slug"}
-            element={withRouter(Tags)}
-          />
-
-          <Route
-            exact
-            path={PrimitiveSettings.path + "jokes/"}
-            element={withRouter(Jokes)}
-          />
-          <Route
-            exact
-            path={PrimitiveSettings.path + "jokes/:slug"}
-            element={withRouter(Joke)}
-          />
-          <Route
-            exact
-            path={PrimitiveSettings.path + "jokes/about/:slug"}
-            element={withRouter(JokeTags)}
-          />
-          <Route
-            exact
-            path={PrimitiveSettings.path + "jokes/by-type/:slug"}
-            element={withRouter(JokeCats)}
-          />
-
-          <Route
-            exact
-            path={PrimitiveSettings.path + "think/:slug"}
-            element={withRouter(Page)}
-          />
-          <Route
-            exact
-            path={PrimitiveSettings.path + "life/:slug"}
-            element={withRouter(Page)}
-          />
-          <Route
-            path={PrimitiveSettings.path + ":slug"}
-            element={withRouter(Page)}
-          />
+          <Route path={"think/:slug"} element={Page}/>
+          <Route path={"life/:slug"} element={Page}/>
+          <Route path={":slug"} element={Page}/>
 
           {/* Using path="*"" means "match anything", so this route acts like a catch-all for URLs 
             that we don't have explicit routes for. */}
@@ -107,9 +59,6 @@ export default function App() {
 }
 
 function Layout() {
-
-console.log(PrimitiveSettings);
-
   return (
     <div id="page-inner">
       <Header />
