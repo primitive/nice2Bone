@@ -1,5 +1,8 @@
+/**
+ * The Header
+ * @package Nice2B One
+ */
 import React from "react";
-import withRouter from './withrouter';
 import { Link } from "react-router-dom";
 
 const Header = () => (
@@ -206,5 +209,4 @@ const Header = () => (
   </div>
 );
 
-//export default Header;
-export default withRouter(Header)
+export default Header;
