@@ -1,99 +1,104 @@
-import React from "react";
-import withRouter from './withrouter';
-import ReactGA from 'react-ga';
-import { isEmpty } from './helpers';
+/**
+ * The Page Component
+ * @package Nice2B One
+ */
+import React, { useState, useEffect } from "react";
+import ReactGA from "react-ga";
+import { isEmpty } from "./helpers";
 import NotFound from "./not-found";
 import He from "he";
-class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: {}
-    };
 
-  }
+const Page = (props) => {
+  const [page, setPage] = useState({});
 
-  componentWillUnmount() {
+  useEffect(() => {
     console.log("unmount page");
-  }
+  }, []); // The empty array ensures that the effect only runs on unmount
 
-  componentDidMount() {
-    this.fetchData();
+  useEffect(() => {
+    fetchData();
     ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
-    document.body.classList.add('page');
-  }
+    document.body.classList.add("page");
+  }, []); // The empty array ensures that the effect only runs on mount
 
-  fetchData = () => {
+  const fetchData = () => {
     const url = window.location.href.split("/");
     const slug = url.pop() || url.pop();
 
     fetch(`${PrimitiveSettings.URL.api}pages?slug=${slug}`)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          document.title = response.statusText + "| Nice2b.me";
+          document.title = response.statusText + "| Nice2B One";
           throw Error(response.statusText);
         }
         return response.json();
       })
-      .then(res => {
-        this.setState({ page: res[0] });
-        document.title = isEmpty(res[0]) ? "404 Page Not Found | Nice2b.me" : (He.decode(res[0].title.rendered) + " | Nice2b.me");
+      .then((res) => {
+        setPage(res[0]);
+        document.title = isEmpty(res[0])
+          ? "404 Page Not Found | Nice2B One"
+          : He.decode(res[0].title.rendered) + " | Nice2B One";
         //console.log("response", res[0]);
       });
   };
 
-  renderPage() {
-    if (this.state.page.title) {
-      if (this.state.page.page_header) {
+  const renderPage = () => {
+    if (page.title) {
+      if (page.page_header) {
         return (
           <article className="card hasHeader">
-            <img className="card-img-top" src={this.state.page.page_header} alt={He.decode(this.state.page.title.rendered)}></img>
+            <img
+              className="card-img-top"
+              src={page.page_header}
+              alt={He.decode(page.title.rendered)}
+            ></img>
             <div className="card-body">
-              <h1 className="card-title" dangerouslySetInnerHTML={{ __html: this.state.page.title.rendered }} />
+              <h1
+                className="card-title"
+                dangerouslySetInnerHTML={{ __html: page.title.rendered }}
+              />
               <p
                 className="card-text"
                 dangerouslySetInnerHTML={{
-                  __html: this.state.page.content.rendered
+                  __html: page.content.rendered,
                 }}
               />
             </div>
           </article>
         );
-      }
-      else {
+      } else {
         return (
           <article className="card noHeader">
             <div className="card-body">
-              <h1 className="card-title" dangerouslySetInnerHTML={{ __html: this.state.page.title.rendered }} />
+              <h1
+                className="card-title"
+                dangerouslySetInnerHTML={{ __html: page.title.rendered }}
+              />
               <p
                 className="card-text"
                 dangerouslySetInnerHTML={{
-                  __html: this.state.page.content.rendered
+                  __html: page.content.rendered,
                 }}
               />
             </div>
           </article>
         );
       }
+    } else {
+      renderEmpty();
     }
-    else {
-      this.renderEmpty();
-    }
-  }
+  };
 
-  renderEmpty() {
+  const renderEmpty = () => {
     return <NotFound />;
-  }
+  };
 
-  render() {
-    return (
-      <div className="container post-entry">
-        {this.state.page ? this.renderPage() : this.renderEmpty()}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="container post-entry">
+      {page ? renderPage() : renderEmpty()}
+    </div>
+  );
+};
 
-//export default Page;
-export default withRouter(Page);
+export default Page;

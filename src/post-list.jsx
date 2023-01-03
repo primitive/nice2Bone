@@ -1,13 +1,16 @@
-// External dependencies
+/**
+ * The Post List Component
+ * @package Nice2B One
+ */
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Placeholder from "./n2b_placeholder1.jpg";
 import LoadingIcon from "./loading-icon.gif";
 
-class PostList extends React.Component {
-  renderPosts() {
-    return this.props.posts.map((post, i) => {
+const PostList = ({ posts }) => {
+  const renderPosts = () => {
+    return posts.map((post, i) => {
       return (
         <article className="col-md-4 card-outer" key={i}>
           <div className="card">
@@ -59,30 +62,25 @@ class PostList extends React.Component {
         </article>
       );
     });
+  };
+
+  const renderEmpty = () => {
+    return <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />;
+  };
+
+  if (!posts) {
+    return null;
   }
 
-  renderEmpty() {
-    return (
-      <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />
-    );
-  }
-
-  render() {
-    if (!this.props.posts) {
-      return null;
-    }
-
-    return (
-      <div className="posts-container">
-        {this.props.posts.length ? this.renderPosts() : this.renderEmpty()}
-      </div>
-    );
-  }
-}
-
-export default PostList;
-// export default withRouter(PostList)
+  return (
+    <div className="posts-container">
+      {posts.length ? renderPosts() : renderEmpty()}
+    </div>
+  );
+};
 
 PostList.propTypes = {
   posts: PropTypes.array.isRequired
 };
+
+export default PostList;
