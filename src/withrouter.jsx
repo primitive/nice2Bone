@@ -1,3 +1,4 @@
+import React from "react";
 import {
   useLocation,
   useNavigate,
@@ -6,19 +7,19 @@ import {
 
 // tbc props availabitity: https://stackoverflow.com/questions/72735944/is-there-an-alternative-of-withrouter-from-react-router
 
-function withRouter(Component) {
-  function ComponentWithRouterProp(props) {
+const withRouter = WrappedComponent => props => {
+
     let location = useLocation();
     let navigate = useNavigate();
     let params = useParams();
+
+  console.log(location, navigate, params );
+
     return (
-      <Component
+      <WrappedComponent
         {...props}
         router={{ location, navigate, params }}
       />
     );
   }
-
-  return ComponentWithRouterProp;
-}
-export default withRouter;
+  export default withRouter;
