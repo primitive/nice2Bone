@@ -3,5 +3,6 @@
 Set your custom styles in src/style.scss
 -----------------------------------------
 */
+
 /* import styles from the dist directory */
 @import url("dist/style.css");
