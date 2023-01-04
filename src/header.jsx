@@ -7,50 +7,71 @@ import { Link } from "react-router-dom";
 
 const Header = () => (
   <div className="container">
-
-    <div id="header-wrapper" className="header header-1">
+    <div id="header-wrapper" className="header header-1 d-none d-md-block">
       <header id="masthead" className="site-header" role="banner">
         <div className="row">
-          <div className="col-md-12" >
+          <div className="col-md-12">
             <div className="site-brand">
               <span className="site-title">
-                <Link className="site-logo" to={PrimitiveSettings.path} target="_self" dangerouslySetInnerHTML={{ __html: PrimitiveSettings.title }}></Link>
+                <Link
+                  className="text-brand site-logo"
+                  to={PrimitiveSettings.path}
+                  target="_self"
+                  dangerouslySetInnerHTML={{ __html: PrimitiveSettings.title }}
+                ></Link>
               </span>
-              <p className="site-description" dangerouslySetInnerHTML={{ __html: PrimitiveSettings.description }}></p>
+              <p
+                className="site-description"
+                dangerouslySetInnerHTML={{
+                  __html: PrimitiveSettings.description,
+                }}
+              ></p>
             </div>
           </div>
         </div>
       </header>
     </div>
 
-    <nav id="main-nav" className="navbar navbar-expand-lg navbar-light ">
+    <nav id="main-nav" className="navbar navbar-expand-lg">
+      <Link
+        className="navbar-brand text-brand fs-1 d-block d-lg-none"
+        to={PrimitiveSettings.$nav_brand_link}
+      >
+        {PrimitiveSettings.title}
+      </Link>
+
       <button
         className="navbar-toggler"
         type="button"
-        data-toggle="collapse"
-        data-target="#navbarContent"
-        aria-controls="navbarContent"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span className="navbar-toggler-icon" />
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div className="collapse navbar-collapse" id="navbarContent">
-        <div className="navbar-nav">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link
-                className="nav-item nav-link active"
-                to={PrimitiveSettings.path}
-              >
-                Blog <span className="sr-only">(current)</span>
+      <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <div className="container-fluid">
+          <ul className="navbar-nav mr-auto justify-content-center">
+            <li className="nav-item">
+              <Link className="nav-link" to={PrimitiveSettings.path}>
+                a blog <span className="sr-only">(current)</span>
               </Link>
             </li>
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="thinkDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                About
-                </a>
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="thinkDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                about
+              </a>
               <div className="dropdown-menu" aria-labelledby="thinkDropdown">
                 <Link
                   className="dropdown-item"
@@ -106,9 +127,17 @@ const Header = () => (
             </li>
 
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="lifeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="lifeDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 Life
-                </a>
+              </a>
               <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
                   className="dropdown-item"
@@ -137,9 +166,17 @@ const Header = () => (
               </div>
             </li>
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="loveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="loveDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 Loves
-                </a>
+              </a>
               <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
                   className="dropdown-item"
@@ -185,13 +222,19 @@ const Header = () => (
                 </Link>
               </div>
             </li>
-            <li className="navbar-text">
-              and
-              </li>
+            <li className="navbar-text">and</li>
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="laughDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="laughDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 Laughter
-                </a>
+              </a>
               <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
                   className="dropdown-item"
@@ -205,7 +248,6 @@ const Header = () => (
         </div>
       </div>
     </nav>
-
   </div>
 );
 
