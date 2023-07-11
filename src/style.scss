@@ -35,18 +35,30 @@ This theme is licensed under the GPL. Have fun with it.
 	+ Footer
 --------------------------------------------------------*/
 
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Cabin+Sketch:wght@700&family=Luckiest+Guy&family=Passions+Conflict&display=swap');
+
+// font-family: 'Architects Daughter', cursive;
+// font-family: 'Cabin Sketch', cursive;
+// font-family: 'Luckiest Guy', cursive;
+// font-family: 'Passions Conflict', cursive;
+
+
 /* -------------------------------------------
 
 Theme Variables
 ######
 ------------------------------------------- */
 
-$body-font: 'Open Sans',Geneva, sans-serif;
-$title-font: 'Lobster', serif;
-$meta-font: 'Roboto Condensed',Verdana, sans-serif;
-$display-font: 'Bowlby One SC',Geneva, sans-serif; 
+$body-font: Times New Roman, sans-serif;
+$brand-font: 'Passions Conflict', cursive;
+$title-font: 'Architects Daughter', cursive;
 $head-font: 'Playfair Display', serif; 
-$subhead-font: 'Lato',Geneva, sans-serif; 
+$subhead-font: serif; 
+$post-title-font: 'Cabin Sketch', cursive;
+$joke-title-font: 'Luckiest Guy', cursive;
+$meta-font: Geneva, sans-serif;
+$display-font: 'Cabin Sketch', cursive;
+//$display-font: 'Bowlby One SC',Geneva, sans-serif; 
 
 $primary-color: #7CBF69;
 $primary-dark:#438132;
@@ -90,7 +102,13 @@ $retro-tan: #736439;
 $retro-brown: #594834;
 $retro-orange: #FF9933;
 
-
+:root {
+  --bs-border-radius: 0;
+  --bs-card-border-radius: 0;
+  --bs-navbar-toggler-border-radius: 0;
+  --bs-primary: $primary-color;
+  //--bs-primary: #{$primary-color};
+}
 
 /**************************************** 
 
@@ -110,8 +128,6 @@ Device Styles
     padding: 2.5em 0 0;
   }
   .page .card-text {
-    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
     column-count: 2;
   }
 }
@@ -131,13 +147,12 @@ Common styles
 
 body,
 div#page-inner {
-  /* Will not work on IE if body is ommitted */
   display: flex;
   flex-direction: column;
   background-color:#f3f3f3;
   min-height: 100%;
   height: 100%;
-  background-image:url(https://nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
+  // background-image:url(https://nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
 }
 
 a:hover,a:active,a:focus,
@@ -162,15 +177,11 @@ a {
 	outline: none; 
 	border:none;
 	text-decoration:none;
-	color:$lowlight;
-	-webkit-transition: color .3s ease;
-	-moz-transition: color .3s ease;
-	-ms-transition: color .3s ease;
-	-o-transition: color .3s ease;
+	color: $lowlight;
 	transition: color .3s ease;
 }
 a:hover,a:active,a:focus {
-	color:$primary-highlight;
+	color: $primary-highlight;
 }
 
 select {
@@ -188,28 +199,7 @@ select {
 
 
 
-/*
-.site-content-contain {
-  background-color: transparent !important;
-  margin-top: 60px;
-}
-.site-content-contain #content,
-.navigation-top {
-  background-color: #fff;
-  width: 75%;
-  margin: 0 auto;
-}
-*/
-/*
-#primary #main .post {
-  clear: left;
-  float: left;
-  width: 100%;
-}
 
-
-.post-excerpt { background: #f4f4f4; padding: 10px; margin-bottom: 20px; }
-*/
 
 img#loader { clear: both; margin: 0 auto; }
 #loader { text-align: center; display: none; }
@@ -238,7 +228,7 @@ h1.title a, h2.title a, h3.title a, h4.title a, h5.title a, h6.title a {
 }
 h1 {
   font-size: 2.6rem;
-  padding-left: 1rem;
+  padding: 1rem;
 }
 h2 {
   font-size: 1.6rem;
@@ -273,6 +263,10 @@ h6 {
   font-size: 1.1em;
 }
 
+.text-brand {
+  font-family: $brand-font;
+}
+
 #main-nav {
   padding-bottom: 0;
   font-size: 1.4rem;
@@ -288,6 +282,7 @@ h6 {
 #page h2.intro em {
   font-family: $title-font;
 }
+
 .card-meta {
   font-family: $meta-font;
 }
@@ -590,24 +585,20 @@ Header
   position: relative;
   display: block;
   margin-bottom: 0;
-  font-family: 'Allura',Verdana,Geneva,sans-serif;
+  font-family: $brand-font;
 }
-.header-1 .site-brand a.site-logo{
+.header-1 .site-brand a.site-logo {
   color:$lowlight;
   font-size: 70px;
   text-decoration:none;
   line-height:inherit;
-  -webkit-transition:color .3s ease;
-  -moz-transition:color .3s ease;
-  -ms-transition:color .3s ease;
-  -o-transition:color .3s ease;
   transition:color .3s ease
 }
   
 .header-1 .site-brand p.site-description {
   margin-top: 0;
   font-size: 14px;
-  font-family: $head-font;
+  font-family: $subhead-font;
   display: block;
   text-align: center;
 }
@@ -788,7 +779,7 @@ nav {
 }
 .navbar {
   padding-left: 1rem;
-  border-bottom: solid 4px $primary-color;
+  border-bottom: solid 4px var(--bs-primary);
 }
 a.dropdown-item {
   font-weight: 300;
