@@ -5,8 +5,9 @@
  */
 import React, { useState, useEffect } from "react";
 import PostList from "../post-list";
-import LoadingIcon from "../loading-icon.gif";
+import { handleBeforeUnload } from "../helpers";
 
+import LoadingIcon from "../loading-icon.gif";
 // import PreLoader from "./loader";
 // import { Rings as Loader } from "react-loader-spinner";
 // import ReactGA from "react-ga";
@@ -14,7 +15,7 @@ import LoadingIcon from "../loading-icon.gif";
 const Posts = (props) => {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [pageNo, setPageNo] = useState(1);
   const [getPosts, setGetPosts] = useState(true);
 
   useEffect(() => {
@@ -37,16 +38,12 @@ const Posts = (props) => {
     document.body.className = "";
     document.body.classList.add("blog");
 
-    const handleBeforeUnload = () => {
-      window.scrollTo(0, 0);
-      console.log("before unload");
-    };
     window.onbeforeunload = handleBeforeUnload;
 
     return () => {
       controller.destroy();
     };
-  }, [getPosts, page]);
+  }, [pageNo]);
 
   useEffect(() => {
     const FadeInController = new ScrollMagic.Controller();
@@ -70,9 +67,9 @@ const Posts = (props) => {
 
   const getMorePosts = () => {
     let totalPages;
-    console.log("page", page);
+    console.log("pageNo", pageNo);
 
-    fetch(PrimitiveSettings.URL.api + "posts/?page=" + page)
+    fetch(PrimitiveSettings.URL.api + "posts/?page=" + pageNo)
       .then((response) => {
         for (const pair of response.headers.entries()) {
           // get total number of pages
@@ -81,11 +78,11 @@ const Posts = (props) => {
             console.log("totalPages", totalPages);
           }
 
-          if (page >= totalPages) {
+          if (pageNo >= totalPages) {
             setGetPosts(false);
           }
           else {
-            setPage(page + 1);
+            setPageNo(pageNo + 1);
           }
         }
         if (!response.ok) {
@@ -94,7 +91,6 @@ const Posts = (props) => {
         return response.json();
       })
       .then((results) => {
-
         setPosts((prevPosts) => [...prevPosts, ...results]);
       })
       .catch((error) => {
@@ -103,20 +99,31 @@ const Posts = (props) => {
   };
 
   if (!posts.length) {
+    //if (1==1) {
     return (
-      <>
-        <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-        <p>No matching posts</p>
-      </>
+      <div className="container">
+        {loading ? (
+          <div className="row">
+            <div className="col text-center">
+              <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+              <p className="display-4 blink">Thinking...</p>
+            </div>
+          </div>
+        ) : (
+          <div className="row">
+            <div className="col text-center">
+              <p className="display-4">No matching posts</p>
+            </div>
+          </div>
+        )}
+      </div>
     );
   }
 
   return (
-    <div>
-      <div className="container posts-container ">
+    <div className="container">
         <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
         <PostList posts={posts} />
-      </div>
     </div>
   );
 };
