@@ -4,29 +4,32 @@
  */
 import React, { useState, useEffect } from "react";
 import PostList from "./post-list";
+
 import LoadingIcon from "./loading-icon.gif";
 // import PreLoader from "./loader";
 // import { Rings as Loader } from "react-loader-spinner";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 const Posts = (props) => {
+  const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [getPosts, setGetPosts] = useState(true);
   const [controller, setController] = useState(false);
 
   useEffect(() => {
+
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
-
-          //console.log("this.state.posts", this.state.posts);
-
-    console.log("version", props);
+      console.log("before unload");
+      //console.log("this.state.posts", this.state.posts);
+      //console.log("version", props);
     };
 
     // init ScrollMagic Controller
     const controller = new ScrollMagic.Controller();
 
+    // setController(new ScrollMagic.Controller());
     // build scene
     const scene = new ScrollMagic.Scene({
       triggerElement: "#footer",
@@ -35,19 +38,21 @@ const Posts = (props) => {
       .addTo(controller)
       .on("enter", (e) => {
         if (getPosts) {
+          console.log("getPosts");
           getMorePosts();
         }
       });
 
-    document.title = "Nice2b.me - Posts and Articles";
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    document.title = PrimitiveSettings.theme_name + " - " + PrimitiveSettings.theme_posts_title;
     document.body.className = "";
     document.body.classList.add("blog");
+
+    // ReactGA.pageview(window.location.pathname + window.location.search);
 
     return () => {
       controller.destroy();
     };
-  }, []);
+  }, [page, getPosts]);
 
   useEffect(() => {
     const FadeInController = new ScrollMagic.Controller();
@@ -72,7 +77,9 @@ const Posts = (props) => {
   const getMorePosts = () => {
     let totalPages;
 
-    setPage((prevPage) => prevPage + 1);
+    // setPage((page) => page + 1);
+    setPage(page + 1);
+    console.log("page", page);
 
     fetch(PrimitiveSettings.URL.api + "posts/?page=" + page)
       .then((response) => {
@@ -80,6 +87,7 @@ const Posts = (props) => {
           // getting the total number of pages
           if (pair[0] === "x-wp-totalpages") {
             totalPages = pair[1];
+            console.log("totalPages", totalPages);
           }
 
           if (page >= totalPages) {
@@ -105,24 +113,6 @@ const Posts = (props) => {
       });
   }
 
-  // componentDidUpdate() {
-  //   // use ScrollMagic for infinite scrolling
-  //   const FadeInController = new ScrollMagic.Controller();
-  //   document
-  //     .querySelectorAll(".posts-container .col-md-4.card-outer")
-  //     .forEach(function (item) {
-  //       // build a scene
-  //       const FadeInScene = new ScrollMagic.Scene({
-  //         triggerElement: item.children[0],
-  //         reverse: false,
-  //         triggerHook: 1,
-  //       })
-  //         .setClassToggle(item, "fade-in")
-  //         .addTo(FadeInController);
-  //     });
-  // }
-
-
   if (!posts.length) {
       return (
         <>
@@ -133,8 +123,8 @@ const Posts = (props) => {
     }
     return (
       <div>
-        <div className="container">
-          <h1 className="posts-title">All Posts &amp; Ramblings</h1>
+        <div className="container posts-container ">
+          <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
           <PostList posts={posts} />
         </div>
       </div>
