@@ -4,7 +4,6 @@
  */
 import React, { useState, useEffect } from "react";
 import PostList from "./post-list";
-
 import LoadingIcon from "./loading-icon.gif";
 // import PreLoader from "./loader";
 // import { Rings as Loader } from "react-loader-spinner";
@@ -15,30 +14,20 @@ const Posts = (props) => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [getPosts, setGetPosts] = useState(true);
-  const [controller, setController] = useState(false);
 
   useEffect(() => {
 
-    window.onbeforeunload = function () {
-      window.scrollTo(0, 0);
-      console.log("before unload");
-      //console.log("this.state.posts", this.state.posts);
-      //console.log("version", props);
-    };
-
     // init ScrollMagic Controller
     const controller = new ScrollMagic.Controller();
-
-    // setController(new ScrollMagic.Controller());
     // build scene
     const scene = new ScrollMagic.Scene({
       triggerElement: "#footer",
       triggerHook: "onEnter",
     })
       .addTo(controller)
-      .on("enter", (e) => {
+      .on("enter", () => {
+        console.log("getPosts", getPosts);
         if (getPosts) {
-          console.log("getPosts");
           getMorePosts();
         }
       });
@@ -47,12 +36,16 @@ const Posts = (props) => {
     document.body.className = "";
     document.body.classList.add("blog");
 
-    // ReactGA.pageview(window.location.pathname + window.location.search);
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+      console.log("before unload");
+    };
+    window.onbeforeunload = handleBeforeUnload;
 
     return () => {
       controller.destroy();
     };
-  }, [page, getPosts]);
+  }, [getPosts, page]);
 
   useEffect(() => {
     const FadeInController = new ScrollMagic.Controller();
@@ -76,15 +69,12 @@ const Posts = (props) => {
 
   const getMorePosts = () => {
     let totalPages;
-
-    // setPage((page) => page + 1);
-    setPage(page + 1);
     console.log("page", page);
 
     fetch(PrimitiveSettings.URL.api + "posts/?page=" + page)
       .then((response) => {
         for (const pair of response.headers.entries()) {
-          // getting the total number of pages
+          // get total number of pages
           if (pair[0] === "x-wp-totalpages") {
             totalPages = pair[1];
             console.log("totalPages", totalPages);
@@ -93,6 +83,9 @@ const Posts = (props) => {
           if (page >= totalPages) {
             setGetPosts(false);
           }
+          else {
+            setPage(page + 1);
+          }
         }
         if (!response.ok) {
           throw Error(response.statusText);
@@ -100,35 +93,31 @@ const Posts = (props) => {
         return response.json();
       })
       .then((results) => {
-        const allPosts = [...posts];
-        results.forEach((single) => {
-          allPosts.push(single);
-        });
-        setPosts(allPosts);
+
+        setPosts((prevPosts) => [...prevPosts, ...results]);
       })
       .catch((error) => {
-        console.log(
-          "There has been a problem with your fetch operation: " + error.message
-        );
+        console.log("There has been a problem with your fetch operation: " + error.message);
       });
-  }
+  };
 
   if (!posts.length) {
-      return (
-        <>
-          <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-          <p>No matching posts</p>
-        </>
-      );
-    }
     return (
-      <div>
-        <div className="container posts-container ">
-          <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
-          <PostList posts={posts} />
-        </div>
-      </div>
+      <>
+        <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
+        <p>No matching posts</p>
+      </>
     );
-}
+  }
+
+  return (
+    <div>
+      <div className="container posts-container ">
+        <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
+        <PostList posts={posts} />
+      </div>
+    </div>
+  );
+};
 
 export default Posts;
