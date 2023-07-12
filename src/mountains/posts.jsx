@@ -1,10 +1,12 @@
 /**
  * The Posts Component
  * @package Nice2B One
+ * 2023
  */
 import React, { useState, useEffect } from "react";
-import PostList from "./post-list";
-import LoadingIcon from "./loading-icon.gif";
+import PostList from "../post-list";
+import LoadingIcon from "../loading-icon.gif";
+
 // import PreLoader from "./loader";
 // import { Rings as Loader } from "react-loader-spinner";
 // import ReactGA from "react-ga";
@@ -17,9 +19,8 @@ const Posts = (props) => {
 
   useEffect(() => {
 
-    // init ScrollMagic Controller
+    // init ScrollMagic Controller + build scene
     const controller = new ScrollMagic.Controller();
-    // build scene
     const scene = new ScrollMagic.Scene({
       triggerElement: "#footer",
       triggerHook: "onEnter",
