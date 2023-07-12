@@ -10,23 +10,27 @@ import LoadingIcon from "./loading-icon.gif";
 
 const PostList = ({ posts }) => {
   const renderPosts = () => {
+
+    //sk-dev: debug
+    console.log(posts);
+    
     return posts.map((post, i) => {
       return (
         <article className="col-md-4 card-outer" key={i}>
           <div className="card">
-            <div className="img-outer">
+
               <Link to={PrimitiveSettings.path + "posts/" + post.slug + "/"}>
                 <img
-                  className="card-img-top"
                   src={
                     post.featured_image_src
                       ? post.featured_image_src
                       : Placeholder
                   }
-                  alt="Featured Image"
+                  className="card-img-top"
+                  alt={post.title.rendered}
+                  title={post.title.rendered}
                 />
               </Link>
-            </div>
 
             <div className="card-body post-article post-details">
 
@@ -36,12 +40,11 @@ const PostList = ({ posts }) => {
 
               <div className="card-meta">
                 <div className="entry-info">
-                  <span ><i className="fas fa-folder-open"></i>
+                  <i className="fas fa-folder-open"></i>
                     {post.post_category.length ? post.post_category.map((item, index) => (
                       <a key={item.toString()} href={PrimitiveSettings.path + 'category/' + post.post_category_slug[index] + "/"}>{item + " "}</a>)
                     ) : ', '
                     }
-                  </span>
                 </div>
               </div>
 
@@ -50,6 +53,7 @@ const PostList = ({ posts }) => {
                   {post.author_name} &ndash; {post.published_date}
                 </small>
               </p>
+              
               <p dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
 
               <div className="read-more">
@@ -57,6 +61,7 @@ const PostList = ({ posts }) => {
                   <Link className="button default" to={PrimitiveSettings.path + "posts/" + post.slug + "/"}>Read More</Link>
                 </span>
               </div>
+
             </div>
           </div>
         </article>
@@ -73,7 +78,7 @@ const PostList = ({ posts }) => {
   }
 
   return (
-    <div className="posts-container">
+    <div className="row posts-container">
       {posts.length ? renderPosts() : renderEmpty()}
     </div>
   );
