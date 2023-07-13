@@ -8,6 +8,7 @@ import { Rings as Loader } from "react-loader-spinner";
 import PostList from "../rocks/post-list";
 import { handleBeforeUnload } from "../helpers";
 // import ReactGA from "react-ga";
+// import { useNavigate } from "react-router";
 
 const Posts = (props) => {
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,8 @@ const Posts = (props) => {
     document.title = PrimitiveSettings.theme_name + " - " + PrimitiveSettings.theme_posts_title;
     document.body.className = "";
     document.body.classList.add("blog");
+
+    //ReactGA.pageview(window.location.pathname + window.location.search);
 
     window.onbeforeunload = handleBeforeUnload;
 
@@ -64,15 +67,15 @@ const Posts = (props) => {
 
   const getMorePosts = () => {
     let totalPages;
+    let endpoint = PrimitiveSettings.URL.api + "posts/?page=" + pageNo;
     console.log("pageNo", pageNo);
 
-    fetch(PrimitiveSettings.URL.api + "posts/?page=" + pageNo)
+    fetch(endpoint)
       .then((response) => {
         for (const pair of response.headers.entries()) {
           // get total number of pages
           if (pair[0] === "x-wp-totalpages") {
             totalPages = pair[1];
-            console.log("totalPages", totalPages);
           }
 
           if (pageNo >= totalPages) {
@@ -83,6 +86,7 @@ const Posts = (props) => {
           }
         }
         if (!response.ok) {
+          document.title = `${response.statusText} | Nice2b.me`;
           throw Error(response.statusText);
         }
         return response.json();
