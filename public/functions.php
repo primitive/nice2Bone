@@ -1,8 +1,7 @@
 <?php
-
 /**
  * A 'Common or Garden' WordPress functions.php file.
- * @since Nice2B One 1.0
+ * @package Nice2B One
  */
 
 /*-----------------------------------------------------------------------------------*/
@@ -13,22 +12,36 @@ function primitive_scripts()
 {
 
 	// Load stylesheets.
-	wp_enqueue_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+	wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
 	wp_enqueue_style('font-awesome-css', 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
-	//wp_enqueue_style( 'primitive-style-dist', get_stylesheet_directory_uri() . '/dist/style.css');
 	wp_enqueue_style('primitive-style', get_stylesheet_uri());
-	wp_enqueue_style('primitive-fonts', 'https://fonts.googleapis.com/css?family=Open+San|Allura|Bowlby+One+SC|Lobster|Lato|Roboto+Condensed|Playfair+Display:400,900&display=swap', false);
 
 	// Load scripts.
 	wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.3.1.slim.min.js', array('jquery'), '', true);
-	wp_enqueue_script('popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', array('jquery'), '', true);
-	wp_enqueue_script('bootstrap-4', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js', array('jquery'), '', true);
+	wp_enqueue_script('bootstrap-5', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array('jquery'), '', true);
+	
 	wp_enqueue_script('scrollmagic', 'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.min.js', array('jquery'), '1.0', false);
+	// wp_enqueue_script('scrollmagic', 'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js', array('jquery'), '1.0', false);
 
 	wp_enqueue_script('primitive-script', get_stylesheet_directory_uri() . '/dist/app.js', array(), '1.0', true);
 
+	$mode = 'local';
+
 	$url = trailingslashit(home_url());
 	$path = trailingslashit(parse_url($url, PHP_URL_PATH));
+
+	// $api_url = process.env.REACT_APP_API_URL;
+	// $api_url = get_rest_url();
+	// $api_url = "http://localhost:8888/n2b/wp-json/wp/v2/";
+
+	// sk-dev: add conditional for local or production
+	$api_url = $url .= "wp-json/wp/v2/";
+	$bedrock_api_url = $url .= "wp-json/bedrock/v1/config";
+
+	echo $api_url;
+	$theme_name = "Nice2B One";
+	$theme_posts_title = "Posts and Articles";
+	$nav_brand_link = "";
 
 	wp_scripts()->add_data('primitive-script', 'data', sprintf(
 		'var PrimitiveSettings = %s;',
@@ -37,8 +50,7 @@ function primitive_scripts()
 			'description' => get_bloginfo('description', 'display'),
 			'path' => $path,
 			'URL' => array(
-				//'api' => esc_url_raw( get_rest_url( null, '/wp/v2/' ) ),
-				'api' => esc_url_raw('https://nice2b.me/wp-json/wp/v2/'),
+				'api' => esc_url_raw($api_url),
 				'root' => esc_url_raw($url),
 			),
 			'woo' => array(
@@ -46,6 +58,8 @@ function primitive_scripts()
 				'consumer_key' => '',
 				'consumer_secret' => ''
 			),
+			'theme_name' => $theme_name,
+			'theme_posts_title' => $theme_posts_title,
 		))
 	));
 }
@@ -65,9 +79,37 @@ function primitive_slug_setup() {
 add_action( 'after_setup_theme', 'primitive_slug_setup' );
 */
 
-// Add various fields to the JSON output
+
+
+
+  function primitive_bedrock_config( $data ) {
+
+	$theme_name = "Nice2B One";
+	$theme_posts_title = "Posts and Articles";
+	$nav_brand_link = "";
+  
+	$data = array(
+		'title' => $theme_posts_title,
+	);
+
+	return new WP_REST_Response( $data, 200 );
+  }
+
+
+/*-----------------------------------------------------------------------------------*/
+
+// sk-dev: Move to plugin
+
 function primitive_register_fields()
 {
+
+	// Add custom endpoint to WP REST API
+	register_rest_route( 'bedrock/v1', '/config', array(
+		'methods' => 'GET',
+		'callback' => 'primitive_bedrock_config',
+	  ) );
+
+	// Add fields to the WP REST API
 	// Add Author Name
 	register_rest_field(
 		'post',
@@ -373,7 +415,6 @@ function primitive_excerpt_length($length)
 {
 	return 25;
 }
-
 add_filter('excerpt_length', 'primitive_excerpt_length');
 
 add_theme_support('automatic-feed-links');
