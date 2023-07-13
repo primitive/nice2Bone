@@ -9,9 +9,9 @@ import PostSingle from "../rocks/post-single";
 //import { handleBeforeUnload } from "../helpers";
 import { Rings as Loader } from "react-loader-spinner";
 
-import LoadingIcon from "./loading-icon.gif";
-import { isEmpty } from "./helpers";
-import NotFound from "./not-found";
+// import LoadingIcon from "./loading-icon.gif";
+import { isEmpty } from "../helpers";
+// import NotFound from "../not-found";
 import He from "he";
 
 const Post = (props) => {
@@ -25,7 +25,7 @@ const Post = (props) => {
     // ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
     document.body.classList.add("single-post");
-  }, []); // The empty array ensures that the effect only runs on mount and not on every render
+  }, [loading]); // The empty array ensures that the effect only runs on mount and not on every render
 
   const fetchData = () => {
     let url = window.location.href.split("/");
@@ -48,7 +48,7 @@ const Post = (props) => {
         document.title = isEmpty(res[0])
           ? "404 Post Not Found | Nice2b.me"
           : He.decode(res[0].title.rendered) + " | Nice2b.me";
-        setIsLoading(false);
+        setLoading(false);
       });
   };
 
@@ -128,19 +128,19 @@ const Post = (props) => {
 
 
 
-  const renderEmpty = () => {
-    return <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />;
-  };
+  // const renderEmpty = () => {
+  //   return <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />;
+  // };
 
-  if (!post) {
-    return null;
-  }
+  // if (!post) {
+  //   return null;
+  // }
 
-  return (
-    <div className="row post-container">
-      {post.length ? renderPosts() : renderEmpty()}
-    </div>
-  );
+  // return (
+  //   <div className="row post-container">
+  //     {post.length ? renderPosts() : renderEmpty()}
+  //   </div>
+  // );
 };
 
 export default Post;
