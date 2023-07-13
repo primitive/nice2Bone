@@ -3,12 +3,12 @@ import { Rings as Loader } from "react-loader-spinner";
 // import { Dna as Loader } from "react-loader-spinner";
 // see: https://mhnpd.github.io/react-loader-spinner/
 
-const PreLoader = () => {
+const PreLoader = (props) => {
    return (
      <Loader
-       color="#00BFFF"
-       height="100"	
-       width="100"
+       color={props.color || "slategray"}
+       height={props.height || "100"}
+       width={props.width || "100"}
        wrapperClass="justify-content-center"
      />
    );
