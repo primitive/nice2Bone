@@ -9,10 +9,11 @@ import { BrowserRouter, Route, Routes, Outlet, Link } from "react-router-dom";
 
 import Header from "./header";
 import Footer from "./footer";
+// views
 import Posts from "./mountains/posts";
 import Post from "./mountains/post";
-import Categories from "./categories";
-import Tags from "./tags";
+import Categories from "./mountains/categories";
+import Tags from "./mountains/tags";
 import Page from "./page";
 
 import Jokes from "./jokes";
