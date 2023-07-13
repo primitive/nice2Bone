@@ -14,7 +14,7 @@ const Header = () => (
             <div className="site-brand">
               <span className="site-title">
                 <Link
-                  className="text-brand site-logo"
+                  className="brand-font site-logo"
                   to={PrimitiveSettings.path}
                   target="_self"
                   dangerouslySetInnerHTML={{ __html: PrimitiveSettings.title }}
@@ -34,7 +34,7 @@ const Header = () => (
 
     <nav id="main-nav" className="navbar navbar-expand-lg">
       <Link
-        className="navbar-brand text-brand fs-1 d-block d-lg-none"
+        className="navbar-brand brand-font fs-1 d-block d-lg-none"
         to={PrimitiveSettings.$nav_brand_link}
       >
         {PrimitiveSettings.title}
