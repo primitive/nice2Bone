@@ -1,18 +1,17 @@
 /**
  * The Post List Component
  * @package Nice2B One
+ * 2023
  */
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Placeholder from "./n2b_placeholder1.jpg";
-import LoadingIcon from "./loading-icon.gif";
+import Preloader from "../pebbles/loader";
+import Placeholder from "../n2b_placeholder1.jpg";
 
 const PostList = ({ posts }) => {
   const renderPosts = () => {
 
-    //sk-dev: debug
-    console.log(posts);
     
     return posts.map((post, i) => {
       return (
@@ -70,12 +69,16 @@ const PostList = ({ posts }) => {
   };
 
   const renderEmpty = () => {
-    return <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />;
+    return (
+      <div className="row">
+        <div className="col text-center">
+          <Preloader />
+          <p className="display-font fs-2 blink">Loading</p>
+        </div>
+      </div>
+    )
   };
 
-  if (!posts) {
-    return null;
-  }
 
   return (
     <div className="row posts-container">
