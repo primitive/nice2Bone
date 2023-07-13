@@ -26,8 +26,8 @@ const Tags = (props) => {
     })
       .addTo(controller)
       .on("enter", (e) => {
-        if (getPostsInCat) {
-          getMorePostsInCat();
+        if (getPostsWithTag) {
+          getMorePostsWithTag();
         }
       });
 
@@ -69,7 +69,7 @@ const Tags = (props) => {
     let url = window.location.href.split("/");
     let slug = url.pop() || url.pop();
     let totalPages;
-    let endpoint = PrimitiveSettings.URL.api + "posts/?filter[taxonomy]=category&filter[tag]=" + slug + "&page=" + pageNo;
+    let endpoint = PrimitiveSettings.URL.api + "posts/?filter[taxonomy]=post_tag&filter[tag]=" + slug + "&page=" + pageNo;
 
     console.log(slug);
 
@@ -128,10 +128,10 @@ const Tags = (props) => {
 
   return (
     <div className="container">
-        <h1 className="text-center">{PrimitiveSettings.theme_posts_title} about {category}</h1>
+        <h1 className="text-center">{PrimitiveSettings.theme_posts_title} tagged with {tag}</h1>
         <PostList posts={posts} />
     </div>
   );
 };
 
-export default Categories;
+export default Tags;
