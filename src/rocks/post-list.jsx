@@ -37,8 +37,13 @@ const PostList = ({ posts }) => {
               </h3>
 
               <div className="card-meta">
-                <div className="entry-info">
-                  <i className="fas fa-folder-open"></i>
+                <p className="card-author text-muted">
+                  <i className="fas fa-pen-fancy" title="penned by"></i>
+                  {post.author_name} &ndash; {post.published_date}
+                </p>
+
+                <p className="post-tax">
+                  <i className="fas fa-cat" title="cat-egories"></i>
                   {post.post_category.length
                     ? post.post_category.map((item, index) => (
                         <a
@@ -54,14 +59,8 @@ const PostList = ({ posts }) => {
                         </a>
                       ))
                     : ", "}
-                </div>
+                </p>
               </div>
-
-              <p className="card-subtext">
-                <small className="text-muted">
-                  {post.author_name} &ndash; {post.published_date}
-                </small>
-              </p>
 
               <p dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
 
