@@ -4,7 +4,7 @@
  * 2023
  */
 import React, { useState, useEffect } from "react";
-import { Rings as Loader } from "react-loader-spinner";
+import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
 import { handleBeforeUnload } from "../helpers";
 // import ReactGA from "react-ga";
@@ -20,8 +20,7 @@ const Categories = (props) => {
 
     // init ScrollMagic Controller
     const controller = new ScrollMagic.Controller();
-    //setController(new ScrollMagic.Controller());
-    new ScrollMagic.Scene({
+    const scene = new ScrollMagic.Scene({
       triggerElement: "#footer",
       triggerHook: "onEnter",
     })
@@ -111,11 +110,7 @@ const Categories = (props) => {
         {loading ? (
           <div className="row">
             <div className="col text-center">
-              <Loader
-                height="100"
-                width="100"
-                wrapperClass="justify-content-center"
-              />
+              <Preloader />
               <p className="display-font fs-2 blink">I like blinking, I do...</p>
             </div>
           </div>
