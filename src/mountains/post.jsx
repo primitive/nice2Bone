@@ -5,11 +5,8 @@
 import React, { useState, useEffect } from "react";
 import PostSingle from "../rocks/post-single";
 // import ReactGA from "react-ga";
-
 //import { handleBeforeUnload } from "../helpers";
-import { Rings as Loader } from "react-loader-spinner";
-
-// import LoadingIcon from "./loading-icon.gif";
+import Preloader from "../pebbles/loader";
 import { isEmpty } from "../helpers";
 // import NotFound from "../not-found";
 import He from "he";
@@ -59,11 +56,7 @@ const Post = (props) => {
         {loading ? (
           <div className="row">
             <div className="col text-center">
-              <Loader
-                height="100"
-                width="100"
-                wrapperClass="justify-content-center"
-              />
+              <Preloader />
               <p className="display-font fs-2 blink">Thinking (stand back)...</p>
             </div>
           </div>
@@ -80,67 +73,10 @@ const Post = (props) => {
 
   return (
     <div className="container">
-        <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
         <PostSingle post={post} />
     </div>
   );
 
-
-
-
-
-
-
-
-
-
-
-
-  // const renderPosts = () => {
-
-  //   console.log("post", post);
-  //   return (
-
-  //   );
-  // };
-
-  // const renderEmpty = () => {
-  //   if (isLoading) {
-  //     return (
-  //       <img
-  //         src={LoadingIcon}
-  //         alt="loader gif"
-  //         className="active"
-  //         id="loader"
-  //       />
-  //     );
-  //   } else if (isEmpty(post)) {
-  //     return <NotFound />;
-  //   }
-  // };
-
-  // return (
-  //   <div>
-  //     {renderEmpty()}
-  
-  //   </div>
-  // );
-
-
-
-  // const renderEmpty = () => {
-  //   return <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />;
-  // };
-
-  // if (!post) {
-  //   return null;
-  // }
-
-  // return (
-  //   <div className="row post-container">
-  //     {post.length ? renderPosts() : renderEmpty()}
-  //   </div>
-  // );
 };
 
 export default Post;
