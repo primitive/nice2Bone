@@ -4,7 +4,7 @@
  * 2023
  */
 import React, { useState, useEffect } from "react";
-import { Rings as Loader } from "react-loader-spinner";
+import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
 import { handleBeforeUnload } from "../helpers";
 // import ReactGA from "react-ga";
@@ -106,11 +106,7 @@ const Posts = (props) => {
         {loading ? (
           <div className="row">
             <div className="col text-center">
-              <Loader
-                height="100"
-                width="100"
-                wrapperClass="justify-content-center"
-              />
+              <Preloader />
               <p className="display-font fs-2 blink">Thinking (stand back)...</p>
             </div>
           </div>
