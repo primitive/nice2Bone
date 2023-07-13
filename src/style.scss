@@ -360,6 +360,10 @@ Posts
 
 ****************************************/
 
+.card-img-top {
+  aspect-ratio: 12/7;
+  object-fit: cover;
+}
 .card-title {
   margin-top: .3em;
   margin-bottom: .5em;
