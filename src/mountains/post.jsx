@@ -17,20 +17,22 @@ const Post = (props) => {
 
   useEffect(() => {
 
-    console.log("fetch");
     fetchData();
     // ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
     document.body.classList.add("single-post");
-  }, [loading]); // The empty array ensures that the effect only runs on mount and not on every render
+  }, []); // The empty array ensures that the effect only runs on mount and not on every render
 
   const fetchData = () => {
     let url = window.location.href.split("/");
     let slug = url.pop() || url.pop();
+    //let endpoint = process.env.REACT_APP_API_URL + "/wp-json/wp/v2/posts?slug=" + slug;
+    let endpoint = PrimitiveSettings.URL.api + "posts?slug=" + slug
 
-    console.log("slug", slug);
+    console.log("fetch slug", slug);
+    console.log("fetch post", isEmpty(post));
 
-    fetch(PrimitiveSettings.URL.api + "posts?slug=" + slug)
+    fetch(endpoint)
       .then((response) => {
         if (!response.ok) {
           document.title = response.statusText + "| Nice2b.me";
@@ -49,21 +51,21 @@ const Post = (props) => {
       });
   };
 
-  if (!post.length) {
+  if (isEmpty(post)) {
     //if (1==1) {
     return (
       <div className="container">
         {loading ? (
-          <div className="row">
+          <div className="row post-container">
             <div className="col text-center">
               <Preloader />
               <p className="display-font fs-2 blink">Thinking (stand back)...</p>
             </div>
           </div>
         ) : (
-          <div className="row">
+          <div className="row post-container">
             <div className="col text-center">
-              <p className="display-4">No matching posts</p>
+              <p className="display-font fs-1 p-5">No matching post</p>
             </div>
           </div>
         )}
