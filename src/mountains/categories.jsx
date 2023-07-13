@@ -5,8 +5,8 @@
  */
 import React, { useState, useEffect } from "react";
 import { Rings as Loader } from "react-loader-spinner";
-import PostList from "./rocks/post-list";
-import { handleBeforeUnload } from "./helpers";
+import PostList from "../rocks/post-list";
+import { handleBeforeUnload } from "../helpers";
 // import ReactGA from "react-ga";
 
 const Categories = (props) => {
