@@ -3,20 +3,26 @@
  * @package Nice2B One
  */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import ReactGA from "react-ga";
+import PostSingle from "../rocks/post-single";
+// import ReactGA from "react-ga";
+
+//import { handleBeforeUnload } from "../helpers";
+import { Rings as Loader } from "react-loader-spinner";
+
 import LoadingIcon from "./loading-icon.gif";
 import { isEmpty } from "./helpers";
 import NotFound from "./not-found";
 import He from "he";
 
 const Post = (props) => {
+  const [loading, setLoading] = useState(true);
   const [post, setPost] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+
+    console.log("fetch");
     fetchData();
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    // ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
     document.body.classList.add("single-post");
   }, []); // The empty array ensures that the effect only runs on mount and not on every render
@@ -24,6 +30,8 @@ const Post = (props) => {
   const fetchData = () => {
     let url = window.location.href.split("/");
     let slug = url.pop() || url.pop();
+
+    console.log("slug", slug);
 
     fetch(PrimitiveSettings.URL.api + "posts?slug=" + slug)
       .then((response) => {
@@ -44,103 +52,93 @@ const Post = (props) => {
       });
   };
 
-  const renderPosts = () => {
+  if (!post.length) {
+    //if (1==1) {
     return (
-      <article className="card">
-        <div className="img-outer"></div>
-
-        <div className="card-body">
-          <h1
-            className="card-title"
-            dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-          />
-          {/*
-          {this.state.post.featured_image_src ? (
-            <img
-              className="featured-image"
-              src={this.state.post.featured_image_src}
-              alt="featured image"
-            />
-          ) : null}
-*/}
-
-          <p
-            className="card-text"
-            dangerouslySetInnerHTML={{
-              __html: post.content.rendered,
-            }}
-          />
-        </div>
-        <div className="card-meta">
-          <p className="card-text">
-            <small className="text-muted">
-              {post.author_name} &ndash; {post.published_date}
-            </small>
-          </p>
-          <div className="entry-info">
-            <span>
-              <i className="fas fa-folder-open"></i>
-              {post.post_category.length
-                ? post.post_category.map((item, index) => (
-                    <Link
-                      key={item.toString()}
-                      rel="category"
-                      to={
-                        PrimitiveSettings.path +
-                        "category/" +
-                        post.post_category_slug[index] +
-                        "/"
-                      }
-                    >
-                      {item + " "}
-                    </Link>
-                  ))
-                : ", "}
-            </span>{" "}
-            <span>
-              <i className="fas fa-tag"></i>
-              {post.post_tag.length
-                ? post.post_tag.map((item, index) => (
-                    <Link
-                      key={item.toString()}
-                      rel="tag"
-                      to={
-                        PrimitiveSettings.path +
-                        "tag/" +
-                        post.post_tag_slug[index] +
-                        "/"
-                      }
-                    >
-                      {item + " "}
-                    </Link>
-                  ))
-                : ", "}
-            </span>
+      <div className="container">
+        {loading ? (
+          <div className="row">
+            <div className="col text-center">
+              <Loader
+                height="100"
+                width="100"
+                wrapperClass="justify-content-center"
+              />
+              <p className="display-font fs-2 blink">Thinking (stand back)...</p>
+            </div>
           </div>
-        </div>
-      </article>
+        ) : (
+          <div className="row">
+            <div className="col text-center">
+              <p className="display-4">No matching posts</p>
+            </div>
+          </div>
+        )}
+      </div>
     );
-  };
-
-  const renderEmpty = () => {
-    if (isLoading) {
-      return (
-        <img
-          src={LoadingIcon}
-          alt="loader gif"
-          className="active"
-          id="loader"
-        />
-      );
-    } else if (isEmpty(post)) {
-      return <NotFound />;
-    }
-  };
+  }
 
   return (
-    <div>
-      {renderEmpty()}
-      {renderPosts()}
+    <div className="container">
+        <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
+        <PostSingle post={post} />
+    </div>
+  );
+
+
+
+
+
+
+
+
+
+
+
+
+  // const renderPosts = () => {
+
+  //   console.log("post", post);
+  //   return (
+
+  //   );
+  // };
+
+  // const renderEmpty = () => {
+  //   if (isLoading) {
+  //     return (
+  //       <img
+  //         src={LoadingIcon}
+  //         alt="loader gif"
+  //         className="active"
+  //         id="loader"
+  //       />
+  //     );
+  //   } else if (isEmpty(post)) {
+  //     return <NotFound />;
+  //   }
+  // };
+
+  // return (
+  //   <div>
+  //     {renderEmpty()}
+  
+  //   </div>
+  // );
+
+
+
+  const renderEmpty = () => {
+    return <img src={LoadingIcon} alt="Loading Posts" className="active" id="loader" />;
+  };
+
+  if (!post) {
+    return null;
+  }
+
+  return (
+    <div className="row post-container">
+      {post.length ? renderPosts() : renderEmpty()}
     </div>
   );
 };
