@@ -1,3 +1,4 @@
+import React from "react";
 import { Rings as Loader } from "react-loader-spinner";
 // import { Dna as Loader } from "react-loader-spinner";
 // see: https://mhnpd.github.io/react-loader-spinner/
