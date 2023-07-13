@@ -9,6 +9,7 @@ const PreLoader = () => {
        color="#00BFFF"
        height="100"	
        width="100"
+       wrapperClass="justify-content-center"
      />
    );
  };
