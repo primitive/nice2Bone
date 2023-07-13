@@ -1,12 +1,14 @@
 {
   "name": "nice2bone",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Headless WordPress Blog theme with Infinite Scroll. React based SPA, CSR only (not SEO friendly).",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node scr/app.js"
+    "watch": "webpack --watch --mode=development",
+    "start": "babel-node src/app.js",
+    "serve": "nodemon --exec npm start"
   },
   "keywords": [
     "headless",
@@ -19,7 +21,7 @@
     "spa",
     "csr"
   ],
-  "author": "Shaun Knowles",
+  "author": "Shaun Paul Knowles",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
