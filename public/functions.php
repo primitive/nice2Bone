@@ -1,15 +1,20 @@
 <?php
-/**
- * A 'Common or Garden' WordPress functions.php file.
- * @package Nice2B One
+ /**
+ * Feeeme functions and definitions
+ * A 'Common or Garden' WordPress functions.php file. (tbc if these work with block themes)
+ *
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ * @package WordPress
+ * @subpackage Nice 2B One
+ * @since Nice 2B One 1.0
  */
 
 /*-----------------------------------------------------------------------------------*/
 /* STYLES AND SCRIPTS */
 /*-----------------------------------------------------------------------------------*/
 
-function primitive_scripts()
-{
+function primitive_scripts() {
 
 	// Load stylesheets.
 	wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
