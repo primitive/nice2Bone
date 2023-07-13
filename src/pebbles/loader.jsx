@@ -6,7 +6,6 @@ import { Rings as Loader } from "react-loader-spinner";
 const PreLoader = () => {
    return (
      <Loader
-       type="Puff"
        color="#00BFFF"
        height="100"	
        width="100"
