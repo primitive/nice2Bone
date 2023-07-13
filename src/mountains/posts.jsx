@@ -4,12 +4,9 @@
  * 2023
  */
 import React, { useState, useEffect } from "react";
-import PostList from "../post-list";
+import { Rings as Loader } from "react-loader-spinner";
+import PostList from "../rocks/post-list";
 import { handleBeforeUnload } from "../helpers";
-
-import LoadingIcon from "../loading-icon.gif";
-// import PreLoader from "./loader";
-// import { Rings as Loader } from "react-loader-spinner";
 // import ReactGA from "react-ga";
 
 const Posts = (props) => {
@@ -105,8 +102,12 @@ const Posts = (props) => {
         {loading ? (
           <div className="row">
             <div className="col text-center">
-              <img src={LoadingIcon} alt="loader gif" className="active" id="loader" />
-              <p className="display-4 blink">Thinking...</p>
+              <Loader
+                height="100"
+                width="100"
+                wrapperClass="justify-content-center"
+              />
+              <p className="display-font fs-2 blink">Thinking (stand back)...</p>
             </div>
           </div>
         ) : (
