@@ -128,7 +128,7 @@ Device Styles
   .site-content {
     padding: 2.5em 0 0;
   }
-  .page .card-text {
+  .page .card:not(.fill-w) .card-text {
     column-count: 2;
   }
 }
@@ -258,12 +258,8 @@ h4 {
   font-size: 1.6rem;
   font-weight:bold;
 }
-h5 {
-  font-size: 1.2em; }
-
-h6 {
-  font-size: 1.1em;
-}
+h5 { font-size: 1.2em; }
+h6 { font-size: 1.1em; }
 
 .brand-font {
   font-family: $brand-font;
@@ -315,7 +311,9 @@ button:focus, .button:focus {
   outline: inherit;
 }
 
-.button, .button-default, .button-transparent {
+.button,
+.button-default,
+.button-transparent {
   display: inline-block;
   margin-left: 5px;
   margin-right: 5px;
@@ -337,23 +335,17 @@ a.button,
   transform: scale(1.03);
   color: $button-color; }
 
-span.button {
+.button {
   background: $primary-color;
   padding: 10px 15px;
   color: $button-color;
   text-align: center;
   position: relative;
   display: inline-block;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
   border-radius: 3px;
-  -webkit-transition: background-color .3s ease;
-  -moz-transition: background-color .3s ease;
-  -ms-transition: background-color .3s ease;
-  -o-transition: background-color .3s ease;
   transition: background-color .3s ease; }
 
-span.button:hover {
+.button:hover {
   background: $primary-dark;
   color: #fff;
   text-decoration: none;
@@ -368,73 +360,58 @@ Posts
 
 ****************************************/
 
-.card-meta {
-  position: relative;
-  z-index: 998;
-  display: block;
-  margin: 1em 0;
-  font-family: $meta-font;
+.card-title {
+  margin-top: .3em;
+  margin-bottom: .5em;
   text-align: center;
-  min-height: 1rem;
+  line-height: 1.5;
 }
-// .col-md-3 .card-meta, .col-md-4 .card-meta, .col-md-6 .card-meta {
-//   width: auto;
-//   background: none;
-//   margin: 30px 0;
-// }
-// .post-container.col-md-4 .card-meta {
-//   margin: 30px 0;
-// }
-
-.post-entry, .joke-entry {
-  padding-top: 1.6em;
-}
-.entry-info {
-  background: #fff;
-  display: inline;
-  position: relative;
-  padding: 0 10px;
+.card-meta {
+  margin: 1em 0 0;
+  font-family: $meta-font;
+  font-size: .6em;
+  text-align: left;
 
   i {
-    margin: 0 10px;
-    font-size: 14px;
-    line-height: 21px;
+    margin-right: 1em;
   }
-  span:first-of-type i {
-    margin-left: 0;
+
+  .card-author {
+    margin-bottom: 0;
+    font-style: italic;
+    font-weight: bolder;
+   }
+
+
+  .post-tax {
+    position: relative;
+    padding-bottom: .6em;
+  
+
+  
   }
 }
-// .col-md-3 .entry-info, .col-md-4 .entry-info, .col-md-6 .entry-info {
-//   display: block;
-//   padding: 0 10px;
-// }
-
-// .entry-info span, .entry-info a {
-//   font-size: 12px !important;
-// }
-// .col-md-3 .entry-info span, .col-md-4 .entry-info span, .col-md-6 .entry-info span {
-//   display: block;
-//   width: inherit;
-//   padding: inherit;
-//   margin: 5px auto;
-// }
 
 
-.col-md-3 .entry-info i, .col-md-4 .entry-info i, .col-md-6 .entry-info i {
-  line-height: 23px;
-  position: absolute;
-  left: 0;
-  margin: 0;
-  padding: 0;
-}
-.far, .fas {
-  display: inline-block;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: $lowlight;
-}
+
+
+
+
+// .col-md-3 .entry-info i, .col-md-4 .entry-info i, .col-md-6 .entry-info i {
+//   line-height: 23px;
+//   position: absolute;
+//   left: 0;
+//   margin: 0;
+//   padding: 0;
+// }
+// .far, .fas {
+//   display: inline-block;
+//   font-size: inherit;
+//   text-rendering: auto;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   color: $lowlight;
+// }
 
 .card-outer {
   transform: translateY(100px);
@@ -451,16 +428,9 @@ Posts
   height: 600px;
 }
 
-.card-title {
-  text-align: center;
-  line-height: 1.5;
-}
 
-.card-subtext {
- font-size: .8em;
- font-style: italic;
- text-align: center;
-}
+
+
 
  .read-more {
   display: block;
