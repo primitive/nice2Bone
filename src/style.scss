@@ -437,12 +437,10 @@ Posts
 }
 
 .card-outer {
-  opacity: 0;
   transform: translateY(100px);
-  transition: all 0.5s ease-out;
+  transition: all 0.66s ease-out;
 }
 .card-outer.fade-in {
-  opacity: 1;
   transform: translateY(0);
 }
 .col-md-4.card-outer {
@@ -655,6 +653,11 @@ Animation
   }
 }
 
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 @keyframes hi-left {
     0% {
         opacity: 0;
@@ -716,6 +719,9 @@ Animation
 
 .blink {
   animation: blink 1s linear infinite;
+}
+.fade-in {
+  animation: fadein 1.2s ease-out;
 }
 
 /**************************************** 
