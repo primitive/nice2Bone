@@ -1,95 +1,51 @@
-// External dependencies					
-import React from "react";
+/**
+ * The Custom Post Type Component
+ * @package Nice2B One
+ * 2023
+ */
+import React, { useState, useEffect } from "react";
+import Preloader from "./pebbles/loader";
 import JokeList from "./joke-list";
-import LoadingIcon from "./loading-icon.gif";
-// import PreLoader from "./loader";
-//import Loader from 'react-loader-spinner'
-import ReactGA from 'react-ga';
+import { handleBeforeUnload } from "./helpers";
+// import ReactGA from "react-ga";
+// import { useNavigate } from "react-router";
 
-class Jokes extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      page: 0,
-      getPosts: true,
-      controller: false
-    };
-    this.getMoreJokes = this.getMoreJokes.bind(this);
-  }
+const Jokes = (props) => {
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  const [pageNo, setPageNo] = useState(1);
+  const [getPosts, setGetPosts] = useState(true);
 
-  componentWillUnmount() {
-    this.getMoreJokes = null;
-  }
+  useEffect(() => {
 
-  componentDidMount() {
-
-    window.onbeforeunload = function () {
-      window.scrollTo(0, 0);
-    };
-
-    // init ScrollMagic Controller
-    this.controller = new ScrollMagic.Controller();
-
-    // build scene
+    // init ScrollMagic Controller + build scene
+    const controller = new ScrollMagic.Controller();
     const scene = new ScrollMagic.Scene({
       triggerElement: "#footer",
-      triggerHook: "onEnter"
+      triggerHook: "onEnter",
     })
-      .addTo(this.controller)
-      .on("enter", e => {
-        if (this.state.getPosts && this.getMoreJokes !== null) {
-          this.getMoreJokes();
+      .addTo(controller)
+      .on("enter", () => {
+        console.log("getPosts", getPosts);
+        if (getPosts) {
+          getMorePosts();
         }
       });
 
-    document.title = "Nice2b.me - Jokes. Both Funny HaHa and Funny Peculiar varieties stocked. ";
-    ReactGA.pageview(window.location.pathname + window.location.search);
-    document.body.className = "";
-    document.body.classList.add('jokes-list');
-  }
+      document.title = "Nice2b.me - Jokes. Both Funny HaHa and Funny Peculiar varieties stocked. ";
+      // ReactGA.pageview(window.location.pathname + window.location.search);
+      document.body.className = "";
+      document.body.classList.add('jokes-list');
 
-  getMoreJokes() {
-    let totalPages;
 
-    this.setState({ page: this.state.page + 1 });
+    window.onbeforeunload = handleBeforeUnload;
 
-    // fetch( 'jokes?filter[meta_key]=currency&filter[meta_value]=AUD'); // here 'cars' is the endpoint for CPT
+    return () => {
+      controller.destroy();
+    };
+  }, [pageNo]);
 
-    fetch(PrimitiveSettings.URL.api + "jokes/?page=" + this.state.page)
-      .then(response => {
-        for (const pair of response.headers.entries()) {
-          // getting the total number of pages
-          if (pair[0] == "x-wp-totalpages") {
-            totalPages = pair[1];
-          }
-
-          if (this.state.page >= totalPages) {
-            this.setState({ getPosts: false });
-          }
-        }
-        if (!response.ok) {
-          document.title = response.statusText + "| Nice2b.me";
-          throw Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then(results => {
-        const allPosts = this.state.posts.slice();
-        results.forEach(single => {
-          allPosts.push(single);
-        });
-        this.setState({ posts: allPosts });
-      })
-      .catch(error => {
-        console.log(
-          "There has been a problem with your fetch operation: " + error.message
-        );
-      });
-  }
-
-  componentDidUpdate() {
-    // use ScrollMagic for infinite scrolling
+  useEffect(() => {
     const FadeInController = new ScrollMagic.Controller();
     document
       .querySelectorAll(".posts-container .col-md-4.card-outer")
@@ -98,33 +54,79 @@ class Jokes extends React.Component {
         const FadeInScene = new ScrollMagic.Scene({
           triggerElement: item.children[0],
           reverse: false,
-          triggerHook: 1
+          triggerHook: 1,
         })
           .setClassToggle(item, "fade-in")
           .addTo(FadeInController);
       });
-  }
 
-  render() {
-    if (!this.state.posts.length === 0) {
-      return (
-        <>
+    return () => {
+      FadeInController.destroy();
+    };
+  }, [posts]);
 
-          <Loader type="Circles" color="#00BFFF" height={80} width={80} />
+  const getMorePosts = () => {
+    let totalPages;
+    let endpoint = PrimitiveSettings.URL.api + "jokes/?page=" + pageNo;
+    console.log("pageNo", pageNo);
 
-          <p>No matching posts</p>
-        </>
-      );
-    }
+    fetch(endpoint)
+      .then((response) => {
+        for (const pair of response.headers.entries()) {
+          // get total number of pages
+          if (pair[0] === "x-wp-totalpages") {
+            totalPages = pair[1];
+          }
 
+          if (pageNo >= totalPages) {
+            setGetPosts(false);
+          }
+          else {
+            setPageNo(pageNo + 1);
+          }
+        }
+        if (!response.ok) {
+          document.title = `${response.statusText} | Nice2b.me`;
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((results) => {
+        setPosts((prevPosts) => [...prevPosts, ...results]);
+      })
+      .catch((error) => {
+        console.log("There has been a problem with your fetch operation: " + error.message);
+      });
+  };
+
+  if (!posts.length) {
+    //if (1==1) {
     return (
       <div className="container">
-        <h1 className="posts-title">Jokes</h1>
-        <JokeList posts={this.state.posts} />
+        {loading ? (
+          <div className="row">
+            <div className="col text-center">
+              <Preloader />
+              <p className="display-font fs-2 blink">Thinking (stand back)...</p>
+            </div>
+          </div>
+        ) : (
+          <div className="row">
+            <div className="col text-center">
+              <p className="display-4">No matching posts</p>
+            </div>
+          </div>
+        )}
       </div>
-
     );
   }
-}
+
+  return (
+    <div className="container">
+        <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
+        <JokeList posts={posts} />
+    </div>
+  );
+};
 
 export default Jokes;
