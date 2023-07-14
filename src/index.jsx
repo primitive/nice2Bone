@@ -16,7 +16,7 @@ import Categories from "./mountains/categories";
 import Tags from "./mountains/tags";
 import Page from "./page";
 
-import Jokes from "./jokes";
+import Jokes from "./mountains/jokes";
 import Joke from "./joke";
 import JokeTags from "./joke-tags";
 import JokeCats from "./joke-categories";
