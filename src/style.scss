@@ -1,8 +1,8 @@
 /*
-Theme Name: Nice2b One
-Theme URI: https://wordpress.org/
-Author: Shaun Knowles @ Primitive Digital
-Author URI: https://primitivedigital.uk
+Theme Name: Nice 2B One
+Theme URI: https://primitivedigital.uk/wordpress-themes/
+Author: Shaun Knowles @primitiveshaun
+Author URI: https://sknow.it
 Description: A basic theme built using React and the WordPress REST API
 Tags: wordpress, decoupled, react, rest-api
 
@@ -22,16 +22,7 @@ This theme is licensed under the GPL. Have fun with it.
 	
 2. Sections & Layout
 	+ Navigation
-	+ Burger
 	+ Header
-	+ Video
-	+ Features
-	+ Skills
-	+ Portfolio
-	+ Team
-	+ Stats
-	+ Testimonials
-	+ Contact
 	+ Footer
 --------------------------------------------------------*/
 
@@ -49,9 +40,11 @@ Theme Variables
 ######
 ------------------------------------------- */
 
+// Typography
 $body-font: Times New Roman, sans-serif;
 $brand-font: 'Passions Conflict', cursive;
 $title-font: 'Architects Daughter', cursive;
+$title-font: 'Playfair Display', serif; 
 $head-font: 'Playfair Display', serif; 
 $subhead-font: serif; 
 $post-title-font: 'Cabin Sketch', cursive;
@@ -60,13 +53,16 @@ $meta-font: Geneva, sans-serif;
 $display-font: 'Cabin Sketch', cursive;
 //$display-font: 'Bowlby One SC',Geneva, sans-serif; 
 
+// Colour
 $primary-color: #7CBF69;
 $primary-dark:#438132;
 $primary-highlight: #ff6644;
+
 $secondary-color: #ff6644;
 $secondary-dark: #d14a2b;
 $tertiary-color: #f783ac;
 $tertiary-dark: #f44e88;
+// ??
 $quaternary-color: cadetblue;
 
 $body-color: #212529;
@@ -94,20 +90,30 @@ $pink: #f783ac;
 $pink-dark: #f44e88;
 
 $blue: #4c6ef5;
-
-
 $teal: cadetblue;
 
 $retro-tan: #736439;
 $retro-brown: #594834;
 $retro-orange: #FF9933;
 
+$stone: #ADA587;
+$pebble: #dddace;
+$offwhite: #fffbec;
+
+$background-color: #f3f3f3;
+$background-image: url(https://nice2b.me/wp-content/uploads/noise.jpg);
+$background-opacity: .12;
+// $background-image: none;
+
 :root {
+  --bs-body-bg: #{$background-color};
   --bs-border-radius: 0;
   --bs-card-border-radius: 0;
   --bs-navbar-toggler-border-radius: 0;
-  --bs-primary: $primary-color;
-  //--bs-primary: #{$primary-color};
+  --bs-primary: #{$primary-color};
+  --bs-secondary: #{$secondary-color};
+
+  --bs-card-bg: #{$stone};
 }
 
 /**************************************** 
@@ -147,14 +153,28 @@ Common styles
 
 ****************************************/
 
-body,
-div#page-inner {
-  display: flex;
-  flex-direction: column;
-  background-color:#f3f3f3;
+body {
   min-height: 100%;
   height: 100%;
-  // background-image:url(https://nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
+  background-color: transparent;
+}
+body::before {
+  background-color: var(--bs-body-bg);
+  background-image: $background-image;
+  opacity: $background-opacity;
+
+  content: "";
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+#page-inner {
+  min-height: 100%;
+  height: 100%;
 }
 
 a:hover,a:active,a:focus,
@@ -170,10 +190,6 @@ textarea:hover, textarea:active, textarea:focus {
 	color:#fff; 
 }
 
-::-moz-selection {
-	background: $primary-color;
-	color:#fff; 
-}
 
 a { 
 	outline: none; 
@@ -202,11 +218,6 @@ select {
 
 
 
-
-img#loader { clear: both; margin: 0 auto; }
-#loader { text-align: center; display: none; }
-#loader.active { display: block; }
-.loader-gif { text-align: center; margin-top: 10em; }
 
 
 
@@ -261,12 +272,8 @@ h4 {
 h5 { font-size: 1.2em; }
 h6 { font-size: 1.1em; }
 
-.brand-font {
-  font-family: $brand-font;
-}
-.display-font {
-  font-family: $display-font;
-}
+.brand-font { font-family: $brand-font; }
+.display-font { font-family: $display-font; }
 
 #main-nav {
   padding-bottom: 0;
@@ -284,21 +291,6 @@ h6 { font-size: 1.1em; }
   font-family: $title-font;
 }
 
-
-.card-text strong {
-  font-family: $display-font;
-  color: $secondary-dark;
-  font-weight: normal;
-}
-.card-text h4 a {
-  padding-bottom: .5rem;
-}
-.card-text a {
-  border-bottom: 2px solid $tertiary-color;
-}
-.card-text a:hover {
-  border-bottom: 2px solid $primary-highlight;
-}
 
 
 
@@ -352,18 +344,46 @@ a.button,
 }
 
 
+
+/**************************************** 
+
+Cards
+
+****************************************/
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.card-text {
+
+  strong {
+    font-family: $display-font;
+    color: $secondary-dark;
+    font-weight: normal;
+  }
+
+  a {
+    border-bottom: 2px solid $tertiary-color;
+    &:hover {
+      border-bottom: 2px solid $primary-highlight;
+    }
+  }
+}
   
 
 /**************************************** 
 
-Posts
+Posts (Blog)
 
 ****************************************/
-
-.card-img-top {
-  aspect-ratio: 12/7;
-  object-fit: cover;
+.posts {
+  .card-img-top {
+    aspect-ratio: 12/7;
+    object-fit: cover;
+  }
 }
+
 .card-title {
   margin-top: .3em;
   margin-bottom: .5em;
@@ -595,12 +615,13 @@ footer {
   margin-top: 2rem;
   padding: 2rem 1rem;
   bottom:0;
-  color:$meta-color;	
+  color: $meta-color;	
+  background-color: $stone;
   font-family: $meta-font;
   font-size: 0.8rem;
   text-align: center;
   line-height:1.4rem;
-  border-top:solid 4px $primary-color;
+  border-top: solid 4px $primary-color;
   z-index:998;
 
   a {
