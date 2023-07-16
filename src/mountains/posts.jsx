@@ -34,7 +34,7 @@ const Posts = (props) => {
 
     document.title = PrimitiveSettings.theme_name + " - " + PrimitiveSettings.theme_posts_title;
     document.body.className = "";
-    document.body.classList.add("blog");
+    document.body.classList.add("posts-list");
 
     //ReactGA.pageview(window.location.pathname + window.location.search);
 
