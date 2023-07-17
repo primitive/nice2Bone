@@ -1,7 +1,7 @@
 // External dependencies
 import React from "react";
 import withRouter from './withrouter';
-import PostList from './joke-list';
+import PostList from './rocks/joke-list';
 import LoadingIcon from "./loading-icon.gif";
 import ReactGA from 'react-ga';
 
