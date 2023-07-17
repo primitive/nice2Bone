@@ -3,21 +3,18 @@
  * @package Nice2B One
  */
 import React, { useState, useEffect } from "react";
-import ReactGA from "react-ga";
+import He from "he";
 import { isEmpty } from "./helpers";
 import NotFound from "./not-found";
-import He from "he";
+// import ReactGA from "react-ga";
 
 const Page = (props) => {
   const [page, setPage] = useState({});
 
-  useEffect(() => {
-    console.log("unmount page");
-  }, []); // The empty array ensures that the effect only runs on unmount
 
   useEffect(() => {
     fetchData();
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    // ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
     document.body.classList.add("page");
   }, []); // The empty array ensures that the effect only runs on mount
