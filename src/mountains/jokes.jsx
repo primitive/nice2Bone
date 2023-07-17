@@ -5,7 +5,7 @@
  */
 import React, { useState, useEffect } from "react";
 import Preloader from "../pebbles/loader";
-import JokeList from "../joke-list";
+import JokeList from "../rocks/joke-list";
 import { handleBeforeUnload } from "../helpers";
 
 // import ReactGA from "react-ga";
@@ -18,7 +18,6 @@ const Jokes = (props) => {
   const [getPosts, setGetPosts] = useState(true);
 
   useEffect(() => {
-
     // init ScrollMagic Controller + build scene
     const controller = new ScrollMagic.Controller();
     const scene = new ScrollMagic.Scene({
@@ -33,11 +32,11 @@ const Jokes = (props) => {
         }
       });
 
-      document.title = "Nice2b.me - Jokes. Both Funny HaHa and Funny Peculiar varieties stocked. ";
-      // ReactGA.pageview(window.location.pathname + window.location.search);
-      document.body.className = "";
-      document.body.classList.add('jokes-list');
-
+    document.title =
+      "Nice2b.me - Jokes. Both Funny HaHa and Funny Peculiar varieties stocked.";
+    // ReactGA.pageview(window.location.pathname + window.location.search);
+    document.body.className = "";
+    document.body.classList.add("jokes-list");
 
     window.onbeforeunload = handleBeforeUnload;
 
@@ -81,8 +80,7 @@ const Jokes = (props) => {
 
           if (pageNo >= totalPages) {
             setGetPosts(false);
-          }
-          else {
+          } else {
             setPageNo(pageNo + 1);
           }
         }
@@ -96,7 +94,9 @@ const Jokes = (props) => {
         setPosts((prevPosts) => [...prevPosts, ...results]);
       })
       .catch((error) => {
-        console.log("There has been a problem with your fetch operation: " + error.message);
+        console.log(
+          "There has been a problem with your fetch operation: " + error.message
+        );
       });
   };
 
@@ -108,7 +108,9 @@ const Jokes = (props) => {
           <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">Thinking (stand back)...</p>
+              <p className="display-font fs-2 blink">
+                Thinking (stand back)...
+              </p>
             </div>
           </div>
         ) : (
@@ -121,12 +123,12 @@ const Jokes = (props) => {
       </div>
     );
   }
-  
+
   if (posts) {
     return (
       <div className="container">
-          <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
-          <JokeList posts={posts} />
+        <h1 className="text-center">Jokes</h1>
+        <JokeList posts={posts} />
       </div>
     );
   }

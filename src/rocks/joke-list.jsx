@@ -23,26 +23,38 @@ const JokeList = ({ posts }) => {
                 ></Link>
               </h3>
 
-
-
               <div className="collapse" id={"jk-" + post.slug}>
-                <p dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+                <p
+                  dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+                />
               </div>
 
               <div className="buttons">
-
-                <button className="btn btn-danger" type="button" href={"#jk-" + post.slug} data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls={"jk-" + post.slug}>Go on...</button>
-                <Link className="btn btn-info" to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}>Go on, go on...</Link>
-
-
+                <button
+                  className="btn btn-danger"
+                  type="button"
+                  href={"#jk-" + post.slug}
+                  data-bs-toggle="collapse"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls={"jk-" + post.slug}
+                >
+                  Go on...
+                </button>
+                <Link
+                  className="btn btn-info"
+                  to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}
+                >
+                  Go on, go on...
+                </Link>
               </div>
               <div className="card-meta">
-                <p className="text-muted">
-                  <i className="fas fa-face-grin-tongue-wink" title="jokes"></i>
+                <p className="text-muted text-center">
+                  <i className="fas fa-grin-squint-tears" title="jokes"></i>
                   {post.type}
                 </p>
 
-                <p className="post-tax">
+                <p className="text-muted text-center post-tax">
                   <i className="fas fa-cat" title="cat-egories"></i>
                   {post.fun_category.length
                     ? post.fun_category.map((item, index) => (
@@ -60,9 +72,6 @@ const JokeList = ({ posts }) => {
                       ))
                     : ", "}
                 </p>
-
-
-
               </div>
             </div>
           </div>
@@ -76,7 +85,9 @@ const JokeList = ({ posts }) => {
       <div className="row">
         <div className="col text-center">
           <Preloader />
-          <p className="display-font fs-2 blink">Did I tell you the one about...</p>
+          <p className="display-font fs-2 blink">
+            Did I tell you the one about...
+          </p>
         </div>
       </div>
     );
