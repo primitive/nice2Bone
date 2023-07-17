@@ -6,7 +6,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Preloader from "./pebbles/loader";
+import Preloader from "../pebbles/loader";
 // import Placeholder from "./n2b_placeholder1.jpg";
 
 const JokeList = ({ posts }) => {
