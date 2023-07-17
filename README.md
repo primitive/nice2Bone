@@ -13,10 +13,11 @@ http://localhost:8888/n2b/tag/optimiseeverything/
 
 
 # TO DO
-1. Optimise FontAwsome and Google Fonts use
+1. Optimise Fonts use
 2. Refine: titles / meta handling
 3. Fix: 404 handling for CPT
 4. Add: WP theme support and user configurables
+5. moderise FA use - "@fortawesome/fontawesome-svg-core": "^6.4.0",
 
 /wp/v2/menu-items
 
@@ -42,6 +43,9 @@ The following pre-requisites should be in place for the theme to work:
 1. `git clone https://github.com/primitive/nice2bone`
 2. `cd nice2bone`
 3. `npm install`
+4. `npm run dev`
+
+### Deployment
 4. `npm run build`
 5. In the WordPress Admin Dashboard go to Appearances > Themes and Activate `Nice2B One`
 
@@ -49,10 +53,20 @@ The following pre-requisites should be in place for the theme to work:
     "start": "babel-node src/app.js",
     "serve": "nodemon --exec npm start"
 
+### Refs
+https://getbootstrap.com/docs/5.0/customize/css-variables/
+https://fontawesome.com/v5/docs
+
+### Inspiration
+https://github.com/based-ghost/react-seo-friendly-spa-template
+
 The code is opensource so go play...
 
 Enjoy!
 
+
+
+Tags
 
 The Tags component is a React component that displays a list of posts that are associated with a particular tag. It does this by fetching the list of posts from a WordPress API endpoint that filters posts by the specified tag. The component also includes an infinite scrolling feature, which loads more posts as the user scrolls down the page. When the component is unmounted, it sets the getMorePostsWithTag method to null and removes the fade-in class from all elements with the card-outer class. The component also uses the ReactGA library to track page views.
 
@@ -72,10 +86,14 @@ Finally, the component renders a loading icon while the list of posts is being r
 
 ### Release History
 
+1.0.11
+confirmed Functions.php is supported by classic and Block WordPress themes.
+https://developer.wordpress.org/themes/basics/theme-functions/#:~:text=functions.php%20File-,Functions.,features%20to%20your%20WordPress%20theme.
+
+
 1.0.10
 Class to function conversion
 Make work
-
 
 1.0.9
 Upgrade Webpack to v5
@@ -90,7 +108,9 @@ Add: tags support
 Add: ACF / Custom post type support
 Add: ACF / Custom taxonomies support
 
-# Stable Release (Jul 15, 2023):
+
+# RC 1 (Jul 15, 2023):
+
 
 # Stable Version (May 15, 2019):
 1. Added: Google analytics
