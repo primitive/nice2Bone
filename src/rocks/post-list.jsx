@@ -64,15 +64,13 @@ const PostList = ({ posts }) => {
 
               <p dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
 
-              <div className="read-more">
-                <span className="button default">
-                  <Link
-                    className="button default"
-                    to={PrimitiveSettings.path + "posts/" + post.slug + "/"}
-                  >
-                    Read More
-                  </Link>
-                </span>
+              <div className="buttons">
+                <Link
+                  className="btn btn-primary"
+                  to={PrimitiveSettings.path + "posts/" + post.slug + "/"}
+                >
+                  Read More
+                </Link>
               </div>
             </div>
           </div>
