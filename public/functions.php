@@ -1,7 +1,7 @@
 <?php
  /**
- * Feeeme functions and definitions
- * A 'Common or Garden' WordPress functions.php file. (tbc if these work with block themes)
+ * Feeeme functions
+ * A 'Common or Garden' WordPress functions.php file.
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
@@ -40,7 +40,8 @@ function primitive_scripts() {
 	$api_url = $url .= "wp-json/wp/v2/";
 	$bedrock_api_url = $url .= "wp-json/bedrock/v1/config";
 
-	echo $api_url;
+	// echo $api_url;
+
 	$theme_name = "Nice2B One";
 	$theme_posts_title = "Posts and Articles";
 	$nav_brand_link = "";
@@ -86,12 +87,23 @@ add_action( 'after_setup_theme', 'primitive_slug_setup' );
 
   function primitive_bedrock_config( $data ) {
 
+	$theme_mode = "";
 	$theme_name = "Nice2B One";
 	$theme_posts_title = "Posts and Articles";
+	$theme_placeholder_image = "";
+	$theme_front = "";
+	$theme_back = "";
+	$theme_login = "";
 	$nav_brand_link = "";
+
+	/*
+	'title' => get_bloginfo('name', 'display'),
+	'description' => get_bloginfo('description', 'display'),
+	*/
   
 	$data = array(
 		'title' => $theme_posts_title,
+		'default_image' => $theme_placeholder_image,
 	);
 
 	return new WP_REST_Response( $data, 200 );
@@ -417,7 +429,8 @@ function primitive_excerpt_length($length)
 {
 	return 25;
 }
-add_filter('excerpt_length', 'primitive_excerpt_length');
+add_filter('excerpt_length', 'primitive_excerpt_length', 999 );
+
 
 add_theme_support('automatic-feed-links');
 add_theme_support('post-thumbnails');
