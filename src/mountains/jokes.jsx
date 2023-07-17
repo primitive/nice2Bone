@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import Preloader from "../pebbles/loader";
 import JokeList from "../joke-list";
 import { handleBeforeUnload } from "../helpers";
+
 // import ReactGA from "react-ga";
 // import { useNavigate } from "react-router";
 
@@ -120,13 +121,15 @@ const Jokes = (props) => {
       </div>
     );
   }
-
-  return (
-    <div className="container">
-        <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
-        <JokeList posts={posts} />
-    </div>
-  );
+  
+  if (posts) {
+    return (
+      <div className="container">
+          <h1 className="text-center">{PrimitiveSettings.theme_posts_title}</h1>
+          <JokeList posts={posts} />
+      </div>
+    );
+  }
 };
 
 export default Jokes;
