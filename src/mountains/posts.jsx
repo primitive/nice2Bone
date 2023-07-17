@@ -68,7 +68,6 @@ const Posts = (props) => {
   const getMorePosts = () => {
     let totalPages;
     let endpoint = PrimitiveSettings.URL.api + "posts/?page=" + pageNo;
-    console.log("pageNo", pageNo);
 
     fetch(endpoint)
       .then((response) => {
