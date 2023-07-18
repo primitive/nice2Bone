@@ -1,31 +1,43 @@
 /**
- * The Header
+ * The Header Component
  * @package Nice2B One
+ * 2023
  */
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "./logo.jsx";
 
 const Header = () => (
   <div className="container">
-    <div id="header-wrapper" className="header header-1 d-none d-md-block">
+    <div id="header-wrapper" className="header d-none d-md-block">
       <header id="masthead" className="site-header" role="banner">
         <div className="row">
           <div className="col-md-12">
             <div className="site-brand">
-              <span className="site-title">
-                <Link
-                  className="brand-font site-logo"
-                  to={PrimitiveSettings.path}
-                  target="_self"
-                  dangerouslySetInnerHTML={{ __html: PrimitiveSettings.title }}
-                ></Link>
-              </span>
+              <Link
+                className="site-logo"
+                to={PrimitiveSettings.path}
+                target="_self"
+                alt={ PrimitiveSettings.title }
+                title={ PrimitiveSettings.title }
+              >
+                <Logo />
+              </Link>
+
+              {/* <Link
+                className="brand-font mx-auto d-block site-title"
+                to={PrimitiveSettings.path}
+                target="_self"
+                dangerouslySetInnerHTML={{ __html: PrimitiveSettings.title }}
+              ></Link> */}
+
               <p
                 className="site-description"
                 dangerouslySetInnerHTML={{
                   __html: PrimitiveSettings.description,
                 }}
               ></p>
+
             </div>
           </div>
         </div>
