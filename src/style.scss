@@ -43,7 +43,6 @@ Theme Variables
 // Typography
 $body-font: Times New Roman, sans-serif;
 $brand-font: 'Passions Conflict', cursive;
-// $title-font: 'Architects Daughter', cursive;
 $title-font: 'Playfair Display', serif; 
 $head-font: 'Playfair Display', serif; 
 $subhead-font: serif; 
@@ -51,7 +50,7 @@ $post-title-font: 'Cabin Sketch', cursive;
 $joke-title-font: 'Luckiest Guy', cursive;
 $meta-font: Geneva, sans-serif;
 $display-font: 'Cabin Sketch', cursive;
-//$display-font: 'Bowlby One SC',Geneva, sans-serif; 
+
 
 // Colour
 $primary-color: #7CBF69;
@@ -99,8 +98,14 @@ $retro-orange: #FF9933;
 $stone: #ADA587;
 $pebble: #dddace;
 $offwhite: #fffbec;
+$paper: #ECE6DC;
 
-$background-color: $offwhite;
+$black: #000000;
+// $offblack: #212427;
+
+$offblack: #1D1F25;
+
+$background-color: $paper;
 $background-image: url(https://nice2b.me/wp-content/uploads/noise.jpg);
 $background-opacity: .12;
 // $background-image: none;
@@ -154,7 +159,7 @@ Common styles
 body {
   min-height: 100%;
   height: 100%;
-  background-color: transparent;
+  background-color: var(--bs-body-bg);
 }
 body::before {
   background-color: var(--bs-body-bg);
@@ -292,50 +297,38 @@ h6 { font-size: 1.1em; }
 Buttons
 
 ****************************************/
-button:focus, .button:focus {
-  outline: inherit;
-}
 
-.button,
-.button-default,
-.button-transparent {
-  display: inline-block;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding: 3px;
-  font-size: 14px;
-  border: none;
-  text-transform: uppercase;
-  color: $button-color;
-  border-radius: 3px;
-  cursor: pointer;
-  -webkit-transition: .3s;
-  transition: .3s;
-  -webkit-transition-timing-function: ease-in;
-  transition-timing-function: ease-in; }
-
-a.button,
-.button-default:hover,
-.button-transparent:hover {
-  transform: scale(1.03);
-  color: $button-color; }
-
-.button {
-  background: $primary-color;
-  padding: 10px 15px;
-  color: $button-color;
+.buttons {
+  display: block;
+  margin: 40px 0 0 0;
   text-align: center;
-  position: relative;
-  display: inline-block;
-  border-radius: 3px;
-  transition: background-color .3s ease; }
-
-.button:hover {
-  background: $primary-dark;
-  color: #fff;
-  text-decoration: none;
 }
 
+.btn {
+  text-transform: uppercase;
+  color: var(--bs-body-color);
+  border-color: var(--bs-body-color);
+  transition: .3s;
+  transition-timing-function: ease-in;
+
+  &:hover {
+    transform: scale(1.03);
+    text-decoration: none;
+    border-color: var(--bs-body-color);
+  }
+
+}
+.btn-primary {
+  
+  color: $button-color;
+  background: $primary-color;
+  text-shadow: 0px 1px 1px rgba(000, 000, 000, 0.15);
+
+  &:hover {
+    color: $button-color;
+    background: $primary-dark;
+  }
+}
 
 
 /**************************************** 
@@ -440,11 +433,7 @@ Posts (Blog)
 
 
 
- .buttons {
-  display: block;
-  margin: 40px 0 0 0;
-  text-align: center;
-}
+
 
 /**************************************** 
 
@@ -569,54 +558,48 @@ Header
 .header {
   position: relative;
   text-align: center;
-}
-
-.header-1 {
   margin: 0 auto;
   padding-top: 0;
   padding-bottom: 0;
-}
-.header-1 .site-brand {
-  position: relative;
-  display: block;
-  padding: 30px 0 0;
-  line-height: 1.8em;
-}
-.header-1 .site-brand span.site-title {
-  position: relative;
-  display: block;
-  margin-bottom: 0;
-  font-family: $brand-font;
-}
-.header-1 .site-brand a.site-logo {
-  color:$lowlight;
-  font-size: 70px;
-  text-decoration:none;
-  line-height:inherit;
-  transition:color .3s ease
-}
-  
-.header-1 .site-brand p.site-description {
-  margin-top: 0;
-  font-size: 14px;
-  font-family: $subhead-font;
-  display: block;
-  text-align: center;
+
+  .site-brand {
+    position: relative;
+    display: block;
+    padding: 30px 0 0;
+    line-height: 1.8em;
+
+    .site-title {
+      margin-bottom: 0;
+      font-family: $brand-font;
+      color:$lowlight;
+      font-size: 70px;
+      text-decoration:none;
+      line-height:inherit;
+      transition:color .3s ease
+    }
+
+    .site-logo {
+      color:$lowlight;
+      font-size: 70px;
+      text-decoration:none;
+      line-height:inherit;
+      transition:color .3s ease
+    }
+
+    .site-description {
+      margin-top: 0;
+      font-size: 14px;
+      font-family: $subhead-font;
+      display: block;
+      text-align: center;
+    }
+  }
 }
 
-.paralax-1 {
-  position: absolute;
-  width: 105vw;
-  height: 105vh;
-  z-index: 0;
-}
 
-.paralax-2 {
-  position: absolute;
-  z-index: 0;
-  -webkit-transform: scale(1.05);
-  transform: scale(1.05)
-}
+
+
+
 
 /* ===============================================
  FOOTER
