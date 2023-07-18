@@ -8,6 +8,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, Outlet, Link } from "react-router-dom";
 
 import Header from "./header";
+// import Header from "./header2";
 import Footer from "./footer";
 // views
 import Posts from "./mountains/posts";
