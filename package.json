@@ -1,6 +1,6 @@
 {
-  "name": "nice2bone",
-  "version": "1.0.11",
+  "name": "Nice 2B",
+  "version": "2.0.0",
   "description": "Headless WordPress Blog theme with Infinite Scroll. React based SPA, CSR only (not SEO friendly).",
   "main": "index.js",
   "scripts": {
