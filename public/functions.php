@@ -1,13 +1,13 @@
 <?php
  /**
- * Feeeme functions
+ * Nice 2B One theme functions
  * A 'Common or Garden' WordPress functions.php file.
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @package WordPress
- * @subpackage Nice 2B One
- * @since Nice 2B One 1.0
+ * @subpackage 2B One
+ * @since Nice 2B One 2.0
  */
 
 /*-----------------------------------------------------------------------------------*/
@@ -17,13 +17,13 @@
 function primitive_scripts() {
 
 	// Load stylesheets.
-	wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
+	wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
 	wp_enqueue_style('font-awesome-css', 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 	wp_enqueue_style('primitive-style', get_stylesheet_uri());
 
 	// Load scripts.
 	wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.3.1.slim.min.js', array('jquery'), '', true);
-	wp_enqueue_script('bootstrap-5', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array('jquery'), '', true);
+	wp_enqueue_script('bootstrap-5', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array('jquery'), '', true);
 	wp_enqueue_script('scrollmagic', 'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js', array('jquery'), '1.0', false);
 	wp_enqueue_script('primitive-script', get_stylesheet_directory_uri() . '/dist/app.js', array(), '1.0', true);
 
@@ -42,8 +42,8 @@ function primitive_scripts() {
 
 	// echo $api_url;
 
-	$theme_name = "Nice2B One";
-	$theme_posts_title = "Posts and Articles";
+	$theme_name = "Nice 2B One";
+	$theme_posts_title = "Posts & Articles";
 	$nav_brand_link = "";
 
 	wp_scripts()->add_data('primitive-script', 'data', sprintf(
@@ -88,7 +88,7 @@ add_action( 'after_setup_theme', 'primitive_slug_setup' );
   function primitive_bedrock_config( $data ) {
 
 	$theme_mode = "";
-	$theme_name = "Nice2B One";
+	$theme_name = "Nice 2B One";
 	$theme_posts_title = "Posts and Articles";
 	$theme_placeholder_image = "";
 	$theme_front = "";
@@ -434,3 +434,4 @@ add_filter('excerpt_length', 'primitive_excerpt_length', 999 );
 
 add_theme_support('automatic-feed-links');
 add_theme_support('post-thumbnails');
+add_theme_support('title-tag');
