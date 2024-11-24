@@ -1,12 +1,11 @@
 /*
-Theme Name: Nice 2B One
-Theme URI: https://primitivedigital.uk/wordpress-themes/
+Theme Name: Nice 2B
+Theme URI: https://primitive.industries/wordpress-themes/
 Author: Shaun Knowles @primitiveshaun
-Author URI: https://sknow.it
+Author URI: https://primitive.industries
 Description: A blog theme built with React and the WordPress REST API
 Tags: wordpress, decoupled, react, rest-api, headless
 
-This theme is licensed under the GPL. Have fun with it.
 */
 
 /* --------------------------------------
@@ -24,6 +23,9 @@ This theme is licensed under the GPL. Have fun with it.
 	+ Navigation
 	+ Header
 	+ Footer
+
+3. Responsive Styles
+
 --------------------------------------------------------*/
 
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Cabin+Sketch:wght@700&family=Luckiest+Guy&family=Passions+Conflict&display=swap');
@@ -41,27 +43,42 @@ Theme Variables
 ------------------------------------------- */
 
 // Typography
-$body-font: Times New Roman, sans-serif;
-$brand-font: 'Passions Conflict', cursive;
+$body-font: 'Architects Daughter', Geneva, sans-serif;
+$script-font: 'Passions Conflict', cursive;
 $title-font: 'Playfair Display', serif; 
 $head-font: 'Playfair Display', serif; 
 $subhead-font: serif; 
-$post-title-font: 'Cabin Sketch', cursive;
-$joke-title-font: 'Luckiest Guy', cursive;
-$meta-font: Geneva, sans-serif;
 $display-font: 'Cabin Sketch', cursive;
+$mono-font: 'Courier New', monospace;
+
+// $post-title-font: 'Cabin Sketch', cursive;
+$joke-title-font: 'Luckiest Guy', cursive;
 
 
 // Colour
-$primary-color: #7CBF69;
-$primary-dark:#438132;
-$primary-highlight: #ff6644;
+$hb-black: #353333;
+$hb-red: #B31112;
+$hb-red-light: #C95859;
+$hb-red-dark: #6B0A0A;
+//$red: #ED4B35;
 
-$secondary-color: #ff6644;
-$secondary-dark: #d14a2b;
+$hb-blue: #1112B3;
+$hb-blue-light: #4974a5;
+$hb-blue-dark: #060747;
+
+$hb-yellow: #EBBF16;
+$hb-yellow-light: #FFEFC6;
+
+$primary-color: $hb-red;
+$primary-dark: $hb-red-dark;
+$primary-light: $hb-red-light;
+
+$secondary-color: $hb-blue;
+$secondary-dark: $hb-blue-dark;
+$secondary-light: $hb-blue-light;
+
 $tertiary-color: #f783ac;
 $tertiary-dark: #f44e88;
-// ??
 $quaternary-color: cadetblue;
 
 $body-color: #212529;
@@ -73,33 +90,39 @@ $dark-color:#2d2d2d;
 $button-color: #FDFDFF;
 
 $blue-mute: #6D728C;
-$purple-mute: #c49cba;
+// $purple-mute: #c49cba;
 
 
-$orange: #ff6644;
-$orange-dark: #F23E16;
-$orange-darker:#d14a2b;
+// :: orange
+// $orange: #ff6644;
+// $orange-dark: #F23E16;
+// $orange-darker:#d14a2b;
 
-$green: #70BF5A;
-$green-light: #7CBF69;
-$green-dark: #438132;
-$green-mute:#90cd7e;
+// :: greens
+// $primary-color: #7CBF69;
+// $primary-dark:#438132;
+// $primary-light: #ff6644;
+// $green: #70BF5A;
+// $green-light: #7CBF69;
+// $green-dark: #438132;
+// $green-mute:#90cd7e;
 
-$pink: #f783ac;
-$pink-dark: #f44e88;
+// $pink: #f783ac;
+// $pink-dark: #f44e88;
 
-$blue: #4c6ef5;
-$teal: cadetblue;
+// $blue: #4c6ef5;
+// $teal: cadetblue;
 
-$retro-tan: #736439;
+//$retro-tan: #736439;
 $retro-brown: #594834;
 $retro-orange: #FF9933;
 
 $stone: #ADA587;
-$pebble: #dddace;
-$offwhite: #fffbec;
+//$pebble: #dddace;
+//$offwhite: #fffbec;
 $paper: #ECE6DC;
 
+$white: #ffffff;
 $black: #000000;
 // $offblack: #212427;
 
@@ -107,59 +130,36 @@ $offblack: #1D1F25;
 
 $background-color: $paper;
 $background-image: url(https://nice2b.me/wp-content/uploads/noise.jpg);
+$background-image2: url(https://nice2b.me/wp-content/uploads/paper-lined-512x606-1.png);
 $background-opacity: .12;
-// $background-image: none;
 
 :root {
   --bs-body-bg: #{$background-color};
+  --bs-body-color: #{$body-color};
   --bs-border-radius: 0;
-  --bs-card-border-radius: 0;
+  --bs-border-radius-sm: .3em;
+ 
   --bs-navbar-toggler-border-radius: 0;
+
   --bs-primary: #{$primary-color};
   --bs-secondary: #{$secondary-color};
 
   --bs-card-bg: #{$stone};
-}
-
-/**************************************** 
-
-Device Styles
-****************************************/
-
-// Mobile (max-width 767px)
-@media screen and (max-width: 48em) {
-  nav#main-nav {
-    padding-bottom: .8rem;
-  }
-}
-
-// TABLETS (min-width 768px)
-@media screen and (min-width: 48em) {
-  .site-content {
-    padding: 2.5em 0 0;
-  }
-  .page .card:not(.fill-w) .card-text {
-    column-count: 2;
-  }
-}
-
-// DESKTOP LG (min-width 1200px)
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1200px;
-  }
+  --bs-card-border-radius: 0;
+  --bs-dropdown-min-width: 12rem;
 }
 
 
 /**************************************** 
 
-Common styles 
+Common element styles 
 ****************************************/
 
 body {
   min-height: 100%;
   height: 100%;
   background-color: var(--bs-body-bg);
+  background-image: $background-image2;
 }
 body::before {
   background-color: var(--bs-body-bg);
@@ -189,8 +189,8 @@ textarea:hover, textarea:active, textarea:focus {
 }
 
 ::selection {
-	background: $primary-color;
-	color:#fff; 
+	background: $primary-light;
+	color: $white;
 }
 
 a { 
@@ -201,7 +201,7 @@ a {
 	transition: color .3s ease;
 }
 a:hover,a:active,a:focus {
-	color: $primary-highlight;
+	color: $primary-light;
 }
 
 select {
@@ -251,7 +251,7 @@ h2.intro {
   font-size: 2.5rem;
 }
 p.intro {
-  font-family: $meta-font;
+  font-family: $mono-font;
   font-size: 1.3rem;
 }
 h3,
@@ -270,14 +270,32 @@ h4 {
 h5 { font-size: 1.2em; }
 h6 { font-size: 1.1em; }
 
-.brand-font { font-family: $brand-font; }
+.brand-font { font-family: $script-font; }
 .display-font { font-family: $display-font; }
 
 #main-nav {
   padding-bottom: 0;
   font-size: 1.4rem;
-  font-family: $meta-font;
+  font-family: $mono-font;
+
+  &::before {
+    content: "❦";
+    position: absolute;
+    bottom: -3.5rem;
+    left: -1.2rem;
+    font-size: 4.6rem;
+    color: $primary-color;
+  }
+  &::after {
+    content: "❧";
+    position: absolute;
+    bottom: -3.6rem;
+    right: -0.9rem;
+    font-size: 4.3rem;
+    color: $primary-color;
+  }
 }
+
 #main-nav .navbar-text {
   color: $primary-color;
 }
@@ -287,6 +305,42 @@ h6 { font-size: 1.1em; }
 #laughDropdown,
 #page h2.intro em {
   font-family: $title-font;
+}
+
+#main-nav .dropdown-menu {
+  border-top: 2px solid $primary-color;
+}
+
+#main-nav .dropdown-menu .dropdown-item {
+  padding-bottom: .3em;
+  margin: .3em .6em;
+  width: calc(100% - 1.2em);
+  
+  border: 1px solid lightgray;
+  //border: 1px solid hsl(0deg, 100%, 100%);
+  //border: 1px solid rgba(255, 255, 255, .3);
+  
+  border-bottom: 3px solid lightgray;
+  border-radius: var(--bs-border-radius-sm);
+  //border-radius: var(--bs-border-radius-big);
+  text-align: left;
+
+  //background: transparent, var(--grain-square-white-opacity-blend);
+  background: rgba(255, 255, 255, .6);
+  background-blend-mode: overlay;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  
+  transition: all .6s ease;
+
+  &:hover {
+      //background: transparent, var(--grain-square-white-opacity-blend);
+      //border-color: #228b22;
+      background: rgba(255, 255, 255, .9);
+      border-color: $primary-dark;
+      box-shadow: 0px 3px 6px rgba(149, 157, 165, 0.3) ;
+  }
+
 }
 
 
@@ -308,6 +362,7 @@ Buttons
   text-transform: uppercase;
   color: var(--bs-body-color);
   border-color: var(--bs-body-color);
+  border-radius: var(--bs-border-radius-sm);
   transition: .3s;
   transition-timing-function: ease-in;
 
@@ -331,6 +386,125 @@ Buttons
 }
 
 
+.btn-sketch {
+  display: inline-block;
+  padding: .75rem;
+
+  color: $offblack;
+  font-family: $body-font;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  text-decoration: none;
+
+  background-color: $white;
+  background-image: none;
+  background-position: 0 90%;
+  background-repeat: repeat no-repeat;
+  background-size: 4px 3px;
+
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  outline: none;
+
+  transition: all 260ms ease-in-out;
+
+  &:hover {
+    background-color: $hb-yellow-light;
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+    transform: translate3d(0, 2px, 0);
+  }
+  
+  &:focus {
+    background-color: $hb-yellow-light;
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+  }
+}
+
+
+.btn-switch {
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+  cursor: pointer;
+  padding: .1em .3em;
+  --c: #fff;
+  /* text color */
+  background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p,100%)/300% no-repeat,
+    #004dff;
+  /* background color */
+  color: #0000;
+  border: none;
+  transform: perspective(500px) rotateY(calc(20deg*var(--_i,-1)));
+  text-shadow: calc(var(--_i,-1)* 0.08em) -.01em 0   var(--c),
+    calc(var(--_i,-1)*-0.08em)  .01em 2px #0004;
+  outline-offset: .1em;
+  transition: 0.3s;
+}
+
+.btn-switch:hover,
+.btn-switch:focus-visible {
+  --_p: 0%;
+  --_i: 1;
+}
+
+.btn-switch:active {
+  text-shadow: none;
+  color: var(--c);
+  box-shadow: inset 0 0 9e9q #0005;
+  transition: 0s;
+}
+
+
+.btn-switch2 {
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+  cursor: pointer;
+  padding: .1em .3em;
+
+  --c: #fff;
+  /* text color */
+  background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p,100%)/300% no-repeat,
+   #0dcaf0;
+  /* background color */
+  color: #0000;
+  border: none;
+  transform: perspective(500px) rotateY(calc(20deg*var(--_i,-1)));
+  text-shadow: calc(var(--_i,-1)* 0.08em) -.01em 0   var(--c),
+    calc(var(--_i,-1)*-0.08em)  .01em 2px #0004;
+  outline-offset: .1em;
+  transition: 0.3s;
+}
+.btn-switch2:hover,
+.btn-switch2:focus-visible {
+  --_p: 0%;
+  --_i: 1;
+}
+
+.btn-switch2:active {
+  text-shadow: none;
+  color: var(--c);
+  box-shadow: inset 0 0 9e9q #0005;
+  transition: 0s;
+}
+
+
+
+
+
 /**************************************** 
 
 Cards
@@ -344,44 +518,86 @@ Cards
     margin-top: .3em;
     margin-bottom: .5em;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.2;
+  }
+
+  .card-excerpt {
+    padding-top: .6em;
+    border-top: 1px dashed $blue-mute;
+    color: $hb-black;
+    font-size: 1rem;
+    line-height: 1;
   }
 
   .card-text {
+
+    font-family: $body-font;
 
     strong {
       font-family: $display-font;
       color: $secondary-dark;
       font-weight: normal;
     }
-  
+
     a {
-      border-bottom: 2px solid $tertiary-color;
+        padding: 3px;
+
+        color: inherit;
+        background-image: linear-gradient(120deg, $hb-yellow 0%, $hb-yellow-light 100%);
+        background-repeat: no-repeat;
+        background-size: 100% 0.2em;
+        background-position: 0 92%;
+        border-bottom: 2px solid $title-color;
+        transition: background-size 0.3s ease-in;
+
+      
       &:hover {
-        border-bottom: 2px solid $primary-highlight;
+        color: $black;
+        text-shadow: #ECE6DC 0px 0px 1px;
+        background-size: 100% 100%;
+        border-bottom: 2px solid $hb-red;
       }
     }
   }
 
   .card-meta {
     margin: 1em 0 0;
-    font-family: $meta-font;
+    font-family: $mono-font;
     font-size: .6em;
     text-align: left;
   
     i {
       margin-right: 1em;
     }
-  
-    .card-author {
+
+    .post-meta {
       margin-bottom: 0;
-      font-style: italic;
+      padding-bottom: 3px;
+      padding-left: 5px;
+      padding-right: 5px;
+      border-bottom: 1px dashed rgba(0, 44, 44, .3);
       font-weight: bolder;
+      font-family: $script-font;
+     }
+     .card-author {
+      display: inline-block;
+      margin-bottom: 0;
+     }
+     .card-published {
+      display: inline-block;
+      margin-left: auto;
      }
   
     .post-tax {
       position: relative;
+      margin-bottom: 0;
+      padding-top: 3px;
+      padding-left: 5px;
       padding-bottom: .6em;
+
+      a {
+        margin-right: 8px;
+      }
     
     }
   }
@@ -401,8 +617,15 @@ Posts (Blog)
   .card-img-top {
     aspect-ratio: 12/7;
     object-fit: cover;
+    border-bottom: $secondary-light 1px solid;
+  }
+
+  .card-body {
+    background-image: url(https://nice2b.me/wp-content/uploads/paper-white-grain-512x512-1.jpg);
   }
 }
+
+
 
 
 
@@ -518,7 +741,7 @@ CPT - Jokes
 .jokes-list span.button a {
   padding: .6rem 1rem;
   margin:0;
-  font-family: $meta-font;
+  font-family: $mono-font;
   background: $blue-mute;
   text-transform: none;
 }
@@ -570,7 +793,7 @@ Header
 
     .site-title {
       margin-bottom: 0;
-      font-family: $brand-font;
+      font-family: $script-font;
       color:$lowlight;
       font-size: 70px;
       text-decoration:none;
@@ -609,17 +832,17 @@ footer {
   margin-top: 2rem;
   padding: 2rem 1rem;
   bottom:0;
-  color: $meta-color;	
+  color: $hb-black;
   background-color: $stone;
-  font-family: $meta-font;
-  font-size: 0.8rem;
+  font-family: $mono-font;
+  font-size: 1rem;
   text-align: center;
-  line-height:1.4rem;
+  line-height: 1.4rem;
   border-top: solid 4px $primary-color;
-  z-index:998;
+  z-index: 998;
 
   a {
-    color: $secondary-color;
+    color: $hb-yellow-light;
     font-size: 0.9rem;
     font-weight: bold;
 
@@ -999,4 +1222,34 @@ a.dropdown-item {
 .nav-menu-nav li.dropdown ul.dm-align-2 li{
 	list-style: none;
 }
+}
+
+
+/**************************************** 
+
+Responsive Styles
+****************************************/
+
+// Mobile (max-width 767px)
+@media screen and (max-width: 48em) {
+  nav#main-nav {
+    padding-bottom: .8rem;
+  }
+}
+
+// TABLETS AND BIGGER (min-width 768px)
+@media screen and (min-width: 48em) {
+  .site-content {
+    padding: 2.5em 0 0;
+  }
+  .page .card:not(.fill-w) .card-text {
+    column-count: 2;
+  }
+}
+
+// DESKTOP LG (min-width 1200px)
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
 }
