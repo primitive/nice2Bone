@@ -1,7 +1,6 @@
 /**
  * The Post List Component
- * @package Nice2B One
- * 2023
+ * @package Nice 2B
  */
 import React from "react";
 import { Link } from "react-router-dom";
@@ -29,12 +28,12 @@ const PostList = ({ posts }) => {
             </Link>
 
             <div className="card-body post-article post-details">
-              <h3 className="card-title">
+              <h2 className="card-title">
                 <Link
                   to={PrimitiveSettings.path + "posts/" + post.slug + "/"}
                   dangerouslySetInnerHTML={{ __html: post.title.rendered }}
                 ></Link>
-              </h3>
+              </h2>
 
               <div className="card-meta">
                 <p className="card-author text-muted">
@@ -62,12 +61,13 @@ const PostList = ({ posts }) => {
                 </p>
               </div>
 
-              <p dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
+              <div className="card-excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
 
               <div className="buttons">
                 <Link
-                  className="btn btn-primary"
+                  className="btn btn-sketch"
                   to={PrimitiveSettings.path + "posts/" + post.slug + "/"}
+                  alt={"Read post: "+post.title.rendered}
                 >
                   Read More
                 </Link>
