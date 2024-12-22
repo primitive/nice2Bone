@@ -1,7 +1,6 @@
 /**
- * The Post List Component
- * @package Nice2B One
- * 2023
+ * Post Single Component
+ * @package Nice 2B
  */
 import React from "react";
 import { Link } from "react-router-dom";
@@ -12,6 +11,7 @@ import Placeholder from "../n2b_placeholder1.jpg";
 
 const PostSingle = ({ post }) => {
   const renderPosts = () => {
+    
     // sk-dev: debug
     console.log(post);
 
@@ -19,9 +19,7 @@ const PostSingle = ({ post }) => {
       <div className="col">
         <article className="card fade-in">
           <img
-            src={
-              post.featured_image_src ? post.featured_image_src : Placeholder
-            }
+            src={post.featured_image_src || Placeholder}
             className="card-img"
             alt={post.title.rendered}
             title={post.title.rendered}
@@ -41,7 +39,8 @@ const PostSingle = ({ post }) => {
               }}
             />
           </div>
-          <div className="card-meta">
+
+          <div className="card-footer card-meta">
             <p className="card-text">
               <small className="text-muted">
                 {post.author_name} &ndash; {post.published_date}
