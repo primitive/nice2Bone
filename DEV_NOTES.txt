@@ -1,4 +1,9 @@
+AI Code Review & Suggestions: Post List
 
+https://chatgpt.com/share/67431c8b-4d00-800c-b37e-6c2e4319705d
+
+
+This theme is licensed under the GPL. Have fun with it.
 
 
 https://nice2b.me/wp-json/wp/v2/posts?filter[taxonomy]=category&filter[term]=uncategorised&page=1
