@@ -56,26 +56,26 @@ $joke-title-font: 'Luckiest Guy', cursive;
 
 
 // Colour
-$hb-black: #353333;
-$hb-red: #B31112;
-$hb-red-light: #C95859;
-$hb-red-dark: #6B0A0A;
+$pencil-black: #353333;
+$pencil-red: #B31112;
+$pencil-red-light: #C95859;
+$pencil-red-dark: #6B0A0A;
 //$red: #ED4B35;
 
-$hb-blue: #1112B3;
-$hb-blue-light: #4974a5;
-$hb-blue-dark: #060747;
+$pencil-blue: #1112B3;
+$pencil-blue-light: #4974a5;
+$pencil-blue-dark: #060747;
 
-$hb-yellow: #EBBF16;
-$hb-yellow-light: #FFEFC6;
+$pencil-yellow: #EBBF16;
+$pencil-yellow-light: #FFEFC6;
 
-$primary-color: $hb-red;
-$primary-dark: $hb-red-dark;
-$primary-light: $hb-red-light;
+$primary-color: $pencil-red;
+$primary-dark: $pencil-red-dark;
+$primary-light: $pencil-red-light;
 
-$secondary-color: $hb-blue;
-$secondary-dark: $hb-blue-dark;
-$secondary-light: $hb-blue-light;
+$secondary-color: $pencil-blue;
+$secondary-dark: $pencil-blue-dark;
+$secondary-light: $pencil-blue-light;
 
 $tertiary-color: #f783ac;
 $tertiary-dark: #f44e88;
@@ -131,6 +131,10 @@ $offblack: #1D1F25;
 $background-color: $paper;
 $background-image: url(https://nice2b.me/wp-content/uploads/noise.jpg);
 $background-image2: url(https://nice2b.me/wp-content/uploads/paper-lined-512x606-1.png);
+
+$background-image3: url(https://staging.nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
+
+
 $background-opacity: .12;
 
 :root {
@@ -179,6 +183,9 @@ body::before {
   min-height: 100%;
   height: 100%;
 }
+
+
+
 
 a:hover,a:active,a:focus,
 button:hover,button:active,button:focus,
@@ -422,13 +429,13 @@ Buttons
   transition: all 260ms ease-in-out;
 
   &:hover {
-    background-color: $hb-yellow-light;
+    background-color: $pencil-yellow-light;
     box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
     transform: translate3d(0, 2px, 0);
   }
   
   &:focus {
-    background-color: $hb-yellow-light;
+    background-color: $pencil-yellow-light;
     box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   }
 }
@@ -524,7 +531,7 @@ Cards
   .card-excerpt {
     padding-top: .6em;
     border-top: 1px dashed $blue-mute;
-    color: $hb-black;
+    color: $pencil-black;
     font-size: 1rem;
     line-height: 1;
   }
@@ -535,7 +542,7 @@ Cards
 
     strong {
       font-family: $display-font;
-      color: $secondary-dark;
+      color: $secondary-light;
       font-weight: normal;
     }
 
@@ -543,7 +550,7 @@ Cards
         padding: 3px;
 
         color: inherit;
-        background-image: linear-gradient(120deg, $hb-yellow 0%, $hb-yellow-light 100%);
+        background-image: linear-gradient(120deg, $pencil-yellow 0%, $pencil-yellow-light 100%);
         background-repeat: no-repeat;
         background-size: 100% 0.2em;
         background-position: 0 92%;
@@ -555,7 +562,7 @@ Cards
         color: $black;
         text-shadow: #ECE6DC 0px 0px 1px;
         background-size: 100% 100%;
-        border-bottom: 2px solid $hb-red;
+        border-bottom: 2px solid $pencil-red;
       }
     }
   }
@@ -664,6 +671,9 @@ Post (Single)
 ****************************************/
 
 .single-post {
+  #page-inner {
+    background-image: url(https://staging.nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
+  }
   .card-img {
     max-height: 400px;
     object-fit: cover;
@@ -832,7 +842,7 @@ footer {
   margin-top: 2rem;
   padding: 2rem 1rem;
   bottom:0;
-  color: $hb-black;
+  color: $pencil-black;
   background-color: $stone;
   font-family: $mono-font;
   font-size: 1rem;
@@ -842,7 +852,7 @@ footer {
   z-index: 998;
 
   a {
-    color: $hb-yellow-light;
+    color: $pencil-yellow-light;
     font-size: 0.9rem;
     font-weight: bold;
 
