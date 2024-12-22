@@ -1,6 +1,6 @@
 /**
- * The Footer
- * @package Nice2B One
+ * Footer Component
+ * @package Nice2B
  */
 
 import React from "react";
@@ -11,13 +11,15 @@ const Footer = () => (
       <div className="row">
         <div className="col">
           <p className="colophon">
-            Site maintained by the mysterious Mr. K. Crown prince, licensee and
-            proprietor of this unnatural domain.
+            Created and curated by the collective of conciousness known as Shaun
+            Knowles. Crown prince, licensee and proprietor of this unnatural
+            domain. Website maintained by primitiveshaun. Thoughts provided by
+            the Mysterious Mr. K, design by Skribble &amp; Sketch.
           </p>
           <p className="copyright">
             Copyright &copy; {PrimitiveSettings.title}{" "}
-            {new Date().getFullYear()} - Nice2b One Theme by{" "}
-            <a href="https://sknow.it"> Primitive Digital</a>
+            {new Date().getFullYear()} - Nice 2B Theme by{" "}
+            <a href="https://primitive.industries"> Primitive Digital</a>
           </p>
         </div>
       </div>
