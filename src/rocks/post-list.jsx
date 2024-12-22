@@ -9,18 +9,19 @@ import Preloader from "../pebbles/loader";
 import Placeholder from "../n2b_placeholder1.jpg";
 
 const PostList = ({ posts }) => {
+
+  const PostLink = ({ slug, children }) => (
+    <Link to={`${PrimitiveSettings.path}posts/${slug}/`}>{children}</Link>
+  );
+
   const renderPosts = () => {
     return posts.map((post, i) => {
       return (
-        <article className="col-md-4 card-outer" key={i}>
+        <article className="col-md-4 card-outer" key={post.id || post.slug}>
           <div className="card">
             <Link to={PrimitiveSettings.path + "posts/" + post.slug + "/"}>
               <img
-                src={
-                  post.featured_image_src
-                    ? post.featured_image_src
-                    : Placeholder
-                }
+                src={post.featured_image_src || Placeholder}
                 className="card-img-top"
                 alt={post.title.rendered}
                 title={post.title.rendered}
@@ -36,9 +37,16 @@ const PostList = ({ posts }) => {
               </h2>
 
               <div className="card-meta">
-                <p className="card-author text-muted">
-                  <i className="fas fa-pen-fancy" title="penned by"></i>
-                  {post.author_name} &ndash; {post.published_date}
+
+                <p className="post-meta text-muted d-flex">
+                  <span className="card-author">
+                    <i className="fas fa-pen-fancy" title="penned by"></i>
+                    {post.author_name}
+                  </span>
+                  <span className="card-published">
+                    <i className="far fa-calendar-alt" title="dated"></i>
+                    {post.published_date}
+                  </span>
                 </p>
 
                 <p className="post-tax">
