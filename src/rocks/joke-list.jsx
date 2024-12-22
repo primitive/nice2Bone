@@ -16,12 +16,12 @@ const JokeList = ({ posts }) => {
         <article className="col-md-4 card-outer" key={i}>
           <div className="card">
             <div className="card-body post-article post-details">
-              <h3 className="card-title">
+              <h2 className="card-title">
                 <Link
                   to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}
                   dangerouslySetInnerHTML={{ __html: post.title.rendered }}
                 ></Link>
-              </h3>
+              </h2>
 
               <div className="collapse" id={"jk-" + post.slug}>
                 <p
@@ -31,7 +31,7 @@ const JokeList = ({ posts }) => {
 
               <div className="buttons">
                 <button
-                  className="btn btn-danger"
+                  className="btn btn-switch"
                   type="button"
                   href={"#jk-" + post.slug}
                   data-bs-toggle="collapse"
@@ -42,7 +42,7 @@ const JokeList = ({ posts }) => {
                   Go on...
                 </button>
                 <Link
-                  className="btn btn-info"
+                  className="btn btn-switch2"
                   to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}
                 >
                   Go on, go on...
