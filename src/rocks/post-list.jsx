@@ -10,9 +10,9 @@ import Placeholder from "../n2b_placeholder1.jpg";
 
 const PostList = ({ posts }) => {
 
-  const PostLink = ({ slug, children }) => (
-    <Link to={`${PrimitiveSettings.path}posts/${slug}/`}>{children}</Link>
-  );
+  // const PostLink = ({ slug, children }) => (
+  //   <Link to={`${PrimitiveSettings.path}posts/${slug}/`}>{children}</Link>
+  // );
 
   const renderPosts = () => {
     return posts.map((post, i) => {
