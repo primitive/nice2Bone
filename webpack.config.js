@@ -77,12 +77,12 @@ module.exports = {
     	patterns: [
     	  { 
           from: "public/",
-          to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2bone",
+          to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2b",
           noErrorOnMissing: true
         },
     	  { 
           from: "dist/",
-          to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2bone/dist/",
+          to: "/Users/sknow/mamp/n2b/wp-content/themes/nice2b/dist/",
           noErrorOnMissing: true
         },
     	],
