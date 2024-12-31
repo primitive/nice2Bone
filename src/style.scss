@@ -699,30 +699,36 @@ Pages
     aspect-ratio: 47/15;
     object-fit: cover;
   }
-}
 
+  h1.card-title {
+    margin-bottom: 2.5rem;
+    padding: 0 0 1.5rem;
+    font-size: 3rem;
+    line-height: 2;
+    border-bottom: 1px solid $lowlight;
+  }
 
-.page h1.card-title {
-  margin-bottom: 2.5rem;
-  padding: 0 0 1.5rem;
-  font-size: 3rem;
-  line-height: 2;
-  border-bottom: 1px solid $lowlight;
-}
-.page .hasHeader h1.card-title {
-  color: $body-color;
-  font-family: $head-font;
-  font-weight: bold;
-  border-bottom: 1px solid $lowlight;
-  
-}
-.page h2 {
-  font-size: 2rem;
-  margin-bottom: 1.3rem;
-  margin-top: 1.3rem;
-}
-.page .card-title a {
-  color: $tertiary-color;
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.3rem;
+    margin-top: 1.3rem;
+  }
+
+  .card-title a {
+    color: $tertiary-color;
+  }
+
+  .hasHeader { 
+    border-top: 0px;
+
+    h1.card-title {
+      color: $body-color;
+      font-family: $head-font;
+      font-weight: bold;
+      border-bottom: 1px solid $lowlight;
+      
+    }
+  }
 }
 
 /**************************************** 
