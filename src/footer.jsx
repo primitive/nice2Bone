@@ -11,15 +11,15 @@ const Footer = () => (
       <div className="row">
         <div className="col">
           <p className="colophon">
-            Created and curated by the collective of conciousness known as Shaun
-            Knowles. Crown prince, licensee and proprietor of this unnatural
-            domain. Website maintained by primitiveshaun. Thoughts provided by
-            the Mysterious Mr. K, design by Skribble &amp; Sketch.
+            Site created &amp; curated by the collective unconscious community that resides within the entity commonly known as Shaun. <br/>Crown prince, licensee and proprietor of this unnatural domain.<br />
+            Website built and maintained by primitiveshaun. <br/>
+            Thoughts provided by the Mysterious Mind of Mr. K. <br/>
+            Design by Skribble &amp; Sketch.
           </p>
           <p className="copyright">
             Copyright &copy; {PrimitiveSettings.title}{" "}
             {new Date().getFullYear()} - Nice 2B Theme by{" "}
-            <a href="https://primitive.industries"> Primitive Digital</a>
+            <a href="https://primitive.industries"> Primitive Industries</a>
           </p>
         </div>
       </div>
