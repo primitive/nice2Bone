@@ -32,7 +32,8 @@ The following pre-requisites should be in place for the theme to work:
 1. WordPress version 6.0 or later
 2. Posts permalink set set to: Custom Structure - `/posts/%postname%/`
 
-3. ACF and CPT Plugins Installed
+3. ACF Plugin Installed
+4. primitive-bedrock plugin installed
 4. WP REST Filter and WP REST Cache Plugins Installed
 
 5. Create a CPT with permalink to be set as: Custom base i.e. - `/jokes/`
@@ -47,7 +48,7 @@ The following pre-requisites should be in place for the theme to work:
 
 ### Deployment
 4. `npm run build`
-5. In the WordPress Admin Dashboard go to Appearances > Themes and Activate `Nice2B One`
+5. In the WordPress Admin Dashboard go to Appearances > Themes and Activate `Nice2B`
 
     "watch": "webpack --watch --mode=development",
     "start": "babel-node src/app.js",
@@ -125,5 +126,5 @@ Add: ACF / Custom taxonomies support
 -------
 
 If you find any problems with this theme, please report an issue at:
-(https://github.com/primitive/nice2bone/issues).
+(https://github.com/primitive/nice2b/issues).
 
