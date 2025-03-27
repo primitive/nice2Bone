@@ -13,6 +13,7 @@ const PostList = ({ posts }) => {
   // const PostLink = ({ slug, children }) => (
   //   <Link to={`${PrimitiveSettings.path}posts/${slug}/`}>{children}</Link>
   // );
+  //console.log(posts);
 
   const renderPosts = () => {
     return posts.map((post, i) => {
@@ -51,7 +52,7 @@ const PostList = ({ posts }) => {
 
                 <p className="post-tax">
                   <i className="fas fa-cat" title="cat-egories"></i>
-                  {post.post_category.length
+                  {post.post_category?.length
                     ? post.post_category.map((item, index) => (
                         <a
                           key={item.toString()}
