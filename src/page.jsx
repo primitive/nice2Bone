@@ -1,99 +1,93 @@
 /**
  * The Page Component
  * @package Nice2B One
+ * 2025
  */
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import He from "he";
-import { isEmpty } from "./helpers";
 import NotFound from "./not-found";
 // import ReactGA from "react-ga4";
+import Preloader from "./pebbles/loader"; // Adjust path if needed
 
-const Page = (props) => {
-  const [page, setPage] = useState({});
 
+const Page = () => {
+  const { slug } = useParams();
+  const [ page, setPage ] = useState(null);
+  const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
-    fetchData();
+    if (!slug) return;
     // ReactGA.pageview(window.location.pathname + window.location.search);
+
+    setLoading(true);
+    setPage(null);
+
     document.body.className = "";
     document.body.classList.add("page");
-  }, []); // The empty array ensures that the effect only runs on mount
-
-  const fetchData = () => {
-    const url = window.location.href.split("/");
-    const slug = url.pop() || url.pop();
 
     fetch(`${PrimitiveSettings.URL.api}pages?slug=${slug}`)
       .then((response) => {
         if (!response.ok) {
-          document.title = response.statusText + "| Nice2B One";
+          document.title = response.statusText + " | Nice2B One";
           throw Error(response.statusText);
         }
         return response.json();
       })
       .then((res) => {
-        setPage(res[0]);
-        document.title = isEmpty(res[0])
-          ? "404 Page Not Found | Nice2B One"
-          : He.decode(res[0].title.rendered) + " | Nice2B One";
-        //console.log("response", res[0]);
+        const foundPage = res[0] || null;
+        setPage(foundPage);
+        document.title = foundPage
+          ? He.decode(foundPage.title.rendered) + " | Nice2B One"
+          : "404 Page Not Found | Nice2B One";
+        setLoading(false);
+      })
+      .catch(() => {
+        setPage(null);
+        setLoading(false);
       });
-  };
+  }, [slug]);
 
-  const renderPage = () => {
-    if (page.title) {
-      if (page.page_header) {
-        return (
-          <article className="card hasHeader">
-            <img
-              className="card-img-top"
-              src={page.page_header}
-              alt={He.decode(page.title.rendered)}
-            ></img>
-            <div className="card-body">
-              <h1
-                className="card-title"
-                dangerouslySetInnerHTML={{ __html: page.title.rendered }}
-              />
-              <p
-                className="card-text"
-                dangerouslySetInnerHTML={{
-                  __html: page.content.rendered,
-                }}
-              />
-            </div>
-          </article>
-        );
-      } else {
-        return (
-          <article className="card noHeader">
-            <div className="card-body">
-              <h1
-                className="card-title"
-                dangerouslySetInnerHTML={{ __html: page.title.rendered }}
-              />
-              <p
-                className="card-text"
-                dangerouslySetInnerHTML={{
-                  __html: page.content.rendered,
-                }}
-              />
-            </div>
-          </article>
-        );
-      }
-    } else {
-      renderEmpty();
-    }
-  };
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col text-center">
+            <Preloader />
+            <p className="display-font fs-2 blink">Thinking (stand back)...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  const renderEmpty = () => {
+  if (!page || !page.title) {
     return <NotFound />;
-  };
+  }
 
   return (
     <div className="container post-entry">
-      {page ? renderPage() : renderEmpty()}
+      <article className={`card ${page.page_header ? "hasHeader" : "noHeader"}`}>
+        {page.page_header && (
+          <img
+            className="card-img-top"
+            src={page.page_header}
+            alt={He.decode(page.title.rendered)}
+          />
+        )}
+        <div className="card-body">
+          <h1
+            className="card-title"
+            dangerouslySetInnerHTML={{ __html: page.title.rendered }}
+          />
+          <p
+            className="card-text"
+            dangerouslySetInnerHTML={{
+              __html: page.content.rendered,
+            }}
+          />
+        </div>
+      </article>
     </div>
   );
 };
