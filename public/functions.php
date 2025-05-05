@@ -29,7 +29,8 @@ function primitive_scripts() {
 
 	$mode = 'local';
 
-	$url = trailingslashit(home_url());
+	//$url = trailingslashit(home_url());
+	$url = "https://nice2b.me/";
 	$path = trailingslashit(parse_url($url, PHP_URL_PATH));
 
 	// $api_url = process.env.REACT_APP_API_URL;
@@ -42,7 +43,7 @@ function primitive_scripts() {
 
 	// echo $api_url;
 
-	$theme_name = "Nice 2B One";
+	$theme_name = "Nice 2B";
 	$theme_posts_title = "Posts & Articles";
 	$nav_brand_link = "";
 
