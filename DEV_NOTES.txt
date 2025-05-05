@@ -1,3 +1,11 @@
+React GA
+
+removed as public archive
+https://www.npmjs.com/package/react-ga
+
+Move to: https://www.npmjs.com/package/react-ga4
+
+
 AI Code Review & Suggestions: Post List
 
 https://chatgpt.com/share/67431c8b-4d00-800c-b37e-6c2e4319705d
