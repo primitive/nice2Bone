@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
 import { handleBeforeUnload } from "../helpers";
-// import ReactGA from "react-ga";
+// import ReactGA from "react-ga4";
 
 const Tags = (props) => {
   const [loading, setLoading] = useState(true);

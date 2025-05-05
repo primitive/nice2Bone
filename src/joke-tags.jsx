@@ -3,7 +3,7 @@ import React from "react";
 import withRouter from './withrouter';
 import PostList from './rocks/joke-list';
 import LoadingIcon from "./loading-icon.gif";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 class Tags extends React.Component {
   constructor(props) {

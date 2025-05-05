@@ -8,7 +8,7 @@ import Preloader from "../pebbles/loader";
 import JokeList from "../rocks/joke-list";
 import { handleBeforeUnload } from "../helpers";
 
-// import ReactGA from "react-ga";
+// import ReactGA from "react-ga4";
 // import { useNavigate } from "react-router";
 
 const Jokes = (props) => {

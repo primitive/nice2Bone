@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import He from "he";
 import { isEmpty } from "./helpers";
 import NotFound from "./not-found";
-// import ReactGA from "react-ga";
+// import ReactGA from "react-ga4";
 
 const Page = (props) => {
   const [page, setPage] = useState({});

@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import withRouter from './withrouter';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import LoadingIcon from "./loading-icon.gif";
 import { isEmpty } from './helpers';
 import NotFound from "./not-found";
