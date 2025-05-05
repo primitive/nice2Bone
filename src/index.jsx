@@ -24,15 +24,17 @@ import JokeCats from "./joke-categories";
 
 
 // sk-dev: remove or update
-// import ReactGA from "react-ga";
+// import ReactGA from "react-ga4";
 // ReactGA.initialize("UA-XXXXX-Y");
 
 // Load the Sass file
 require("./style.scss");
 
 function App() {
-  // sk-dev: env check
+
+  // sk-dev: env check + debug
   console.log(process.env.NODE_ENV);
+  console.log(PrimitiveSettings.path);
 
   return (
     <div id="wrapper">
