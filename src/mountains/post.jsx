@@ -4,7 +4,7 @@
  */
 import React, { useState, useEffect } from "react";
 import PostSingle from "../rocks/post-single";
-// import ReactGA from "react-ga";
+// import ReactGA from "react-ga4";
 //import { handleBeforeUnload } from "../helpers";
 import Preloader from "../pebbles/loader";
 import { isEmpty } from "../helpers";

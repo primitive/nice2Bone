@@ -10,6 +10,16 @@ Looked lovely but was not suitable for Websites due to SEO or prod due to perfor
 http://localhost:8888/n2b/tag/optimiseeverything/
 
 
+# React GA
+
+removed as public archive
+https://www.npmjs.com/package/react-ga
+Move to: https://www.npmjs.com/package/react-ga4
+
+
+# Temp Workaround for React 19 / spinners
+- https://github.com/mhnpd/react-loader-spinner/issues/182
+
 
 # TO DO
 1. Optimise Fonts use

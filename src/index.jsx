@@ -2,6 +2,7 @@
  * The Main App
  * @package Nice2B One
  * 2025
+ * 2025
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
@@ -34,8 +35,13 @@ import { usePageView } from './utils/ga4'
 require("./style.scss");
 
 function App() {
-  // sk-dev: env check
+
+  // sk-dev: env check + debug
   console.log(process.env.NODE_ENV);
+  console.log(PrimitiveSettings.root);
+  console.log('PrimitiveSettings:', PrimitiveSettings);
+  console.log('PrimitiveSettings.path:', PrimitiveSettings.path); // Should be /n2b/
+  console.log(window.location.pathname);
 
     // GA4: track page views on route change
     usePageView();
@@ -47,7 +53,7 @@ function App() {
             parent route elements. */}
 
       <Routes>
-        <Route path={PrimitiveSettings.path} element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           {/* A route with no path displays all posts: updated */}
           <Route index element={<Posts />} />
           {/* single post */}
@@ -105,11 +111,14 @@ function NoMatch() {
   );
 }
 
+{/* <BrowserRouter basename={PrimitiveSettings.path}></BrowserRouter> */}
+
+const basePath = PrimitiveSettings.path.replace(/\/$/, '');
 const container = document.getElementById("root");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basePath}>
       <App />
     </BrowserRouter>
   </React.StrictMode>

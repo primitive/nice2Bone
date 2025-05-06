@@ -84,10 +84,9 @@ add_action( 'after_setup_theme', 'primitive_slug_setup' );
 */
 
 
+// sk-dev: Moved to n2b-bedrock plugin
 
 /*-----------------------------------------------------------------------------------*/
-
-
 
 add_theme_support('automatic-feed-links');
 add_theme_support('post-thumbnails');

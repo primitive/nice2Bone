@@ -1,7 +1,7 @@
 /**
  * The Header Component
  * @package Nice2B One
- * 2023
+ * 2025
  */
 import React from "react";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ const Header = () => (
             <div className="site-brand">
               <Link
                 className="site-logo"
-                to={PrimitiveSettings.path}
+                to="/"
                 target="_self"
                 alt={ PrimitiveSettings.title }
                 title={ PrimitiveSettings.title }
@@ -47,7 +47,7 @@ const Header = () => (
     <nav id="main-nav" className="navbar navbar-expand-lg">
       <Link
         className="navbar-brand brand-font fs-1 d-block d-lg-none"
-        to={PrimitiveSettings.$nav_brand_link}
+        to="/"
       >
         {PrimitiveSettings.title}
       </Link>
@@ -68,10 +68,12 @@ const Header = () => (
         <div className="container-fluid">
           <ul className="navbar-nav mr-auto justify-content-center">
             <li className="nav-item">
-              <Link className="nav-link" to={PrimitiveSettings.path}>
+              <Link className="nav-link" to="/">
                 a blog <span className="sr-only">(current)</span>
               </Link>
             </li>
+
+            {/* THINK dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -87,57 +89,58 @@ const Header = () => (
               <div className="dropdown-menu" aria-labelledby="thinkDropdown">
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "think/about-what/"}
+                  to="think/about-what/"
                 >
                   What?
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "think/about-who/"}
-                >
-                  Who?
+                  to="think/about-who/"
+                  >
+                    Who?
+                  </Link>
+                <Link
+                  className="dropdown-item"
+                  to="think/about-where/"
+                  >
+                    Where?
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "think/about-where/"}
-                >
-                  Where?
+                  to="think/about-when/"
+                  >
+                    When?
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "think/about-when/"}
-                >
-                  When?
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "think/about-why/"}
+                  to="think/about-why/"
                 >
                   Why?
                 </Link>
                 <div className="dropdown-divider">And</div>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "think/about-how/"}
-                >
-                  How?
+                  to="think/about-how/"
+                  >
+                    How?
                 </Link>
                 <div className="dropdown-divider">And</div>
                 <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "think/analysis-of-images/"}
-                >
-                  Analysing Images
+                  className="dropdown-item" 
+                  to="think/analysis-of-images/"
+                  >
+                    Analysing Images
                 </Link>
-                <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "think/analysis-of-text/"}
-                >
-                  Analysing Text
+                <Link 
+                  className="dropdown-item" 
+                  to="think/analysis-of-text/"
+                  >
+                    Analysing Text
                 </Link>
               </div>
             </li>
 
+            {/* LIFE dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -153,30 +156,32 @@ const Header = () => (
               <div className="dropdown-menu" aria-labelledby="lifeDropdown">
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "life/inspiration/"}
-                >
-                  Inspiration
-                </Link>
+                  to="life/inspiration/"
+                  >
+                    Inspiration
+                  </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "life/heros-and-heroines/"}
+                  to="life/heros-and-heroines/"
                 >
                   Heros &amp; Heroines
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "life/quotes/"}
-                >
-                  Quotes
+                  to="life/quotes/"
+                  >
+                    Quotes
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "life/bucket-list/"}
-                >
-                  Bucket List
-                </Link>
+                  to="life/bucket-list/"
+                  >
+                    Bucket List
+                  </Link>
               </div>
             </li>
+
+            {/* LOVES dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -189,52 +194,54 @@ const Header = () => (
               >
                 Loves
               </a>
-              <div className="dropdown-menu" aria-labelledby="lifeDropdown">
-                <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "category/mind/"}
+              <div className="dropdown-menu" aria-labelledby="loveDropdown">
+                <Link 
+                className="dropdown-item" 
+                to="category/mind/"
                 >
                   Mind
                 </Link>
                 <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "category/consciousness/"}
-                >
-                  Consciousness
+                  className="dropdown-item" 
+                  to="category/consciousness/"
+                  >
+                    Consciousness
+                  </Link>
+                  <Link className="dropdown-item" 
+                  to="category/perception/"
+                  >
+                    Perception
                 </Link>
-                <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "category/perception/"}
-                >
-                  Perception
+                <Link 
+                  className="dropdown-item" 
+                  to="category/philosophy/"
+                  >
+                    Philosophy
                 </Link>
-                <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "category/philosophy/"}
-                >
-                  Philosophy
+                <Link 
+                  className="dropdown-item" 
+                  to="category/social-sciences/"
+                  >
+                    Social Sciences
                 </Link>
-                <Link
+                <Link 
                   className="dropdown-item"
-                  to={PrimitiveSettings.path + "category/social-sciences/"}
-                >
-                  Social Sciences
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "category/psychology/"}
+                  to="category/psychology/"
                 >
                   Psychology
                 </Link>
-                <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "category/web-design/"}
-                >
-                  Web Design
+                <Link 
+                  className="dropdown-item" 
+                  to="category/web-design/"
+                  >
+                    Web Design
                 </Link>
               </div>
             </li>
+
             <li className="navbar-text">and</li>
+
+            {/* LAUGHTER dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -247,13 +254,13 @@ const Header = () => (
               >
                 Laughter
               </a>
-              <div className="dropdown-menu" aria-labelledby="lifeDropdown">
-                <Link
-                  className="dropdown-item"
-                  to={PrimitiveSettings.path + "jokes/"}
-                >
-                  Jokes
-                </Link>
+              <div className="dropdown-menu" aria-labelledby="laughDropdown">
+                <Link 
+                  className="dropdown-item" 
+                  to="jokes/"
+                  >
+                    Jokes
+                  </Link>
               </div>
             </li>
           </ul>
