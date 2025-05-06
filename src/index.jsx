@@ -1,7 +1,7 @@
 /**
  * The Main App
  * @package Nice2B One
- * 2023
+ * 2025
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
@@ -23,9 +23,12 @@ import JokeTags from "./joke-tags";
 import JokeCats from "./joke-categories";
 
 
-// sk-dev: remove or update
-// import ReactGA from "react-ga";
-// ReactGA.initialize("UA-XXXXX-Y");
+// sk-dev: ga4 update untested
+
+//import ReactGA from 'react-ga4';
+//ReactGA.initialize('G-XXXXXXXXXX');
+
+import { usePageView } from './utils/ga4'
 
 // Load the Sass file
 require("./style.scss");
@@ -33,6 +36,9 @@ require("./style.scss");
 function App() {
   // sk-dev: env check
   console.log(process.env.NODE_ENV);
+
+    // GA4: track page views on route change
+    usePageView();
 
   return (
     <div id="wrapper">
