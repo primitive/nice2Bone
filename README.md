@@ -1,10 +1,9 @@
 # Nice 2B One
 A WordPress REST API based blog theme/app (CSR ONLY)
 
-Crafted with Node.js, React 18, Bootstrap 4 and Webpack 5.
-
-N.B. This was a very early experiment with React/WP.
-Not suitable for Websites due to SEO or prod due to performance 
+Crafted with Node.js v23, React 19, Bootstrap 5 and Webpack 5.
+This was one of my first experiments with React/WP.
+Looked lovely but was not suitable for Websites due to SEO or prod due to performance 
 
 ## Dev Notes
 
@@ -120,6 +119,12 @@ Add: ACF / Custom taxonomies support
 
 # Beta version (April 01, 2019):
 1. Supports posts, pages and categories
+
+# Release version 2 (April 01, 2025):
+
+2. 
+2. Uses [React Spinners](https://www.davidhu.io/react-spinners/)
+2. Uses [react-ga4](https://github.com/codler/react-ga4#readme)
 
 
 ## Support
