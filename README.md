@@ -1,10 +1,9 @@
 # Nice 2B One
 A WordPress REST API based blog theme/app (CSR ONLY)
 
-Crafted with Node.js, React 18, Bootstrap 4 and Webpack 5.
-
-N.B. This was a very early experiment with React/WP.
-Not suitable for Websites due to SEO or prod due to performance 
+Crafted with Node.js v23, React 19, Bootstrap 5 and Webpack 5.
+This was one of my first experiments with React/WP.
+Looked lovely but was not suitable for Websites due to SEO or prod due to performance 
 
 ## Dev Notes
 
@@ -42,7 +41,8 @@ The following pre-requisites should be in place for the theme to work:
 1. WordPress version 6.0 or later
 2. Posts permalink set set to: Custom Structure - `/posts/%postname%/`
 
-3. ACF and CPT Plugins Installed
+3. ACF Plugin Installed
+4. primitive-bedrock plugin installed
 4. WP REST Filter and WP REST Cache Plugins Installed
 
 5. Create a CPT with permalink to be set as: Custom base i.e. - `/jokes/`
@@ -57,7 +57,7 @@ The following pre-requisites should be in place for the theme to work:
 
 ### Deployment
 4. `npm run build`
-5. In the WordPress Admin Dashboard go to Appearances > Themes and Activate `Nice2B One`
+5. In the WordPress Admin Dashboard go to Appearances > Themes and Activate `Nice2B`
 
     "watch": "webpack --watch --mode=development",
     "start": "babel-node src/app.js",
@@ -130,10 +130,16 @@ Add: ACF / Custom taxonomies support
 # Beta version (April 01, 2019):
 1. Supports posts, pages and categories
 
+# Release version 2 (April 01, 2025):
+
+2. 
+2. Uses [React Spinners](https://www.davidhu.io/react-spinners/)
+2. Uses [react-ga4](https://github.com/codler/react-ga4#readme)
+
 
 ## Support
 -------
 
 If you find any problems with this theme, please report an issue at:
-(https://github.com/primitive/nice2bone/issues).
+(https://github.com/primitive/nice2b/issues).
 

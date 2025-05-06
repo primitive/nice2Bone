@@ -1,17 +1,17 @@
 import React from "react";
-import { Rings as Loader } from "react-loader-spinner";
-// import { Dna as Loader } from "react-loader-spinner";
-// see: https://mhnpd.github.io/react-loader-spinner/
+import Loader from "react-spinners/PacmanLoader";
 
 const PreLoader = (props) => {
-   return (
-     <Loader
-       color={props.color || "slategray"}
-       height={props.height || "100"}
-       width={props.width || "100"}
-       wrapperClass="justify-content-center"
-     />
-   );
- };
- 
- export default PreLoader;
+  return (
+      <div className="justify-content-center">
+        <Loader
+          color={props.color || "darkslategray"}
+          size={props.size || 25}
+          loading={props.loading || true}
+          //wrapperClass="justify-content-center"
+        />
+      </div>
+  );
+};
+
+export default PreLoader;

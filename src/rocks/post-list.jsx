@@ -51,7 +51,7 @@ const PostList = ({ posts }) => {
 
                 <p className="post-tax">
                   <i className="fas fa-cat" title="cat-egories"></i>
-                  {post.post_category.length
+                  {post.post_category?.length
                     ? post.post_category.map((item, index) => (
                         <CatLink
                           key={item.toString()}
