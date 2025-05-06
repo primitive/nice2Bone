@@ -1,7 +1,7 @@
 /**
  * The Posts Component
  * @package Nice2B One
- * 2023
+ * 2025
  */
 import React, { useState, useEffect } from "react";
 import Preloader from "../pebbles/loader";
