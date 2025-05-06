@@ -4,15 +4,15 @@
  * 2025
  */
 import React from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Preloader from "../pebbles/loader";
 import PostLink from "../pebbles/post-link";
 import CatLink from "../pebbles/category-link";
 import Placeholder from "../n2b_placeholder1.jpg";
 
-const PostList = ({ posts }) => {
 
+const PostList = ({ posts }) => {
 
   const renderPosts = () => {
     return posts.map((post, i) => {
@@ -69,8 +69,8 @@ const PostList = ({ posts }) => {
 
               <div className="buttons">
                 <PostLink
+                  slug={post.slug}
                   className="btn btn-sketch"
-                  to={`/posts/${post.slug}/`}
                   alt={`Read post: ${post.title.rendered}`}
                 >
                   Read More
