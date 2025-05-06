@@ -3,7 +3,7 @@ import Loader from "react-spinners/PacmanLoader";
 
 const PreLoader = (props) => {
   return (
-      <div className="justify-content-center">
+      <div className="d-inline-block py-3" style={{paddingRight: 50 + 'px' }}>
         <Loader
           color={props.color || "darkslategray"}
           size={props.size || 25}

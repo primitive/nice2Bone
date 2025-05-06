@@ -17,16 +17,16 @@ const Footer = () => (
             
             <br/>
 
-            Website crafted by the digital alchemy of primitiveshaun. <br/>
+            Website crafted by the digital alchemy of <a href="" class="display-font">primitiveshaun.</a><br/>
 
-            Words and thoughts, welcomed and otherwise, provided by the mysterious mind of the illusive Mr. K.<br/>
+            Words and thoughts, welcomed or otherwise, provided by the mysterious mind of the magical Mr. K.<br/>
 
-            Beautiful stuff designed by Scibble &amp; Sketch.
+            Beautiful stuff designed by <a href="" class="display-font">Scibble &amp; Sketch</a>.
           </p>
           <p className="copyright">
             Copyright &copy; {PrimitiveSettings.title}{" "}
             {new Date().getFullYear()} - Nice 2B One by{" "}
-            <a href="https://primitive.industries"> Primitive Industries</a>
+            <a href="https://primitive.industries" class="display-font"> Primitive Industries</a>
           </p>
         </div>
       </div>
