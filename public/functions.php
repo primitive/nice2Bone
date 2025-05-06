@@ -28,9 +28,10 @@ function primitive_scripts() {
 	wp_enqueue_script('primitive-script', get_stylesheet_directory_uri() . '/dist/app.js', array(), '1.0', true);
 
 	$mode = 'local';
+	$remote_url = "https://nice2b.me/";
 
-	//$url = trailingslashit(home_url());
-	$url = "https://nice2b.me/";
+	$url = trailingslashit(home_url());
+
 	$path = trailingslashit(parse_url($url, PHP_URL_PATH));
 
 	// $api_url = process.env.REACT_APP_API_URL;
@@ -38,8 +39,8 @@ function primitive_scripts() {
 	// $api_url = "http://localhost:8888/n2b/wp-json/wp/v2/";
 
 	// sk-dev: add conditional for local or production
-	$api_url = $url .= "wp-json/wp/v2/";
-	$bedrock_api_url = $url .= "wp-json/bedrock/v1/config";
+	$wp_api_url = trailingslashit($url) . "wp-json/wp/v2/";
+	$bedrock_api_url = trailingslashit($url) . "wp-json/bedrock/v1/config";
 
 	// echo $api_url;
 
@@ -52,9 +53,10 @@ function primitive_scripts() {
 		wp_json_encode(array(
 			'title' => get_bloginfo('name', 'display'),
 			'description' => get_bloginfo('description', 'display'),
+			'root' => $url,
 			'path' => $path,
 			'URL' => array(
-				'api' => esc_url_raw($api_url),
+				'api' => esc_url_raw($wp_api_url),
 				'root' => esc_url_raw($url),
 			),
 			'woo' => array(
