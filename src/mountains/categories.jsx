@@ -1,31 +1,40 @@
 /**
  * The Categories Component
  * @package Nice2B One
- * 2023
+ * 2025
  */
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
 import { handleBeforeUnload } from "../helpers";
 // import ReactGA from "react-ga4";
 
-const Categories = (props) => {
+const Categories = () => {
+  const { slug } = useParams();
+
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [category, setCategory] = useState("");
   const [pageNo, setPageNo] = useState(1);
   const [getPostsInCat, setGetPostsInCat] = useState(true);
 
+  // Reset state when category slug changes
   useEffect(() => {
+    setPosts([]);
+    setPageNo(1);
+    setGetPostsInCat(true);
+    setLoading(true);
+  }, [slug]);
 
-    // init ScrollMagic Controller
+  // ScrollMagic + fetch next page on scroll
+  useEffect(() => {
     const controller = new ScrollMagic.Controller();
     const scene = new ScrollMagic.Scene({
       triggerElement: "#footer",
       triggerHook: "onEnter",
     })
       .addTo(controller)
-      .on("enter", (e) => {
+      .on("enter", () => {
         if (getPostsInCat) {
           getMorePostsInCat();
         }
@@ -42,13 +51,14 @@ const Categories = (props) => {
     return () => {
       controller.destroy();
     };
-  }, [pageNo]);
+  }, [pageNo, getPostsInCat, slug]);
 
+  // Animate posts
   useEffect(() => {
     const FadeInController = new ScrollMagic.Controller();
     document
       .querySelectorAll(".posts-container .col-md-4.card-outer")
-      .forEach(function (item) {
+      .forEach((item) => {
         // build a scene
         const FadeInScene = new ScrollMagic.Scene({
           triggerElement: item.children[0],
@@ -65,29 +75,18 @@ const Categories = (props) => {
   }, [posts]);
 
   const getMorePostsInCat = () => {
-    let url = window.location.href.split("/");
-    let slug = url.pop() || url.pop();
-    let totalPages;
-    let endpoint = PrimitiveSettings.URL.api + "posts/?filter[taxonomy]=category&filter[term]=" + slug + "&page=" + pageNo;
-
-    console.log(slug, category);
-
-    setCategory(slug);
+    const endpoint = `${PrimitiveSettings.URL.api}posts/?filter[taxonomy]=category&filter[term]=${slug}&page=${pageNo}`;
+    console.log("Fetching category:", slug);
 
     fetch(endpoint)
       .then((response) => {
-        for (const pair of response.headers.entries()) {
-          if (pair[0] === "x-wp-totalpages") {
-            totalPages = pair[1];
-            console.log("totalPages", totalPages);
-          }
+        const totalPages = response.headers.get("x-wp-totalpages");
 
-          if (pageNo >= totalPages) {
-            setGetPostsInCat(false);
-          }
-          else {
-            setPageNo(pageNo + 1);
-          }
+        if (pageNo >= totalPages) {
+          setGetPostsInCat(false);
+        }
+        else {
+          setPageNo((prev) => prev + 1);
         }
         if (!response.ok) {
           document.title = `${response.statusText} | Nice2b.me`;
@@ -97,10 +96,12 @@ const Categories = (props) => {
       })
       .then((results) => {
         setPosts((prevPosts) => [...prevPosts, ...results]);
-        document.title = `Category: ${category} | Nice2b.me`;
+        setLoading(false);
+        document.title = `Category: ${slug} | Nice2b.me`;
       })
       .catch((error) => {
-        console.log("There has been a problem with your fetch operation: " + error.message);
+        console.error("Fetch error:", error.message);
+        setLoading(false);
       });
   };
 
@@ -127,8 +128,10 @@ const Categories = (props) => {
 
   return (
     <div className="container">
-        <h1 className="text-center">{PrimitiveSettings.theme_posts_title} about {category}</h1>
-        <PostList posts={posts} />
+      <h1 className="text-center">
+        {PrimitiveSettings.theme_posts_title} about {slug}
+      </h1>
+      <PostList posts={posts} />
     </div>
   );
 };
