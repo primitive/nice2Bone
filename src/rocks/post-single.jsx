@@ -49,7 +49,7 @@ const PostSingle = ({ post }) => {
             <div className="entry-info">
               <span>
                 <i className="fas fa-folder-open"></i>
-                {post.post_category.length
+                {post.post_category?.length
                   ? post.post_category.map((item, index) => (
                       <Link
                         key={item.toString()}
@@ -68,7 +68,7 @@ const PostSingle = ({ post }) => {
               </span>{" "}
               <span>
                 <i className="fas fa-tag"></i>
-                {post.post_tag.length
+                {post.post_tag?.length
                   ? post.post_tag.map((item, index) => (
                       <Link
                         key={item.toString()}
