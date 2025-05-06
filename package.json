@@ -35,7 +35,7 @@
     "react-dom": "^19.1.0",
     "react-ga4": "^2.1.0",
     "react-helmet": "^6.1.0",
-    "react-loader-spinner": "^6.1.6",
+    "react-spinners": "^0.15.0",
     "react-router-dom": "^7.5.3"
   },
   "devDependencies": {
@@ -83,11 +83,5 @@
     "webpack": "^5.99.7",
     "webpack-cli": "^6.0.1",
     "webpack-shell-plugin-next": "^2.3.2"
-  },
-  "overrides": {
-    "react-loader-spinner": {
-      "react": "^18 || ^19",
-      "react-dom": "^18 || ^19"
-    }
   }
 }
