@@ -1,3 +1,4 @@
+require('@dotenvx/dotenvx').load();
 const path = require("path");
 const webpack = require("webpack");
 const devMode = process.env.NODE_ENV !== "production";
@@ -74,19 +75,19 @@ module.exports = {
     // }),
 
     new CopyPlugin({
-    	patterns: [
-    	  { 
+      patterns: [
+        {
           from: "public/",
-          to: "/Users/shaunk/Studio/nice2b/wp-content/themes/nice2b",
-          noErrorOnMissing: true
+          to: process.env.REACT_APP_LOCAL_WP_THEME_DIR,
+          noErrorOnMissing: true,
         },
-    	  { 
+        {
           from: "dist/",
-          to: "/Users/shaunk/Studio/nice2b/wp-content/themes/nice2b/dist/",
-          noErrorOnMissing: true
+          to: path.join(process.env.REACT_APP_LOCAL_WP_THEME_DIR, "dist"),
+          noErrorOnMissing: true,
         },
-    	],
-      }),
+      ],
+    }),
 
 	new WebpackShellPlugin({
 		onBuildStart:{
