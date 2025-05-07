@@ -1,18 +1,18 @@
 
---
+-- fix: nested urls not updating view
 
-Since you want clean URLs long-term (for SSG and SEO), stick with BrowserRouter and:
+We want clean URLs long-term (for SSG and SEO), so sticking with BrowserRouter (not HashRouter) and:
 
 Use basename={PrimitiveSettings.path.replace(/\/$/, '')} (✔ already done).
 
 Keep all routes starting from / without repeating the subpath (✔ already done).
 
-Accept that for now, direct navigation or refresh at deep URLs (like /n2b/think/about-what/) requires Apache rewrite rules or a dev proxy.
+direct navigation or refresh at deep URLs (like /n2b/think/about-what/)
 
 
 
-🧩 Temporary Dev-Only Workaround (Optional)
-If you want to avoid .htaccess for now, but not switch to HashRouter, here's a workaround:
+🧩 alt Dev-Only Workaround
+want to avoid .htaccess rules for now, but not switch to HashRouter, here's a workaround:
 
 Run a local proxy dev server (e.g. Vite, Webpack Dev Server, or Parcel) that serves your SPA.
 
