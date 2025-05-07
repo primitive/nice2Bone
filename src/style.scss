@@ -306,6 +306,20 @@ h6 { font-size: 1.1em; }
 #main-nav .navbar-text {
   color: $primary-color;
 }
+
+#main-nav .navbar-toggler {
+  background: rgba(255, 255, 255, .2);
+  background-blend-mode: overlay;
+
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+
+  border: 1px solid hsl(0deg, 100%, 100%);
+  border: 1px solid rgba(255, 255, 255, .3);
+
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, .6);
+}
+
 #main-nav .dropdown-menu,
 #lifeDropdown,
 #loveDropdown,
