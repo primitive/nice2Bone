@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "test": "eslint src/ && echo 'Lint passed!'",
     "dev": "dotenvx run -- webpack --watch --mode=development",
     "start": "babel-node src/app.js",
-    "serve": "nodemon --exec npm start"
+    "serve": "nodemon --exec npm start",
+    "test": "eslint src/ && echo 'Lint passed!'",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css,scss,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,json,css,scss,md}\""
   },
   "keywords": [
     "headless",
