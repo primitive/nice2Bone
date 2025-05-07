@@ -37,14 +37,14 @@ require("./style.scss");
 function App() {
 
   // sk-dev: env check + debug
-  console.log(process.env.NODE_ENV);
-  console.log(PrimitiveSettings.root);
+  console.log('NODE_ENV:',process.env.NODE_ENV);
+  console.log('PrimitiveSettings.root:', PrimitiveSettings.root);
   console.log('PrimitiveSettings:', PrimitiveSettings);
   console.log('PrimitiveSettings.path:', PrimitiveSettings.path); // Should be /n2b/
   console.log(window.location.pathname);
 
-    // GA4: track page views on route change
-    usePageView();
+    // sk-dev to-do GA4: track page views on route change
+    // usePageView();
 
   return (
     <div id="wrapper">
