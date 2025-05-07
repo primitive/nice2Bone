@@ -1,4 +1,3 @@
-require('@dotenvx/dotenvx').load();
 const path = require("path");
 const webpack = require("webpack");
 const devMode = process.env.NODE_ENV !== "production";
@@ -39,7 +38,9 @@ module.exports = {
         extractComments: "all",
         terserOptions: {
           compress: true,
-          output: null,
+          output: {
+            comments: false,
+          }
         },
       }),
       new CssMinimizerPlugin({
