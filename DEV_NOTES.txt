@@ -1,9 +1,40 @@
-React GA
 
-removed as public archive
-https://www.npmjs.com/package/react-ga
+--
 
-Move to: https://www.npmjs.com/package/react-ga4
+Since you want clean URLs long-term (for SSG and SEO), stick with BrowserRouter and:
+
+Use basename={PrimitiveSettings.path.replace(/\/$/, '')} (✔ already done).
+
+Keep all routes starting from / without repeating the subpath (✔ already done).
+
+Accept that for now, direct navigation or refresh at deep URLs (like /n2b/think/about-what/) requires Apache rewrite rules or a dev proxy.
+
+
+
+🧩 Temporary Dev-Only Workaround (Optional)
+If you want to avoid .htaccess for now, but not switch to HashRouter, here's a workaround:
+
+Run a local proxy dev server (e.g. Vite, Webpack Dev Server, or Parcel) that serves your SPA.
+
+Proxy /wp-json/ and /dist/ back to WordPress.
+
+Use react-router-dom's BrowserRouter as intended.
+
+Then build a static export with clean URLs later.
+
+--
+
+
+
+Mini-map
+
+2.0.0
+
+2.1.0
+
+
+2.2.0
+Set up a react-snap or vite-ssg flow to generate static pages later.
 
 
 AI Code Review & Suggestions: Post List
