@@ -1,24 +1,29 @@
-const path = require("path");
-const webpack = require("webpack");
-const devMode = process.env.NODE_ENV !== "production";
-//const devMode = false;
+import path from "path"
+import { fileURLToPath } from "url"
+import webpack from "webpack"
 
-
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
 // --> extracts CSS into separate files. It creates a CSS file per JS file which contains CSS.
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 // --> uses cssnano to optimize and minify your CSS.
-const CompressionPlugin = require("compression-webpack-plugin");
+import CompressionPlugin from "compression-webpack-plugin"
 // --> prepare compressed versions of assets to serve them with Content-Encoding.
-const TerserPlugin = require("terser-webpack-plugin");
+import TerserPlugin from "terser-webpack-plugin"
 // --> use terser to minify/minimize your JavaScript.
-const CopyPlugin = require("copy-webpack-plugin");
+import CopyPlugin from "copy-webpack-plugin"
 // --> copies individual files or entire directories, which already exist, to the build directory.
-const WebpackShellPlugin = require('webpack-shell-plugin-next');
+import WebpackShellPlugin from "webpack-shell-plugin-next"
 // --> allows you to run any shell commands before or after webpack builds. 
 
 
-module.exports = {
+// ESM-friendly __dirname
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const devMode = process.env.NODE_ENV !== "production"
+//const devMode = false;
+
+export default {
   mode: "production",
   entry: {
     app: "./src/index.jsx",
@@ -40,7 +45,7 @@ module.exports = {
           compress: true,
           output: {
             comments: false,
-          }
+          },
         },
       }),
       new CssMinimizerPlugin({
@@ -89,20 +94,19 @@ module.exports = {
         },
       ],
     }),
-
-	new WebpackShellPlugin({
-		onBuildStart:{
-		  scripts: ['echo "===> Webpack 5 Start"'],
-		  blocking: true,
-		  parallel: false
-		},
-		onBuildEnd:{
-		  scripts: ['echo "Webpack End"'],
-		  blocking: false,
-		  parallel: true
-		}
-    //// onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css','echo "Webpack End"']
-	  })
+    new WebpackShellPlugin({
+      onBuildStart: {
+        scripts: ['echo "===> Webpack 5 Start"'],
+        blocking: true,
+        parallel: false,
+      },
+      onBuildEnd: {
+        scripts: ['echo "Webpack End"'],
+        blocking: false,
+        parallel: true,
+      },
+      //// onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css','echo "Webpack End"']
+    }),
   ],
   module: {
     rules: [
@@ -123,35 +127,43 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
-          "file-loader?name=[name].[ext]&outputPath=images/&publicPath=https://nice2b.me/wp-content/themes/nice2bone/dist/images",
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "images/",
+              publicPath:
+                "https://nice2b.me/wp-content/themes/nice2bone/dist/images",
+            },
+          },
           "image-webpack-loader",
         ],
       },
       {
         test: /\.(woff2?|svg)$/,
         // loader: "url-loader?limit=10000&name=fonts/[name].[ext]",
-		use: [
-			{
-				loader: 'url-loader',
-				options: {
-					limit: 1000,
-					name : 'fonts/[name].[ext]'
-				}
-			}
-		]
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 1000,
+              name: "fonts/[name].[ext]",
+            },
+          },
+        ],
       },
       {
         test: /\.(ttf|eot)$/,
         // loader: "file-loader?name=fonts/[name].[ext]",
-		use: [
-			{
-				loader: 'file-loader',
-				options: {
-					limit: 1000,
-					name : 'fonts/[name].[ext]'
-				}
-			}
-		]
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              limit: 1000,
+              name: "fonts/[name].[ext]",
+            },
+          },
+        ],
       },
     ],
   },
