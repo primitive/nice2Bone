@@ -19,7 +19,7 @@ class Joke extends React.Component {
 
   componentDidMount() {
     this.fetchData();
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    //ReactGA.pageview(window.location.pathname + window.location.search);
     document.body.className = "";
     document.body.classList.add('single-joke');
     console.log("mount joke");
