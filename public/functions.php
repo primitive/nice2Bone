@@ -30,7 +30,8 @@ function primitive_scripts() {
 	$mode = 'local';
 	$remote_url = "https://nice2b.me/";
 
-	$url = trailingslashit(home_url());
+	//$url = trailingslashit(home_url());
+	$url = "https://nice2b.me";
 
 	$path = trailingslashit(parse_url($url, PHP_URL_PATH));
 
