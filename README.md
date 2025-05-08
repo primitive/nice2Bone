@@ -63,12 +63,25 @@ The following pre-requisites should be in place for the theme to work:
     "start": "babel-node src/app.js",
     "serve": "nodemon --exec npm start"
 
+
+| Script         | Purpose                                                |
+| -------------- | ------------------------------------------------------ |
+| `build`        | Builds your project using Webpack                      |
+| `dev`          | Runs Webpack in watch mode with env vars via `dotenvx` |
+| `start`        | Runs your `src/app.js` using `babel-node`              |
+| `serve`        | Runs `start` with hot reloading via `nodemon`          |
+| `test`         | Lints all files in `src/` and prints `Lint passed!`    |
+| `lint:fix`     | Automatically fixes ESLint and Prettier issues         |
+| `format`       | Formats your files with Prettier                       |
+| `format:check` | Verifies formatting (useful for CI or PRs)             |
+
+
 ### Refs
-https://getbootstrap.com/docs/5.0/customize/css-variables/
-https://fontawesome.com/v5/docs
+- https://getbootstrap.com/docs/5.0/customize/css-variables/
+- https://fontawesome.com/v5/docs
 
 ### Inspiration
-https://github.com/based-ghost/react-seo-friendly-spa-template
+- https://github.com/based-ghost/react-seo-friendly-spa-template
 
 The code is opensource so go play...
 
@@ -143,3 +156,15 @@ Add: ACF / Custom taxonomies support
 If you find any problems with this theme, please report an issue at:
 (https://github.com/primitive/nice2b/issues).
 
+
+
+## Webpack
+
+
+Removed	+ Modern Equivalent Present?
+CopyPlugin (old syntax)	✅ You replaced it with CopyWebpackPlugin({ patterns: [...] })	✅
+WebpackShellPlugin	✅ Replaced with WebpackShellPluginNext	✅
+UglifyJsPlugin	✅ Replaced with TerserPlugin	✅
+OptimizeCSSAssetsPlugin	✅ Replaced with CssMinimizerPlugin	✅
+WebpackShellPlugin (deprecated)	✅ Replaced with WebpackShellPluginNext	✅
+process.traceDeprecation = true	🔄 Just a debugging aid, not required for builds	✅
