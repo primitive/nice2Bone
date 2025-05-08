@@ -1,15 +1,19 @@
 /**
  * The Jokes CPT List Component
  * @package Nice2B One
- * 2023
+ * 2025
  */
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Preloader from "../pebbles/loader";
+import JokeLink from "../pebbles/joke-link";
+// import CatLink from "../pebbles/category-link";
 // import Placeholder from "./n2b_placeholder1.jpg";
 
+
 const JokeList = ({ posts }) => {
+
   const renderPosts = () => {
     return posts.map((post, i) => {
       return (
@@ -17,10 +21,11 @@ const JokeList = ({ posts }) => {
           <div className="card">
             <div className="card-body post-article post-details">
               <h2 className="card-title">
-                <Link
-                  to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}
-                  dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                ></Link>
+                <JokeLink slug={post.slug}
+                dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                >
+
+                </JokeLink>
               </h2>
 
               <div className="collapse" id={"jk-" + post.slug}>
@@ -41,12 +46,17 @@ const JokeList = ({ posts }) => {
                 >
                   Go on...
                 </button>
-                <Link
+                {/* <Link
                   className="btn btn-switch2"
                   to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}
                 >
                   Go on, go on...
-                </Link>
+                </Link> */}
+                <JokeLink slug={post.slug}
+                  className="btn btn-switch2"
+                  >
+                  Go on, go on...
+                </JokeLink>
               </div>
               <div className="card-meta">
                 <p className="text-muted text-center">
