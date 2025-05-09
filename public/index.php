@@ -13,6 +13,7 @@
 
 <html <?php language_attributes(); ?> class="no-js">
 <head>
+
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,6 +35,7 @@
     <meta name="keywords" content=""/>
     <meta name="author" content="2B One"/>
     <meta name="robots" content="index, follow"/>
+    <link rel="profile" href="https://shaunknowles.uk" />
 
     <!-- <meta name="revisit-after" content="3 month"/>
     <meta name="googlebot" content="noodp"/>
@@ -53,7 +55,7 @@
     <meta name="apple-mobile-web-app-title" content="2B One"/>
     <meta name="application-name" content="2B One"/> -->
 
-    <link rel="profile" href="http://shaunknowles.uk" />
+
 
     <!--
     <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png"/>
