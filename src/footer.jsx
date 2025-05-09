@@ -1,6 +1,7 @@
 /**
  * Footer Component
  * @package Nice2B
+ * 2025
  */
 
 import React from "react";
