@@ -80,12 +80,15 @@ const Page = () => {
             className="card-title"
             dangerouslySetInnerHTML={{ __html: page.title.rendered }}
           />
-          <p
+          {/* <p
             className="card-text"
             dangerouslySetInnerHTML={{
               __html: page.content.rendered,
             }}
-          />
+          /> */}
+          <div className="card-text">
+            {processSmartTags(page.content.rendered)}
+          </div>
         </div>
       </article>
     </div>
