@@ -19,39 +19,39 @@ export const handleBeforeUnload = () => {
   }
 */
 
-export const displayBrowserInfo = () => {
-  // Browser information
-  console.log('Browser Information:');
-  console.log('---------------------');
-  console.log('User Agent: ' + navigator.userAgent);
-  console.log('Language: ' + navigator.language);
-  console.log('Platform: ' + navigator.platform);
-  console.log('Cookies Enabled: ' + navigator.cookieEnabled);
+// export const displayBrowserInfo = () => {
+//   // Browser information
+//   console.log('Browser Information:');
+//   console.log('---------------------');
+//   console.log('User Agent: ' + navigator.userAgent);
+//   console.log('Language: ' + navigator.language);
+//   console.log('Platform: ' + navigator.platform);
+//   console.log('Cookies Enabled: ' + navigator.cookieEnabled);
 
-  // Location information
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      console.log('Location Information:');
-      console.log('---------------------');
-      console.log('Latitude: ' + position.coords.latitude);
-      console.log('Longitude: ' + position.coords.longitude);
-      console.log('Accuracy: ' + position.coords.accuracy + ' meters');
-    }, function(error) {
-      console.log('Error getting location: ' + error.message);
-    });
-  } else {
-    console.log('Geolocation is not supported in this browser.');
-  }
+//   // Location information
+//   if ('geolocation' in navigator) {
+//     navigator.geolocation.getCurrentPosition(function(position) {
+//       console.log('Location Information:');
+//       console.log('---------------------');
+//       console.log('Latitude: ' + position.coords.latitude);
+//       console.log('Longitude: ' + position.coords.longitude);
+//       console.log('Accuracy: ' + position.coords.accuracy + ' meters');
+//     }, function(error) {
+//       console.log('Error getting location: ' + error.message);
+//     });
+//   } else {
+//     console.log('Geolocation is not supported in this browser.');
+//   }
 
-  // User information
-  console.log('User Information:');
-  console.log('---------------------');
-  console.log('Screen Width: ' + window.screen.width);
-  console.log('Screen Height: ' + window.screen.height);
-  console.log('Color Depth: ' + window.screen.colorDepth);
-  console.log('Browser Width: ' + window.innerWidth);
-  console.log('Browser Height: ' + window.innerHeight);
-}
+//   // User information
+//   console.log('User Information:');
+//   console.log('---------------------');
+//   console.log('Screen Width: ' + window.screen.width);
+//   console.log('Screen Height: ' + window.screen.height);
+//   console.log('Color Depth: ' + window.screen.colorDepth);
+//   console.log('Browser Width: ' + window.innerWidth);
+//   console.log('Browser Height: ' + window.innerHeight);
+// }
 
 // Call the function to display the information
 //displayBrowserInfo();
@@ -62,3 +62,41 @@ export const displayBrowserInfo = () => {
   Finally, it logs the user information, including the screen width, screen height, color depth, and browser window size.
   The availability and accuracy of location information may vary depending on the user's device, browser settings, and network conditions.
 */
+
+export const getBrowserInfo = () => {
+  const browserInfo = {
+    userAgent: navigator.userAgent,
+    language: navigator.language,
+    platform: navigator.platform,
+    cookiesEnabled: navigator.cookieEnabled,
+    screenWidth: window.screen.width,
+    screenHeight: window.screen.height,
+    colorDepth: window.screen.colorDepth,
+    browserWidth: window.innerWidth,
+    browserHeight: window.innerHeight,
+    location: null,
+    locationError: null
+  };
+
+  return new Promise((resolve) => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          browserInfo.location = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          };
+          resolve(browserInfo);
+        },
+        (error) => {
+          browserInfo.locationError = error.message;
+          resolve(browserInfo);
+        }
+      );
+    } else {
+      browserInfo.locationError = "Geolocation is not supported.";
+      resolve(browserInfo);
+    }
+  });
+};
