@@ -8,7 +8,8 @@ import { useParams } from "react-router-dom";
 import He from "he";
 import NotFound from "./not-found";
 // import ReactGA from "react-ga4";
-import Preloader from "./pebbles/loader"; // Adjust path if needed
+import Preloader from "./pebbles/loader";
+import { processSmartTags } from "./fire/smartTags";
 
 
 const Page = () => {
@@ -26,7 +27,9 @@ const Page = () => {
     document.body.className = "";
     document.body.classList.add("page");
 
-    fetch(`${PrimitiveSettings.URL.api}pages?slug=${slug}`)
+    const apiURL = process.env.REACT_APP_API_URL || "https://nice2b.me/wp-json/wp/v2/";
+
+    fetch(`${apiURL}pages?slug=${slug}`)
       .then((response) => {
         if (!response.ok) {
           document.title = response.statusText + " | Nice2B One";
