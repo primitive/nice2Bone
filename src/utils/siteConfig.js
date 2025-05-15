@@ -20,12 +20,14 @@ const getSafeApiUrl = () => {
 
 const siteConfig = {
   apiURL: getSafeApiUrl(),
-  siteName: "Nice2B",
+  siteName: "Nice 2B",
   version: "2025.0.0",
   theme: "dark",
   enableSmartTags: true,
   apiTimeout: 10000,
   gaTrackingId: process.env.REACT_APP_GA_TRACKING_ID || null,
+  siteBrandLink: "/",
+  postsHeader: "Posts & Articles",
 };
 
 export default siteConfig;
