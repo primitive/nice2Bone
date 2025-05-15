@@ -1,38 +1,29 @@
 /**
  * The Post Component
  * @package Nice2B One
+ * 2025
  */
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import siteConfig from "../utils/siteConfig";
 import PostSingle from "../rocks/post-single";
 // import ReactGA from "react-ga4";
-//import { handleBeforeUnload } from "../helpers";
 import Preloader from "../pebbles/loader";
 import { isEmpty } from "../helpers";
-// import NotFound from "../not-found";
 import He from "he";
 
-const Post = (props) => {
+const Post = () => {
+  const { slug } = useParams();
   const [loading, setLoading] = useState(true);
   const [post, setPost] = useState({});
 
   useEffect(() => {
+    if (!slug) return;
 
-    fetchData();
-    // ReactGA.pageview(window.location.pathname + window.location.search);
-    document.body.className = "";
-    document.body.classList.add("single-post");
-  }, []); // The empty array ensures that the effect only runs on mount and not on every render
+    setLoading(true);
+    setPost({});
 
-  const fetchData = () => {
-    let url = window.location.href.split("/");
-    let slug = url.pop() || url.pop();
-    //let endpoint = process.env.REACT_APP_API_URL + "/wp-json/wp/v2/posts?slug=" + slug;
-    let endpoint = PrimitiveSettings.URL.api + "posts?slug=" + slug
-
-    console.log("fetch slug", slug);
-    console.log("fetch post", isEmpty(post));
-
-    fetch(endpoint)
+    fetch(`${siteConfig.apiURL}posts?slug=${slug}`)
       .then((response) => {
         if (!response.ok) {
           document.title = response.statusText + "| Nice2b.me";
@@ -41,18 +32,25 @@ const Post = (props) => {
         return response.json();
       })
       .then((res) => {
-        setPost(res[0]);
+        const fetchedPost = res[0] || {};
+        setPost(fetchedPost);
         console.log("response", res[0]);
-        
-        document.title = isEmpty(res[0])
-          ? "404 Post Not Found | Nice2b.me"
-          : He.decode(res[0].title.rendered) + " | Nice2b.me";
+
+        document.title = !isEmpty(fetchedPost)
+          ? He.decode(fetchedPost.title.rendered) + " | Nice2B One"
+          : "404 Post Not Found | Nice2B One";
+        setLoading(false);
+      })
+      .catch(() => {
+        setPost({});
         setLoading(false);
       });
-  };
+
+    document.body.className = "";
+    document.body.classList.add("single-post");
+  }, [slug]);
 
   if (isEmpty(post)) {
-    //if (1==1) {
     return (
       <div className="container">
         {loading ? (
@@ -75,7 +73,7 @@ const Post = (props) => {
 
   return (
     <div className="container">
-        <PostSingle post={post} />
+      <PostSingle post={post} />
     </div>
   );
 
