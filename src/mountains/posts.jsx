@@ -4,9 +4,10 @@
  * 2025
  */
 import React, { useState, useEffect } from "react";
+import siteConfig from "../utils/siteConfig";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
-import { handleBeforeUnload } from "../helpers";
+// import { handleBeforeUnload } from "../helpers";
 // import ReactGA from "react-ga4";
 // import { useNavigate } from "react-router";
 
@@ -38,7 +39,7 @@ const Posts = (props) => {
 
     //ReactGA.pageview(window.location.pathname + window.location.search);
 
-    window.onbeforeunload = handleBeforeUnload;
+    // window.onbeforeunload = handleBeforeUnload;
 
     return () => {
       controller.destroy();
@@ -67,9 +68,8 @@ const Posts = (props) => {
 
   const getMorePosts = () => {
     let totalPages;
-    let endpoint = PrimitiveSettings.URL.api + "posts/?page=" + pageNo;
 
-    fetch(endpoint)
+    fetch(`${siteConfig.apiURL}posts/?page=${pageNo}`)
       .then((response) => {
         for (const pair of response.headers.entries()) {
           // get total number of pages
