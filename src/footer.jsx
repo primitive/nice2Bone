@@ -9,25 +9,29 @@ import React from "react";
 const Footer = () => (
   <footer id="footer">
     <div className="container">
-      <div className="row">
-        <div className="col">
-          <p className="colophon">
-
-            <small>This site was created and is curated by the collective unconscious community that resides within the being commonly known as Shaun.
-            <br/>Crown prince, licensee and proprietor of this unnatural domain.</small>
-            
-            <br/>
-
-            Website crafted by the digital alchemy of <a href="" className="display-font">primitiveshaun.</a><br/>
-
-            Words and thoughts, welcomed or otherwise, provided by the mysterious mind of the magical Mr. K.<br/>
-
-            Beautiful stuff designed by <a href="" className="display-font">Scibble &amp; Sketch</a>.
+      <div className="row justify-content-md-center">
+        <div className="col col-md-10">
+          <p className="colophon mb-2">
+            Created and curated by the collective community that resides within the being that is <a href="https://shaunknowles.uk" className="display-font">S.P.K.</a> <br />
+            Crown prince, licensee and proprietor of this unnatural domain.
           </p>
+
+          <p className="small mb-1">
+            Website crafted by the digital alchemy of <a href="https://primitiveweb.dev" className="display-font">primitiveshaun.</a>
+          </p>
+
+          <p className="small mb-1">
+            Words and thoughts, welcomed or otherwise, provided by the mysterious minds of the magical Mr Nice &amp; Mr Know.
+          </p>
+
+          <p className="colophon small mb-2">
+              Beautiful stuff designed by <a href="" className="display-font">Scibble &amp; Sketch</a>.
+          </p>
+
           <p className="copyright">
             Copyright &copy; {PrimitiveSettings.title}{" "}
             {new Date().getFullYear()} - Nice 2B One by{" "}
-            <a href="https://primitive.industries" className="display-font"> Primitive Industries</a>
+            <a href="https://primitive.industries" className="display-font">Primitive Industries</a>
           </p>
         </div>
       </div>
