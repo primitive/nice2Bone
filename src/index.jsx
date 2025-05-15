@@ -2,7 +2,6 @@
  * The Main App
  * @package Nice2B One
  * 2025
- * 2025
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
@@ -11,12 +10,14 @@ import { BrowserRouter, Route, Routes, Outlet, Link } from "react-router-dom";
 import Header from "./header";
 // import Header from "./header2";
 import Footer from "./footer";
+
 // views
 import Posts from "./mountains/posts";
 import Post from "./mountains/post";
 import Categories from "./mountains/categories";
 import Tags from "./mountains/tags";
-import Page from "./page";
+
+import Page from "./mountains/page";
 
 import Jokes from "./mountains/jokes";
 import Joke from "./joke";
@@ -37,11 +38,15 @@ require("./style.scss");
 function App() {
 
   // sk-dev: env check + debug
-  console.log('NODE_ENV:',process.env.NODE_ENV);
-  console.log('PrimitiveSettings.root:', PrimitiveSettings.root);
-  console.log('PrimitiveSettings:', PrimitiveSettings);
-  console.log('PrimitiveSettings.path:', PrimitiveSettings.path); // Should be /n2b/
-  console.log(window.location.pathname);
+  //console.log('PrimitiveSettings.root:', PrimitiveSettings.root);
+  //console.log('PrimitiveSettings:', PrimitiveSettings);
+  //console.log('PrimitiveSettings.path:', PrimitiveSettings.path); // Should be /n2b/
+  //console.log(window.location.pathname);
+
+
+    // sk-dev: env check + debug
+    console.log('NODE_ENV:', process.env.NODE_ENV);
+    console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
 
     // sk-dev to-do GA4: track page views on route change
     // usePageView();

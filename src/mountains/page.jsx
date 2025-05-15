@@ -6,10 +6,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import He from "he";
-import NotFound from "./not-found";
+import NotFound from "../not-found";
 // import ReactGA from "react-ga4";
-import Preloader from "./pebbles/loader";
-import { processSmartTags } from "./fire/smartTags";
+import Preloader from "../pebbles/loader";
+import { processSmartTags } from "../fire/smartTags";
 
 
 const Page = () => {
