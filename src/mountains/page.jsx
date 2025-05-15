@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import He from "he";
+import siteConfig from "../utils/siteConfig";
 import NotFound from "../not-found";
 // import ReactGA from "react-ga4";
 import Preloader from "../pebbles/loader";
@@ -27,9 +28,7 @@ const Page = () => {
     document.body.className = "";
     document.body.classList.add("page");
 
-    const apiURL = process.env.REACT_APP_API_URL || "https://nice2b.me/wp-json/wp/v2/";
-
-    fetch(`${apiURL}pages?slug=${slug}`)
+    fetch(`${siteConfig.apiURL}pages?slug=${slug}`)
       .then((response) => {
         if (!response.ok) {
           document.title = response.statusText + " | Nice2B One";
