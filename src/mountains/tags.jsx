@@ -1,22 +1,24 @@
 /**
  * The Tags Component
  * @package Nice2B One
- * 2023
+ * 2025
  */
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
-import { handleBeforeUnload } from "../helpers";
+import siteConfig from "../utils/siteConfig";
 // import ReactGA from "react-ga4";
 
-const Tags = (props) => {
+const Tags = () => {
+  const { slug } = useParams();
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [tag, setTag] = useState('');
   const [pageNo, setPageNo] = useState(1);
   const [getPostsWithTag, setGetPostsWithTag] = useState(true);
 
   useEffect(() => {
+    if (!slug) return;
 
     // init ScrollMagic Controller
     const controller = new ScrollMagic.Controller();
@@ -25,55 +27,45 @@ const Tags = (props) => {
       triggerHook: "onEnter",
     })
       .addTo(controller)
-      .on("enter", (e) => {
+      .on("enter", () => {
         if (getPostsWithTag) {
           getMorePostsWithTag();
         }
       });
 
-    document.title = PrimitiveSettings.theme_name + " - " + PrimitiveSettings.theme_posts_title;
+    // document.title = PrimitiveSettings.theme_name + " - " + PrimitiveSettings.theme_posts_title;
+    document.title = `Posts with tag: ${slug} | ${siteConfig.siteName}`;
     document.body.className = "";
     document.body.classList.add("tag-list");
-
-    //ReactGA.pageview(window.location.pathname + window.location.search);
-
-    window.onbeforeunload = handleBeforeUnload;
 
     return () => {
       controller.destroy();
     };
-  }, [pageNo]);
+  }, [pageNo, slug]);
 
   useEffect(() => {
-    const FadeInController = new ScrollMagic.Controller();
+    const fadeInController = new ScrollMagic.Controller();
     document
       .querySelectorAll(".posts-container .col-md-4.card-outer")
-      .forEach(function (item) {
-        // build a scene
-        const FadeInScene = new ScrollMagic.Scene({
+      .forEach((item) => {
+        new ScrollMagic.Scene({
           triggerElement: item.children[0],
           reverse: false,
           triggerHook: 1,
         })
           .setClassToggle(item, "fade-in")
-          .addTo(FadeInController);
+          .addTo(fadeInController);
       });
 
     return () => {
-      FadeInController.destroy();
+      fadeInController.destroy();
     };
   }, [posts]);
 
-  //const getMorePostsWithTag = async () => {
   const getMorePostsWithTag = () => {
-    let url = window.location.href.split("/");
-    let slug = url.pop() || url.pop();
     let totalPages;
-    let endpoint = PrimitiveSettings.URL.api + "posts/?filter[taxonomy]=post_tag&filter[tag]=" + slug + "&page=" + pageNo;
 
-    console.log(slug);
-
-    setTag(slug);
+    const endpoint = `${siteConfig.apiURL}posts/?filter[taxonomy]=post_tag&filter[tag]=${slug}&page=${pageNo}`;
 
     fetch(endpoint)
       .then((response) => {
@@ -91,17 +83,18 @@ const Tags = (props) => {
           }
         }
         if (!response.ok) {
-          document.title = `${response.statusText} | Nice2b.me`;
+          document.title = `${response.statusText} | ${siteConfig.siteName}`;
           throw Error(response.statusText);
         }
         return response.json();
       })
       .then((results) => {
         setPosts((prevPosts) => [...prevPosts, ...results]);
-        document.title = `Tag: ${tag} | Nice2b.me`;
+        setLoading(false);
       })
       .catch((error) => {
-        console.log("There has been a problem with your fetch operation: " + error.message);
+        console.error("Fetch error:", error.message);
+        setLoading(false);
       });
   };
 
@@ -109,16 +102,19 @@ const Tags = (props) => {
     return (
       <div className="container">
         {loading ? (
-          <div className="row">
+          <div className="row post-container">
             <div className="col text-center">
               <Preloader />
               <p className="display-font fs-2 blink">I like blinking, I do...</p>
             </div>
           </div>
         ) : (
-          <div className="row">
+          <div className="row post-container">
             <div className="col text-center">
-              <p className="display-4">No posts found</p>
+              <p className="display-font fs-1 p-5">No posts with tag {slug} - Tag you're it!</p>
+              <a href="/" className="btn btn-primary btn-lg">
+                Run away Home...
+              </a>
             </div>
           </div>
         )}
@@ -128,8 +124,10 @@ const Tags = (props) => {
 
   return (
     <div className="container">
-        <h1 className="text-center">{PrimitiveSettings.theme_posts_title} tagged with {tag}</h1>
-        <PostList posts={posts} />
+      <h1 className="text-center">
+        {siteConfig.postsHeader} tagged with <em>{slug}</em>
+      </h1>
+      <PostList posts={posts} />
     </div>
   );
 };
