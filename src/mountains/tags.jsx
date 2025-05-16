@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
+import { initFadeInScrollMagic } from "../utils/initFadeInScrollMagic";
 import siteConfig from "../utils/siteConfig";
 // import ReactGA from "react-ga4";
 
@@ -53,22 +54,8 @@ const Tags = () => {
   }, [pageNo, slug]);
 
   useEffect(() => {
-    const fadeInController = new ScrollMagic.Controller();
-    document
-      .querySelectorAll(".posts-container .col-md-4.card-outer")
-      .forEach((item) => {
-        new ScrollMagic.Scene({
-          triggerElement: item.children[0],
-          reverse: false,
-          triggerHook: 1,
-        })
-          .setClassToggle(item, "fade-in")
-          .addTo(fadeInController);
-      });
-
-    return () => {
-      fadeInController.destroy();
-    };
+    const fadeInController = initFadeInScrollMagic();
+    return () => fadeInController.destroy();
   }, [posts]);
 
   const getMorePosts = () => {
@@ -84,7 +71,8 @@ const Tags = () => {
         //   }
         // }
 
-        const totalPages = response.headers.get("x-wp-totalpages");
+        //const totalPages = response.headers.get("x-wp-totalpages");
+        const totalPages = parseInt(response.headers.get("x-wp-totalpages"), 10) || 1;
         console.log("totalPages", totalPages);
 
         if (pageNo >= totalPages) {
