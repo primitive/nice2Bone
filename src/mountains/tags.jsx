@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
-import { initFadeInScrollMagic } from "../utils/initFadeInScrollMagic";
+import { initFadeInScrollMagic } from "../utils/initScrollFadeIn";
 import siteConfig from "../utils/siteConfig";
 // import ReactGA from "react-ga4";
 
@@ -37,6 +37,7 @@ const Tags = () => {
     })
       .addTo(controller)
       .on("enter", () => {
+
         if (getPostsWithTag) {
           getMorePosts();
         }
@@ -60,18 +61,9 @@ const Tags = () => {
 
   const getMorePosts = () => {
     const endpoint = `${siteConfig.apiURL}posts/?filter[taxonomy]=post_tag&filter[tag]=${slug}&page=${pageNo}`;
-    //let totalPages;
 
     fetch(endpoint)
       .then((response) => {
-        // for (const pair of response.headers.entries()) {
-        //   if (pair[0] === "x-wp-totalpages") {
-        //     totalPages = pair[1];
-        //     console.log("totalPages", totalPages);
-        //   }
-        // }
-
-        //const totalPages = response.headers.get("x-wp-totalpages");
         const totalPages = parseInt(response.headers.get("x-wp-totalpages"), 10) || 1;
         console.log("totalPages", totalPages);
 
@@ -102,15 +94,24 @@ const Tags = () => {
   if (!posts.length) {
     return (
       <div className="container">
+
+          <div className="row">
+            <div className="col text-center">
+              <h1 className="text-center">
+                {siteConfig.postsHeader} tagged with <em>{slug}</em>
+              </h1>
+            </div>
+          </div>
+
         {loading ? (
-          <div className="row post-container">
+          <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">I like blinking, I do...</p>
+              <p className="display-font fs-2 blink">{siteConfig.postTaxPreloadText}</p>
             </div>
           </div>
         ) : (
-          <div className="row post-container">
+          <div className="row">
             <div className="col text-center">
               <p className="display-font fs-1 p-5">No posts with tag <em>{slug}</em> - Tag you're it!</p>
               <a href="/" className="btn btn-primary btn-lg">
@@ -125,9 +126,13 @@ const Tags = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center">
-        {siteConfig.postsHeader} tagged with <em>{slug}</em>
-      </h1>
+          <div className="row">
+            <div className="col text-center">
+              <h1 className="text-center">
+                {siteConfig.postsHeader} tagged with <em>{slug}</em>
+              </h1>
+            </div>
+          </div>
       <PostList posts={posts} />
     </div>
   );

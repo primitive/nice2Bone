@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
-import { initFadeInScrollMagic } from "../utils/initFadeInScrollMagic";
+import { initFadeInScrollMagic } from "../utils/initScrollFadeIn";
 import siteConfig from "../utils/siteConfig";
 // import ReactGA from "react-ga4";
 
@@ -102,15 +102,24 @@ const Categories = () => {
   if (!posts.length) {
     return (
       <div className="container">
+
+        <div className="row">
+          <div className="col text-center">
+            <h1 className="text-center">
+              {siteConfig.postsHeader} about <em>{slug}</em>
+            </h1>
+          </div>
+        </div>
+
         {loading ? (
-          <div className="row post-container">
+          <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">I like blinking, I do...</p>
+              <p className="display-font fs-2 blink">{siteConfig.postTaxPreloadText}</p>
             </div>
           </div>
         ) : (
-          <div className="row post-container">
+          <div className="row">
             <div className="col text-center">
               <p className="display-font fs-1 p-5">No posts in category <em>{slug}</em></p>
               <a href="/" className="btn btn-primary btn-lg">
@@ -125,9 +134,13 @@ const Categories = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center">
-        {siteConfig.postsHeader} in <em>{slug}</em>
-      </h1>
+        <div className="row">
+          <div className="col text-center">
+            <h1 className="text-center">
+              {siteConfig.postsHeader} about <em>{slug}</em>
+            </h1>
+          </div>
+        </div>
       <PostList posts={posts} />
     </div>
   );
