@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
-import { handleBeforeUnload } from "../helpers";
+import siteConfig from "../utils/siteConfig";
 // import ReactGA from "react-ga4";
 
 const Categories = () => {
@@ -26,7 +26,7 @@ const Categories = () => {
     setLoading(true);
   }, [slug]);
 
-  // ScrollMagic + fetch next page on scroll
+  // ScrollMagic + Infinite scroll fetch setup
   useEffect(() => {
     const controller = new ScrollMagic.Controller();
     const scene = new ScrollMagic.Scene({
@@ -40,43 +40,40 @@ const Categories = () => {
         }
       });
 
-    document.title = PrimitiveSettings.theme_name + " - " + PrimitiveSettings.theme_posts_title;
+    document.title = `Category: ${slug} | ${siteConfig.siteName}`;
     document.body.className = "";
     document.body.classList.add("category-list");
 
     //ReactGA.pageview(window.location.pathname + window.location.search);
-
-    window.onbeforeunload = handleBeforeUnload;
 
     return () => {
       controller.destroy();
     };
   }, [pageNo, getPostsInCat, slug]);
 
-  // Animate posts
+  // Animate posts fade-in
   useEffect(() => {
-    const FadeInController = new ScrollMagic.Controller();
+    const fadeInController = new ScrollMagic.Controller();
     document
       .querySelectorAll(".posts-container .col-md-4.card-outer")
       .forEach((item) => {
-        // build a scene
-        const FadeInScene = new ScrollMagic.Scene({
+        new ScrollMagic.Scene({
           triggerElement: item.children[0],
           reverse: false,
           triggerHook: 1,
         })
           .setClassToggle(item, "fade-in")
-          .addTo(FadeInController);
+          .addTo(fadeInController);
       });
 
     return () => {
-      FadeInController.destroy();
+      fadeInController.destroy();
     };
   }, [posts]);
 
   const getMorePostsInCat = () => {
-    const endpoint = `${PrimitiveSettings.URL.api}posts/?filter[taxonomy]=category&filter[term]=${slug}&page=${pageNo}`;
-    console.log("Fetching category:", slug);
+    const endpoint = `${siteConfig.apiURL}posts/?filter[taxonomy]=category&filter[term]=${slug}&page=${pageNo}`;
+   // console.log("Fetching category:", slug);
 
     fetch(endpoint)
       .then((response) => {
@@ -89,15 +86,14 @@ const Categories = () => {
           setPageNo((prev) => prev + 1);
         }
         if (!response.ok) {
-          document.title = `${response.statusText} | Nice2b.me`;
+          document.title = `${response.statusText} | ${siteConfig.siteName}`;
           throw Error(response.statusText);
         }
         return response.json();
       })
       .then((results) => {
-        setPosts((prevPosts) => [...prevPosts, ...results]);
+        setPosts((prev) => [...prev, ...results]);
         setLoading(false);
-        document.title = `Category: ${slug} | Nice2b.me`;
       })
       .catch((error) => {
         console.error("Fetch error:", error.message);
@@ -129,7 +125,7 @@ const Categories = () => {
   return (
     <div className="container">
       <h1 className="text-center">
-        {PrimitiveSettings.theme_posts_title} about {slug}
+        {siteConfig.siteName} posts about <em>{slug}</em>
       </h1>
       <PostList posts={posts} />
     </div>
