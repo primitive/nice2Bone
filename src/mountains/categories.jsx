@@ -12,22 +12,23 @@ import siteConfig from "../utils/siteConfig";
 
 const Categories = () => {
   const { slug } = useParams();
-
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [pageNo, setPageNo] = useState(1);
-  const [getPostsInCat, setGetPostsInCat] = useState(true);
+  const [getPostsWithCategory, setGetPostsWithCategory] = useState(true);
 
-  // Reset state when category slug changes
+  // Reset when slug changes
   useEffect(() => {
     setPosts([]);
     setPageNo(1);
-    setGetPostsInCat(true);
+    setGetPostsWithCategory(true);
     setLoading(true);
   }, [slug]);
 
   // ScrollMagic + Infinite scroll fetch setup
   useEffect(() => {
+    if (!slug) return;
+
     const controller = new ScrollMagic.Controller();
     const scene = new ScrollMagic.Scene({
       triggerElement: "#footer",
@@ -35,8 +36,8 @@ const Categories = () => {
     })
       .addTo(controller)
       .on("enter", () => {
-        if (getPostsInCat) {
-          getMorePostsInCat();
+        if (getPostsWithCategory) {
+          getMorePosts();
         }
       });
 
@@ -49,9 +50,8 @@ const Categories = () => {
     return () => {
       controller.destroy();
     };
-  }, [pageNo, getPostsInCat, slug]);
+  }, [pageNo, slug]);
 
-  // Animate posts fade-in
   useEffect(() => {
     const fadeInController = new ScrollMagic.Controller();
     document
@@ -71,24 +71,34 @@ const Categories = () => {
     };
   }, [posts]);
 
-  const getMorePostsInCat = () => {
+  const getMorePosts = () => {
     const endpoint = `${siteConfig.apiURL}posts/?filter[taxonomy]=category&filter[term]=${slug}&page=${pageNo}`;
-   // console.log("Fetching category:", slug);
+    //let totalPages;
 
     fetch(endpoint)
       .then((response) => {
+        // for (const pair of response.headers.entries()) {
+        //   if (pair[0] === "x-wp-totalpages") {
+        //     totalPages = pair[1];
+        //     console.log("totalPages", totalPages);
+        //   }
+        // }
+
         const totalPages = response.headers.get("x-wp-totalpages");
+        console.log("totalPages", totalPages);
 
         if (pageNo >= totalPages) {
-          setGetPostsInCat(false);
+          setGetPostsWithCategory(false);
         }
         else {
           setPageNo((prev) => prev + 1);
         }
+
         if (!response.ok) {
           document.title = `${response.statusText} | ${siteConfig.siteName}`;
           throw Error(response.statusText);
         }
+
         return response.json();
       })
       .then((results) => {
@@ -105,16 +115,19 @@ const Categories = () => {
     return (
       <div className="container">
         {loading ? (
-          <div className="row">
+          <div className="row post-container">
             <div className="col text-center">
               <Preloader />
               <p className="display-font fs-2 blink">I like blinking, I do...</p>
             </div>
           </div>
         ) : (
-          <div className="row">
+          <div className="row post-container">
             <div className="col text-center">
-              <p className="display-4">No posts found</p>
+              <p className="display-font fs-1 p-5">No posts in category <em>{slug}</em></p>
+              <a href="/" className="btn btn-primary btn-lg">
+                Run away Home...
+              </a>
             </div>
           </div>
         )}
@@ -125,7 +138,7 @@ const Categories = () => {
   return (
     <div className="container">
       <h1 className="text-center">
-        {siteConfig.siteName} posts about <em>{slug}</em>
+        {siteConfig.postsHeader} in <em>{slug}</em>
       </h1>
       <PostList posts={posts} />
     </div>

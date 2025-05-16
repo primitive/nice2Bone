@@ -17,10 +17,18 @@ const Tags = () => {
   const [pageNo, setPageNo] = useState(1);
   const [getPostsWithTag, setGetPostsWithTag] = useState(true);
 
+  // Reset when slug changes
+  useEffect(() => {
+    setPosts([]);
+    setPageNo(1);
+    setGetPostsWithTag(true);
+    setLoading(true);
+  }, [slug]);
+
+  // ScrollMagic + Infinite scroll fetch setup
   useEffect(() => {
     if (!slug) return;
 
-    // init ScrollMagic Controller
     const controller = new ScrollMagic.Controller();
     const scene = new ScrollMagic.Scene({
       triggerElement: "#footer",
@@ -29,14 +37,15 @@ const Tags = () => {
       .addTo(controller)
       .on("enter", () => {
         if (getPostsWithTag) {
-          getMorePostsWithTag();
+          getMorePosts();
         }
       });
 
-    // document.title = PrimitiveSettings.theme_name + " - " + PrimitiveSettings.theme_posts_title;
     document.title = `Posts with tag: ${slug} | ${siteConfig.siteName}`;
     document.body.className = "";
     document.body.classList.add("tag-list");
+
+    //ReactGA.pageview(window.location.pathname + window.location.search);
 
     return () => {
       controller.destroy();
@@ -62,34 +71,38 @@ const Tags = () => {
     };
   }, [posts]);
 
-  const getMorePostsWithTag = () => {
-    let totalPages;
-
+  const getMorePosts = () => {
     const endpoint = `${siteConfig.apiURL}posts/?filter[taxonomy]=post_tag&filter[tag]=${slug}&page=${pageNo}`;
+    //let totalPages;
 
     fetch(endpoint)
       .then((response) => {
-        for (const pair of response.headers.entries()) {
-          if (pair[0] === "x-wp-totalpages") {
-            totalPages = pair[1];
-            console.log("totalPages", totalPages);
-          }
+        // for (const pair of response.headers.entries()) {
+        //   if (pair[0] === "x-wp-totalpages") {
+        //     totalPages = pair[1];
+        //     console.log("totalPages", totalPages);
+        //   }
+        // }
 
-          if (pageNo >= totalPages) {
-            setGetPostsWithTag(false);
-          }
-          else {
-            setPageNo(pageNo + 1);
-          }
+        const totalPages = response.headers.get("x-wp-totalpages");
+        console.log("totalPages", totalPages);
+
+        if (pageNo >= totalPages) {
+          setGetPostsWithTag(false);
         }
+        else {
+          setPageNo((prev) => prev + 1);
+        }
+
         if (!response.ok) {
           document.title = `${response.statusText} | ${siteConfig.siteName}`;
           throw Error(response.statusText);
         }
+
         return response.json();
       })
       .then((results) => {
-        setPosts((prevPosts) => [...prevPosts, ...results]);
+        setPosts((prev) => [...prev, ...results]);
         setLoading(false);
       })
       .catch((error) => {
@@ -111,7 +124,7 @@ const Tags = () => {
         ) : (
           <div className="row post-container">
             <div className="col text-center">
-              <p className="display-font fs-1 p-5">No posts with tag {slug} - Tag you're it!</p>
+              <p className="display-font fs-1 p-5">No posts with tag <em>{slug}</em> - Tag you're it!</p>
               <a href="/" className="btn btn-primary btn-lg">
                 Run away Home...
               </a>
