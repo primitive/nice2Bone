@@ -28,6 +28,9 @@ const siteConfig = {
   gaTrackingId: process.env.REACT_APP_GA_TRACKING_ID || null,
   siteBrandLink: "/",
   postsHeader: "Posts & Articles",
+  postsPreloadText: "Thinking, stand back...",
+  postsNoneText: "No matching posts",
+  postTaxPreloadText: "I like blinking, I do...",
 };
 
 export default siteConfig;
