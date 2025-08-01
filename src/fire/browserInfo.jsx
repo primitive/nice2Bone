@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBrowserInfo } from "../utils/browserInfo";
+import { getBrowserInfo } from "./getInfo";
 
 const BrowserInfo = () => {
   const [info, setInfo] = useState(null);
