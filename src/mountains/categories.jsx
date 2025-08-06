@@ -3,7 +3,7 @@
  * @package Nice2B One
  * 2025
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
@@ -15,13 +15,14 @@ const Categories = () => {
   const { slug } = useParams();
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [pageNo, setPageNo] = useState(1);
+  //const [pageNo, setPageNo] = useState(1);
+  const pageNo = useRef(1);
   const [getPostsWithCategory, setGetPostsWithCategory] = useState(true);
 
   // Reset when slug changes
   useEffect(() => {
     setPosts([]);
-    setPageNo(1);
+    pageNo.current = 1;
     setGetPostsWithCategory(true);
     setLoading(true);
   }, [slug]);
@@ -51,7 +52,8 @@ const Categories = () => {
     return () => {
       controller.destroy();
     };
-  }, [pageNo, slug]);
+  //}, [pageNo, slug]);
+  }, [slug]); // ✅ Only run once per slug change
 
   useEffect(() => {
     const fadeInController = initFadeInScrollMagic();
@@ -59,44 +61,45 @@ const Categories = () => {
   }, [posts]);
 
   const getMorePosts = () => {
-    const endpoint = `${siteConfig.apiURL}posts/?filter[taxonomy]=category&filter[term]=${slug}&page=${pageNo}`;
-    //let totalPages;
+    //const endpoint = `${siteConfig.apiURL}posts/?filter[taxonomy]=category&filter[term]=${slug}&page=${pageNo}`;
+    const endpoint = `${siteConfig.siteURL}wp-json/bedrock/v1/posts-by-category/${slug}?page=${pageNo.current}`;
+
+    // You can also pass per_page, like:
+    // https://nice2b.me/wp-json/bedrock/v1/posts-by-category/general?page=2&per_page=6
+
+
 
     fetch(endpoint)
-      .then((response) => {
-        // for (const pair of response.headers.entries()) {
-        //   if (pair[0] === "x-wp-totalpages") {
-        //     totalPages = pair[1];
-        //     console.log("totalPages", totalPages);
-        //   }
-        // }
+    .then((response) => {
+      if (!response.ok) {
+        document.title = `${response.statusText} | ${siteConfig.siteName}`;
+        throw Error(response.statusText);
+      }
+      const totalPages = parseInt(response.headers.get("x-wp-totalpages") || "1", 10);
+      console.log("totalPages", totalPages);
+      console.log("pageNo", pageNo.current);
 
-        //const totalPages = response.headers.get("x-wp-totalpages");
-        const totalPages = parseInt(response.headers.get("x-wp-totalpages"), 10) || 1;
-        console.log("totalPages", totalPages);
+      // Stop if we've reached the end or fetching is disabled
+      if (pageNo.current > totalPages || !getPostsWithCategory) {
+        setGetPostsWithCategory(false);
+        return null;
+      }
 
-        if (pageNo >= totalPages) {
-          setGetPostsWithCategory(false);
-        }
-        else {
-          setPageNo((prev) => prev + 1);
-        }
+      return response.json();
+    })
+    .then((results) => {
+      if (!results) return;
 
-        if (!response.ok) {
-          document.title = `${response.statusText} | ${siteConfig.siteName}`;
-          throw Error(response.statusText);
-        }
+      setPosts((prev) => [...prev, ...results]);
+      setLoading(false);
 
-        return response.json();
-      })
-      .then((results) => {
-        setPosts((prev) => [...prev, ...results]);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Fetch error:", error.message);
-        setLoading(false);
-      });
+      // Only increment page after successful load
+      pageNo.current += 1;
+    })
+    .catch((error) => {
+      console.error("Fetch error:", error.message);
+      setLoading(false);
+    });
   };
 
   if (!posts.length) {
