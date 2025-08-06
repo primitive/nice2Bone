@@ -69,7 +69,7 @@ const Header = () => (
           <ul className="navbar-nav mr-auto justify-content-center">
             <li className="nav-item">
               <Link className="nav-link" to="/">
-                a blog <span className="sr-only">(current)</span>
+                a blog <span className="visually-hidden">(current)</span>
               </Link>
             </li>
 
