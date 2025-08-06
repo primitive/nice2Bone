@@ -31,9 +31,12 @@ import JokeCats from "./joke-categories";
 //ReactGA.initialize('G-XXXXXXXXXX');
 
 import { usePageView } from './utils/ga4'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // Load the Sass file
-require("./style.scss");
+//require("./style.scss");
+import "./style.scss";
 
 function App() {
 
