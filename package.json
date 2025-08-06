@@ -32,6 +32,8 @@
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.27.1",
+    "@fortawesome/fontawesome-free": "^7.0.0",
+    "bootstrap": "^5.3.7",
     "he": "^1.2.0",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
