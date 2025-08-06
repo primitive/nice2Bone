@@ -17,6 +17,8 @@ const Categories = () => {
   const [posts, setPosts] = useState([]);
   //const [pageNo, setPageNo] = useState(1);
   const pageNo = useRef(1);
+  const totalPagesRef = useRef(null);
+  const fetching = useRef(false);
   const [getPostsWithCategory, setGetPostsWithCategory] = useState(true);
 
   // Reset when slug changes
@@ -38,7 +40,7 @@ const Categories = () => {
     })
       .addTo(controller)
       .on("enter", () => {
-        if (getPostsWithCategory) {
+        if (!fetching.current && getPostsWithCategory) {
           getMorePosts();
         }
       });
@@ -61,44 +63,77 @@ const Categories = () => {
   }, [posts]);
 
   const getMorePosts = () => {
-    //const endpoint = `${siteConfig.apiURL}posts/?filter[taxonomy]=category&filter[term]=${slug}&page=${pageNo}`;
-    const endpoint = `${siteConfig.siteURL}wp-json/bedrock/v1/posts-by-category/${slug}?page=${pageNo.current}`;
+    console.log("getMorePosts CALLED", {
+      fetching: fetching.current,
+      pageNo: pageNo.current,
+      totalPages: totalPagesRef.current,
+    });
+
+      if (fetching.current) {
+        console.log("⛔ Skipping fetch — already in progress");
+        return;
+      }
+
+    if (!getPostsWithCategory) {
+      console.log("✅ Reached end — not fetching anymore");
+      return;
+    }
+
+    if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
+      console.log("🧱 Page limit hit");
+      setGetPostsWithCategory(false);
+      return;
+    }
+
+    // Stop if already fetching or past final page
+    if (fetching.current || !getPostsWithCategory) return;
+    if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
+      setGetPostsWithCategory(false);
+      return;
+    }
+
+    const currentPage = pageNo.current;
+    const endpoint = `${siteConfig.siteURL}wp-json/bedrock/v1/posts-by-category/${slug}?page=${currentPage}`;
+    fetching.current = true;
 
     // You can also pass per_page, like:
     // https://nice2b.me/wp-json/bedrock/v1/posts-by-category/general?page=2&per_page=6
 
 
-
     fetch(endpoint)
-    .then((response) => {
+     .then((response) => {
       if (!response.ok) {
         document.title = `${response.statusText} | ${siteConfig.siteName}`;
         throw Error(response.statusText);
       }
-      const totalPages = parseInt(response.headers.get("x-wp-totalpages") || "1", 10);
-      console.log("totalPages", totalPages);
-      console.log("pageNo", pageNo.current);
 
-      // Stop if we've reached the end or fetching is disabled
-      if (pageNo.current > totalPages || !getPostsWithCategory) {
-        setGetPostsWithCategory(false);
-        return null;
+      // Save total pages (once)
+      if (totalPagesRef.current === null) {
+        const total = parseInt(response.headers.get("x-wp-totalpages") || "1", 10);
+        totalPagesRef.current = total;
       }
+
+      // console.log("totalPages", totalPagesRef.current);
+      // console.log("pageNo", currentPage);
 
       return response.json();
     })
     .then((results) => {
-      if (!results) return;
+      if (!results || results.length === 0) {
+        setGetPostsWithCategory(false);
+        return;
+      }
 
       setPosts((prev) => [...prev, ...results]);
       setLoading(false);
-
-      // Only increment page after successful load
       pageNo.current += 1;
     })
     .catch((error) => {
       console.error("Fetch error:", error.message);
       setLoading(false);
+    })
+    .finally(() => {
+      fetching.current = false;
     });
   };
 
