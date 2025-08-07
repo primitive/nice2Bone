@@ -5,10 +5,9 @@
  */
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useInView } from 'react-intersection-observer';
+import { useInView } from "react-intersection-observer";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
-//import { initFadeInScrollMagic } from "../utils/initScrollFadeIn";
 import siteConfig from "../utils/siteConfig";
 // import ReactGA from "react-ga4";
 
@@ -20,93 +19,57 @@ const Categories = () => {
   const totalPagesRef = useRef(null);
   const fetching = useRef(false);
   const [getPostsWithCategory, setGetPostsWithCategory] = useState(true);
-
-  // Reset when slug changes
-  useEffect(() => {
-    setPosts([]);
-    pageNo.current = 1;
-    setGetPostsWithCategory(true);
-    setLoading(true);
-    getMorePosts();
-
-    console.log("init:", slug);
-
-    document.title = `Category: ${slug} | ${siteConfig.siteName}`;
-    document.body.className = '';
-    document.body.classList.add('category-list');
-
-    // Optionally: ReactGA.pageview(window.location.pathname + window.location.search);
-
-  }, [slug]);
-
-  // // ScrollMagic + Infinite scroll fetch setup
-  // useEffect(() => {
-  //   if (!slug) return;
-
-  //   const controller = new ScrollMagic.Controller();
-  //   const scene = new ScrollMagic.Scene({
-  //     triggerElement: "#footer",
-  //     triggerHook: "onEnter",
-  //   })
-  //     .addTo(controller)
-  //     .on("enter", () => {
-  //       if (!fetching.current && getPostsWithCategory) {
-  //         getMorePosts();
-  //       }
-  //     });
-
-  //   document.title = `Category: ${slug} | ${siteConfig.siteName}`;
-  //   document.body.className = "";
-  //   document.body.classList.add("category-list");
-
-  //   //ReactGA.pageview(window.location.pathname + window.location.search);
-
-  //   return () => {
-  //     controller.destroy();
-  //   };
-  // //}, [pageNo, slug]);
-  // }, [slug]); // ✅ Only run once per slug change
-
   const [loadMoreRef, inView] = useInView({
-    rootMargin: '200px 0px',
+    rootMargin: "200px 0px",
     triggerOnce: false,
   });
 
-  // useEffect(() => {
-  //   if (!slug) return;
-
-  //   // document.title = `Category: ${slug} | ${siteConfig.siteName}`;
-  //   // document.body.className = '';
-  //   // document.body.classList.add('category-list');
-
-  //   // // Optionally: ReactGA.pageview(window.location.pathname + window.location.search);
-  // }, [slug]);
-
-
+  // slug change effect
   useEffect(() => {
-    console.log("📍inView changed:", inView);
-    if (inView && !fetching.current && getPostsWithCategory) {
-      console.log("📦 Loading more posts");
-      getMorePosts();
-    }
+    let isMounted = true;
+
+    const fetchInitial = async () => {
+      setPosts([]);
+      pageNo.current = 1;
+      setGetPostsWithCategory(true);
+      setLoading(true);
+
+      document.title = `Category: ${slug} | ${siteConfig.siteName}`;
+      document.body.className = "";
+      document.body.classList.add("category-list");
+
+      await getMorePosts(isMounted);
+    };
+
+    fetchInitial();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
+
+  // named scroll observer handler
+  useEffect(() => {
+    const handleIntersection = () => {
+      if (inView && !fetching.current && getPostsWithCategory) {
+        console.log("📦 Loading more posts");
+        getMorePosts(true); // only run if still mounted
+      }
+    };
+
+    handleIntersection(); // Run immediately on change
   }, [inView, slug, getPostsWithCategory]);
 
-  const getMorePosts = () => {
+  // main fetch function
+  const getMorePosts = async (isMounted = true) => {
     if (process.env.NODE_ENV === "development") {
       console.log("getMorePosts CALLED", {
         fetching: fetching.current,
         pageNo: pageNo.current,
         totalPages: totalPagesRef.current,
       });
-
-      if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
-        console.log("🧱 Page limit hit");
-        setGetPostsWithCategory(false);
-        return;
-      }
     }
 
-    // Stop if already fetching or past final page
     if (fetching.current || !getPostsWithCategory) return;
     if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
       setGetPostsWithCategory(false);
@@ -121,11 +84,11 @@ const Categories = () => {
     // https://nice2b.me/wp-json/bedrock/v1/posts-by-category/general?page=2&per_page=6
 
 
-    fetch(endpoint)
-     .then((response) => {
+    try {
+      const response = await fetch(endpoint);
       if (!response.ok) {
         document.title = `${response.statusText} | ${siteConfig.siteName}`;
-        throw Error(response.statusText);
+        throw new Error(response.statusText);
       }
 
       // Save total pages (once)
@@ -134,37 +97,38 @@ const Categories = () => {
         totalPagesRef.current = total;
       }
 
-      return response.json();
-    })
-    .then((results) => {
+      const results = await response.json();
+
+      if (!isMounted) return;
 
       if (!results || results.length === 0) {
         setGetPostsWithCategory(false);
-        setLoading(false); // ← add this
+        setLoading(false);
         return;
       }
 
       setPosts((prev) => [...prev, ...results]);
       setLoading(false);
       pageNo.current += 1;
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error("Fetch error:", error.message);
-      setLoading(false);
-    })
-    .finally(() => {
+      if (isMounted) setLoading(false);
+    } finally {
       fetching.current = false;
-    });
+    }
   };
 
+  // preload and no posts
   if (!posts.length) {
     return (
       <div className="container">
-
         <div className="row">
           <div className="col text-center">
             <h1 className="text-center">
-              {siteConfig.postsHeader} about <em>{slug}</em>
+              {slug
+                ? <>{siteConfig.postsHeader} about <em>{slug}</em></>
+                : <>No category selected</>
+              }
             </h1>
           </div>
         </div>
@@ -180,7 +144,10 @@ const Categories = () => {
           <div className="row">
             <div className="col text-center">
               <p className="display-font fs-1 p-5">
-                No posts in category <em>{slug}</em>
+                {slug
+                  ? <>No posts in category <em>{slug}</em></>
+                  : <>No category selected</>
+                }
               </p>
               <a href="/" className="btn btn-primary btn-lg">
                 Run away Home...
@@ -192,15 +159,16 @@ const Categories = () => {
     );
   }
 
+  // render content
   return (
     <div className="container">
-        <div className="row">
-          <div className="col text-center">
-            <h1 className="text-center">
-              {siteConfig.postsHeader} about <em>{slug}</em>
-            </h1>
-          </div>
+      <div className="row">
+        <div className="col text-center">
+          <h1 className="text-center">
+            {siteConfig.postsHeader} about <em>{slug}</em>
+          </h1>
         </div>
+      </div>
       <PostList posts={posts} />
       <div ref={loadMoreRef} style={{ minHeight: "1px" }} />
     </div>
