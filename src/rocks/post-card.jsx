@@ -1,3 +1,8 @@
+/**
+ * PostCard Component
+ * @package Nice2B One
+ * 2025
+ */
 import React from "react";
 import { motion } from "framer-motion";
 import PostLink from "../pebbles/post-link";
@@ -5,17 +10,16 @@ import CatLink from "../pebbles/category-link";
 import Placeholder from "../n2b_placeholder1.jpg";
 
 const PostCard = ({ post, index }) => {
-  const delay = index * 0.1;
+  const delay = (index % 3) * 0.1;
+  const categories = post.post_category || [];
+  const categorySlugs = post.post_category_slug || [];
 
   return (
     <motion.article
       className="col-md-4 card-outer"
       initial={{ opacity: 0, y: 100 }}
-      //animate={{ opacity: 1, y: 0 }}
       whileInView={{ opacity: 1, y: 0 }}
-      //transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
-      //viewport={{ once: true, amount: 0.8 }}
-      transition={{ duration: 0.66, ease: "easeOut", delay: index * 0.1 }}
+      transition={{ duration: 0.66, ease: "easeOut", delay }}
       viewport={{ once: true, amount: 0.6 }}
     >
       <div className="card">
@@ -50,17 +54,14 @@ const PostCard = ({ post, index }) => {
 
             <p className="post-tax">
               <i className="fas fa-cat" title="cat-egories" />
-              {post.post_category?.length
-                ? post.post_category.map((item, index) => (
-                    <CatLink
-                      key={item.toString()}
-                      slug={post.post_category_slug[index]}
-                    >
-                      {item}
-                      {index < post.post_category.length - 1 && ", "}
+              {categories.length
+                ? categories.map((name, i) => (
+                    <CatLink key={name} slug={categorySlugs[i]}>
+                      {name}
+                      {i < categories.length - 1 && ", "}
                     </CatLink>
                   ))
-                : ", "}
+                : <span className="text-muted">No cats here</span>}
             </p>
           </div>
 
