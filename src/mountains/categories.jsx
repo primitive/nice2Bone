@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
-import { initFadeInScrollMagic } from "../utils/initScrollFadeIn";
+//import { initFadeInScrollMagic } from "../utils/initScrollFadeIn";
 import siteConfig from "../utils/siteConfig";
 // import ReactGA from "react-ga4";
 
@@ -57,32 +57,24 @@ const Categories = () => {
   //}, [pageNo, slug]);
   }, [slug]); // ✅ Only run once per slug change
 
-  useEffect(() => {
-    const fadeInController = initFadeInScrollMagic();
-    return () => fadeInController.destroy();
-  }, [posts]);
+  // useEffect(() => {
+  //   const fadeInController = initFadeInScrollMagic();
+  //   return () => fadeInController.destroy();
+  // }, [posts]);
 
   const getMorePosts = () => {
-    console.log("getMorePosts CALLED", {
-      fetching: fetching.current,
-      pageNo: pageNo.current,
-      totalPages: totalPagesRef.current,
-    });
+    if (process.env.NODE_ENV === "development") {
+      console.log("getMorePosts CALLED", {
+        fetching: fetching.current,
+        pageNo: pageNo.current,
+        totalPages: totalPagesRef.current,
+      });
 
-      if (fetching.current) {
-        console.log("⛔ Skipping fetch — already in progress");
+      if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
+        console.log("🧱 Page limit hit");
+        setGetPostsWithCategory(false);
         return;
       }
-
-    if (!getPostsWithCategory) {
-      console.log("✅ Reached end — not fetching anymore");
-      return;
-    }
-
-    if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
-      console.log("🧱 Page limit hit");
-      setGetPostsWithCategory(false);
-      return;
     }
 
     // Stop if already fetching or past final page
@@ -113,9 +105,6 @@ const Categories = () => {
         totalPagesRef.current = total;
       }
 
-      // console.log("totalPages", totalPagesRef.current);
-      // console.log("pageNo", currentPage);
-
       return response.json();
     })
     .then((results) => {
@@ -125,6 +114,14 @@ const Categories = () => {
       }
 
       setPosts((prev) => [...prev, ...results]);
+
+      // Only update if new posts are different
+      // setPosts((prev) => {
+      //   const existingIds = new Set(prev.map((p) => p.id));
+      //   const newPosts = results.filter((post) => !existingIds.has(post.id));
+      //   if (newPosts.length === 0) return prev; // No change, avoid triggering useEffect
+      //   return [...prev, ...newPosts];
+      // });
       setLoading(false);
       pageNo.current += 1;
     })
