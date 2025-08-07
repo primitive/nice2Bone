@@ -18,27 +18,28 @@ const Categories = () => {
   const pageNo = useRef(1);
   const totalPagesRef = useRef(null);
   const fetching = useRef(false);
-  const [getPostsWithCategory, setGetPostsWithCategory] = useState(true);
+  const [getMorePosts, setGetMorePosts] = useState(true);
   const [loadMoreRef, inView] = useInView({
     rootMargin: "200px 0px",
     triggerOnce: false,
   });
 
   // slug change effect
+  // sk-dev: task redo set title and body class on mount
   useEffect(() => {
     let isMounted = true;
 
     const fetchInitial = async () => {
       setPosts([]);
       pageNo.current = 1;
-      setGetPostsWithCategory(true);
+      setGetMorePosts(true);
       setLoading(true);
 
       document.title = `Category: ${slug} | ${siteConfig.siteName}`;
       document.body.className = "";
       document.body.classList.add("category-list");
 
-      await getMorePosts(isMounted, true);
+      await getPosts(isMounted, true);
     };
 
     fetchInitial();
@@ -50,36 +51,33 @@ const Categories = () => {
 
   // named scroll observer handler
   useEffect(() => {
-    const handleIntersection = () => {
-      if (inView && !fetching.current && getPostsWithCategory) {
-        console.log("📦 Loading more posts");
-        getMorePosts(true); // only run if still mounted
-      }
-    };
-
-    handleIntersection(); // Run immediately on change
-  }, [inView, slug, getPostsWithCategory]);
+    if (inView && !fetching.current && getMorePosts) {
+      console.log("📦 Loading more posts");
+      getPosts(true);
+    }
+  }, [inView, getMorePosts]);
 
   // main fetch function
-  const getMorePosts = async (isMounted = true, isInitial = false) => {
-    if (!isInitial && (fetching.current || !getPostsWithCategory)) return;
+  const getPosts = async (isMounted = true, isInitial = false) => {
+    if (!isInitial && (fetching.current || !getMorePosts)) return;
 
     if (process.env.NODE_ENV === "development") {
-      console.log("getMorePosts CALLED", {
+      console.log("getPosts CALLED", {
         fetching: fetching.current,
         pageNo: pageNo.current,
         totalPages: totalPagesRef.current,
       });
     }
 
-    if (fetching.current || !getPostsWithCategory) return;
+    if (fetching.current || !getMorePosts) return;
     if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
-      setGetPostsWithCategory(false);
+      setGetMorePosts(false);
       return;
     }
 
     const currentPage = pageNo.current;
-    const endpoint = `${siteConfig.siteURL}wp-json/bedrock/v1/posts-by-category/${slug}?page=${currentPage}&per_page=${siteConfig.postsPerPage}`;
+    const perPage = siteConfig.postsPerPage || 12;
+    const endpoint = `${siteConfig.siteURL}wp-json/bedrock/v1/posts-by-category/${slug}?page=${currentPage}&per_page=${perPage}`;
     fetching.current = true;
 
     // You can also pass per_page, like:
@@ -104,14 +102,22 @@ const Categories = () => {
       if (!isMounted) return;
 
       if (!results || results.length === 0) {
-        setGetPostsWithCategory(false);
+        setGetMorePosts(false);
         setLoading(false);
         return;
       }
 
-      setPosts((prev) => [...prev, ...results]);
-      setLoading(false);
+      // extra check: deduplicate by ID before appending
+      setPosts((prev) => {
+        const existingIds = new Set(prev.map((p) => p.id));
+        const uniqueNew = results.filter((p) => !existingIds.has(p.id));
+        return [...prev, ...uniqueNew];
+      });
+
+ 
       pageNo.current += 1;
+      setLoading(false);
+
     } catch (error) {
       console.error("Fetch error:", error.message);
       if (isMounted) setLoading(false);
