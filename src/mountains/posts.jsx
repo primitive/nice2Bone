@@ -58,8 +58,13 @@ const Posts = () => {
   }, [inView, getMorePosts]);
 
   const fetchPosts = async (isMounted = true, isInitial = false) => {
-    if (!isInitial && (fetching.current || !getMorePosts)) return;
+    if (fetching.current) return;
     fetching.current = true;
+
+    if (!isInitial && !getMorePosts) {
+      fetching.current = false;
+      return;
+    }
 
     if (process.env.NODE_ENV === "development") {
       console.log("fetchPosts CALLED", {
@@ -77,9 +82,6 @@ const Posts = () => {
     const currentPage = pageNo.current;
     const perPage = siteConfig.postsPerPage || 12;
     const endpoint = `${siteConfig.apiURL}posts/?page=${currentPage}&per_page=${perPage}`;
-
-    // You can also pass per_page, like:
-    // https://nice2b.me/wp-json/bedrock/v1/posts-by-category/general?page=2&per_page=6
 
     try {
       const response = await fetch(endpoint);

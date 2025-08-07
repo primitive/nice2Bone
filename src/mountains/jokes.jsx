@@ -58,8 +58,13 @@ const Jokes = () => {
   }, [inView, getMorePosts]);
 
   const fetchPosts = async (isMounted = true, isInitial = false) => {
-    if (!isInitial && (fetching.current || !getMorePosts)) return;
+    if (fetching.current) return;
     fetching.current = true;
+
+    if (!isInitial && !getMorePosts) {
+      fetching.current = false;
+      return;
+    }
 
     if (process.env.NODE_ENV === "development") {
       console.log("fetchPosts CALLED", {

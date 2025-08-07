@@ -60,11 +60,16 @@ const Categories = () => {
 
   // main fetch function
   const fetchPosts = async (isMounted = true, isInitial = false) => {
-    if (!isInitial && (fetching.current || !getMorePosts)) return;
+    if (fetching.current) return;
+    fetching.current = true;
+
+    if (!isInitial && !getMorePosts) {
+      fetching.current = false;
+      return;
+    }
 
     if (process.env.NODE_ENV === "development") {
       console.log("fetchPosts CALLED", {
-        fetching: fetching.current,
         pageNo: pageNo.current,
         totalPages: totalPagesRef.current,
       });
@@ -72,16 +77,13 @@ const Categories = () => {
 
     if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
       setGetMorePosts(false);
+      fetching.current = false;
       return;
     }
 
     const currentPage = pageNo.current;
     const perPage = siteConfig.postsPerPage || 12;
     const endpoint = `${siteConfig.siteURL}wp-json/bedrock/v1/posts-by-category/${slug}?page=${currentPage}&per_page=${perPage}`;
-    fetching.current = true;
-
-    // You can also pass per_page, like:
-    // https://nice2b.me/wp-json/bedrock/v1/posts-by-category/general?page=2&per_page=6
 
     try {
       const response = await fetch(endpoint);
