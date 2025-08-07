@@ -3,105 +3,136 @@
  * @package Nice2B One
  * 2025
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
-import { initFadeInScrollMagic } from "../utils/initScrollFadeIn";
 import siteConfig from "../utils/siteConfig";
 // import ReactGA from "react-ga4";
 
-const Posts = (props) => {
-
+const Posts = () => {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [pageNo, setPageNo] = useState(1);
-  const [getPosts, setGetPosts] = useState(true);
+  const pageNo = useRef(1);
+  const totalPagesRef = useRef(null);
+  const fetching = useRef(false);
+  const [getMorePosts, setGetMorePosts] = useState(true);
+  const [loadMoreRef, inView] = useInView({
+    rootMargin: "200px 0px",
+    triggerOnce: false,
+  });
 
-
-
-
-
-
-
-
-
-  // ScrollMagic + Infinite scroll fetch setup
+  // sk-dev: task redo set title and body class on mount
   useEffect(() => {
+    let isMounted = true;
 
+    const fetchInitial = async () => {
+      setPosts([]);
+      pageNo.current = 1;
+      setGetMorePosts(true);
+      setLoading(true);
 
-    const controller = new ScrollMagic.Controller();
-    const scene = new ScrollMagic.Scene({
-      triggerElement: "#footer",
-      triggerHook: "onEnter",
-    })
-      .addTo(controller)
-      .on("enter", () => {
-        //console.log("getPosts", getPosts);
-        if (getPosts) {
-          getMorePosts();
-        }
-      });
+      document.title = `${siteConfig.postsHeader} | ${siteConfig.siteName}`;
+      document.body.className = "";
+      document.body.classList.add("posts-list");
+      //ReactGA.pageview(window.location.pathname + window.location.search);
 
-    document.title = `${siteConfig.postsHeader} | ${siteConfig.siteName}`;
-    document.body.className = "";
-    document.body.classList.add("posts-list");
+      await fetchPosts(isMounted, true);
+    };
 
-    //ReactGA.pageview(window.location.pathname + window.location.search);
+    fetchInitial();
 
     return () => {
-      controller.destroy();
+      isMounted = false;
     };
-  }, [pageNo]);
+  }, []);
 
+  // inView to trigger infinite load
   useEffect(() => {
-    const fadeInController = initFadeInScrollMagic();
-    return () => fadeInController.destroy();
-  }, [posts]);
+    if (inView && !fetching.current && getMorePosts) {
+      console.log("📦 Loading more posts");
+      fetchPosts(true);
+    }
+  }, [inView, getMorePosts]);
 
-  const getMorePosts = () => {
-    const endpoint = `${siteConfig.apiURL}posts/?page=${pageNo}`;
+  const fetchPosts = async (isMounted = true, isInitial = false) => {
+    if (!isInitial && (fetching.current || !getMorePosts)) return;
 
-    fetch(endpoint)
-      .then((response) => {
-        const totalPages = parseInt(response.headers.get("x-wp-totalpages"), 10) || 1;
-        console.log("totalPages", totalPages);
-
-        if (pageNo >= totalPages) {
-          setGetPosts(false);
-        }
-        else {
-          setPageNo((prev) => prev + 1);
-        }
-        
-        if (!response.ok) {
-          document.title = `${response.statusText} | Nice2b.me`;
-          throw Error(response.statusText);
-        }
-
-        return response.json();
-      })
-      .then((results) => {
-        setPosts((prev) => [...prev, ...results]);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log("There has been a problem with your fetch operation: " + error.message);
-        setLoading(false);
+    if (process.env.NODE_ENV === "development") {
+      console.log("fetchPosts CALLED", {
+        pageNo: pageNo.current,
+        totalPages: totalPagesRef.current,
       });
+    }
+
+    if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
+      setGetMorePosts(false);
+      fetching.current = false;
+      return;
+    }
+
+    const currentPage = pageNo.current;
+    const perPage = siteConfig.postsPerPage || 12;
+    const endpoint = `${siteConfig.apiURL}posts/?page=${currentPage}&per_page=${perPage}`;
+    fetching.current = true;
+
+    // You can also pass per_page, like:
+    // https://nice2b.me/wp-json/bedrock/v1/posts-by-category/general?page=2&per_page=6
+
+    try {
+      const response = await fetch(endpoint);
+
+      if (!response.ok) {
+        document.title = `${response.statusText} | ${siteConfig.siteName}`;
+        throw new Error(response.statusText);
+      }
+
+      // save total pages (once)
+      if (totalPagesRef.current === null) {
+        const total = parseInt(response.headers.get("x-wp-totalpages") || "1", 10);
+        totalPagesRef.current = total;
+      }
+
+      const results = await response.json();
+
+      if (!isMounted) return;
+
+      if (!results || results.length === 0) {
+        setGetMorePosts(false);
+        setLoading(false);
+        return;
+      }
+
+      // extra check: deduplicate by ID before appending
+      setPosts((prev) => {
+        const existingIds = new Set(prev.map((p) => p.id));
+        const uniqueNew = results.filter((p) => !existingIds.has(p.id));
+        return [...prev, ...uniqueNew];
+      });
+
+      pageNo.current += 1;
+      setLoading(false);
+
+    } catch (error) {
+      console.error("Fetch error:", error.message);
+      if (isMounted) setLoading(false);
+    } finally {
+      fetching.current = false;
+    }
   };
 
+  // preload and no posts
   if (!posts.length) {
     return (
       <div className="container">
-
-          <div className="row">
-            <div className="col text-center">
-              <h1 className="text-center">
-                {siteConfig.postsHeader}
-              </h1>
-            </div>
+        <div className="row">
+          <div className="col text-center">
+            <h1 className="text-center">
+              {siteConfig.postsHeader}
+            </h1>
           </div>
+        </div>
 
         {loading ? (
           <div className="row">
@@ -115,7 +146,7 @@ const Posts = (props) => {
             <div className="col text-center">
               <p className="display-font fs-1 p-5">{siteConfig.postsNoneText}</p>
               <a href="/" className="btn btn-primary btn-lg">
-                Start over
+                Check your config
               </a>
             </div>
           </div>
@@ -124,17 +155,19 @@ const Posts = (props) => {
     );
   }
 
+  // render content
   return (
     <div className="container">
-        <div className="row">
-          <div className="col text-center">
-            <h1 className="text-center">
-              {siteConfig.postsHeader}
-            </h1>
-          </div>
+      <div className="row">
+        <div className="col text-center">
+          <h1 className="text-center">
+            {siteConfig.postsHeader}
+          </h1>
         </div>
+      </div>
 
-        <PostList posts={posts} />
+      <PostList posts={posts} />
+      <div ref={loadMoreRef} style={{ minHeight: "1px" }} />
     </div>
   );
 };
