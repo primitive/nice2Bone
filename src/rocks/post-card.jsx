@@ -25,6 +25,7 @@ const PostCard = ({ post, index }) => {
       <div className="card">
         <PostLink slug={post.slug}>
           <img
+            loading="lazy"
             src={post.featured_image_src || Placeholder}
             className="card-img-top"
             alt={post.title.rendered}
@@ -56,7 +57,7 @@ const PostCard = ({ post, index }) => {
               <i className="fas fa-cat" title="cat-egories" />
               {categories.length
                 ? categories.map((name, i) => (
-                    <CatLink key={name} slug={categorySlugs[i]}>
+                    <CatLink key={categorySlugs[i]} slug={categorySlugs[i]}>
                       {name}
                       {i < categories.length - 1 && ", "}
                     </CatLink>
