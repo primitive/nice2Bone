@@ -38,8 +38,9 @@ const Categories = () => {
       document.title = `Category: ${slug} | ${siteConfig.siteName}`;
       document.body.className = "";
       document.body.classList.add("category-list");
+      //ReactGA.pageview(window.location.pathname + window.location.search);
 
-      await getPosts(isMounted, true);
+      await fetchPosts(isMounted, true);
     };
 
     fetchInitial();
@@ -49,27 +50,26 @@ const Categories = () => {
     };
   }, [slug]);
 
-  // named scroll observer handler
+  // inView to trigger infinite load
   useEffect(() => {
     if (inView && !fetching.current && getMorePosts) {
       console.log("📦 Loading more posts");
-      getPosts(true);
+      fetchPosts(true);
     }
   }, [inView, getMorePosts]);
 
   // main fetch function
-  const getPosts = async (isMounted = true, isInitial = false) => {
+  const fetchPosts = async (isMounted = true, isInitial = false) => {
     if (!isInitial && (fetching.current || !getMorePosts)) return;
 
     if (process.env.NODE_ENV === "development") {
-      console.log("getPosts CALLED", {
+      console.log("fetchPosts CALLED", {
         fetching: fetching.current,
         pageNo: pageNo.current,
         totalPages: totalPagesRef.current,
       });
     }
 
-    if (fetching.current || !getMorePosts) return;
     if (totalPagesRef.current !== null && pageNo.current > totalPagesRef.current) {
       setGetMorePosts(false);
       return;
@@ -83,15 +83,15 @@ const Categories = () => {
     // You can also pass per_page, like:
     // https://nice2b.me/wp-json/bedrock/v1/posts-by-category/general?page=2&per_page=6
 
-
     try {
       const response = await fetch(endpoint);
+
       if (!response.ok) {
         document.title = `${response.statusText} | ${siteConfig.siteName}`;
         throw new Error(response.statusText);
       }
 
-      // Save total pages (once)
+      // save total pages (once)
       if (totalPagesRef.current === null) {
         const total = parseInt(response.headers.get("x-wp-totalpages") || "1", 10);
         totalPagesRef.current = total;
@@ -114,7 +114,6 @@ const Categories = () => {
         return [...prev, ...uniqueNew];
       });
 
- 
       pageNo.current += 1;
       setLoading(false);
 
