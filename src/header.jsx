@@ -5,6 +5,7 @@
  */
 import React from "react";
 import { Link } from "react-router-dom";
+import siteConfig from "./utils/siteConfig";
 import Logo from "./logo.jsx";
 
 const Header = () => (
@@ -17,26 +18,15 @@ const Header = () => (
               <Link
                 className="site-logo"
                 to="/"
-                target="_self"
-                alt={ PrimitiveSettings.title }
-                title={ PrimitiveSettings.title }
+                title={siteConfig.siteName}
+                aria-label={siteConfig.siteName}
               >
                 <Logo />
               </Link>
-
-              {/* <Link
-                className="brand-font mx-auto d-block site-title"
-                to={PrimitiveSettings.path}
-                target="_self"
-                dangerouslySetInnerHTML={{ __html: PrimitiveSettings.title }}
-              ></Link> */}
-
-              <p
-                className="site-description"
-                dangerouslySetInnerHTML={{
-                  __html: PrimitiveSettings.description,
-                }}
-              ></p>
+              
+              <p className="site-description">
+                {siteConfig.description || "A WordPress Blog"}
+              </p>
 
             </div>
           </div>
@@ -49,7 +39,7 @@ const Header = () => (
         className="navbar-brand brand-font fs-1 d-block d-lg-none"
         to="/"
       >
-        {PrimitiveSettings.title}
+        {siteConfig.siteName}
       </Link>
 
       <button
@@ -66,7 +56,8 @@ const Header = () => (
 
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
         <div className="container-fluid">
-          <ul className="navbar-nav mr-auto justify-content-center">
+          <ul className="navbar-nav me-auto justify-content-center">
+
             <li className="nav-item">
               <Link className="nav-link" to="/">
                 a blog <span className="visually-hidden">(current)</span>
@@ -81,63 +72,23 @@ const Header = () => (
                 id="thinkDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-haspopup="true"
                 aria-expanded="false"
               >
                 about
               </a>
-              <div className="dropdown-menu" aria-labelledby="thinkDropdown">
-                <Link
-                  className="dropdown-item"
-                  to="think/about-what/"
-                >
-                  What?
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to="think/about-who/"
-                  >
-                    Who?
-                  </Link>
-                <Link
-                  className="dropdown-item"
-                  to="think/about-where/"
-                  >
-                    Where?
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to="think/about-when/"
-                  >
-                    When?
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to="think/about-why/"
-                >
-                  Why?
-                </Link>
-                <div className="dropdown-divider">And</div>
-                <Link
-                  className="dropdown-item"
-                  to="think/about-how/"
-                  >
-                    How?
-                </Link>
-                <div className="dropdown-divider">And</div>
-                <Link
-                  className="dropdown-item" 
-                  to="think/analysis-of-images/"
-                  >
-                    Analysing Images
-                </Link>
-                <Link 
-                  className="dropdown-item" 
-                  to="think/analysis-of-text/"
-                  >
-                    Analysing Text
-                </Link>
-              </div>
+              <ul className="dropdown-menu" aria-labelledby="thinkDropdown">
+                <li>
+                  <Link className="dropdown-item" to="think/about-what/">What?</Link></li>
+                <li><Link className="dropdown-item" to="think/about-who/">Who?</Link></li>
+                <li><Link className="dropdown-item" to="think/about-where/">Where?</Link></li>
+                <li><Link className="dropdown-item" to="think/about-when/">When?</Link></li>
+                <li><Link className="dropdown-item" to="think/about-why/">Why?</Link></li>
+                <li><hr className="dropdown-divider" /></li>
+                <li><Link className="dropdown-item" to="think/about-how/">How?</Link></li>
+                <li><hr className="dropdown-divider" /></li>
+                <li><Link className="dropdown-item" to="think/analysis-of-images/">Analysing Images</Link></li>
+                <li><Link className="dropdown-item" to="think/analysis-of-text/">Analysing Text</Link></li>
+              </ul>
             </li>
 
             {/* LIFE dropdown */}
@@ -148,37 +99,16 @@ const Header = () => (
                 id="lifeDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-haspopup="true"
                 aria-expanded="false"
               >
                 Life
               </a>
-              <div className="dropdown-menu" aria-labelledby="lifeDropdown">
-                <Link
-                  className="dropdown-item"
-                  to="life/inspiration/"
-                  >
-                    Inspiration
-                  </Link>
-                <Link
-                  className="dropdown-item"
-                  to="life/heros-and-heroines/"
-                >
-                  Heros &amp; Heroines
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to="life/quotes/"
-                  >
-                    Quotes
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to="life/bucket-list/"
-                  >
-                    Bucket List
-                  </Link>
-              </div>
+              <ul className="dropdown-menu" aria-labelledby="lifeDropdown">
+                <li><Link className="dropdown-item" to="life/inspiration/">Inspiration</Link></li>
+                <li><Link className="dropdown-item" to="life/heros-and-heroines/">Heros &amp; Heroines</Link></li>
+                <li><Link className="dropdown-item" to="life/quotes/">Quotes</Link></li>
+                <li><Link className="dropdown-item" to="life/bucket-list/">Bucket List</Link></li>
+              </ul>
             </li>
 
             {/* LOVES dropdown */}
@@ -189,54 +119,19 @@ const Header = () => (
                 id="loveDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-haspopup="true"
                 aria-expanded="false"
               >
                 Loves
               </a>
-              <div className="dropdown-menu" aria-labelledby="loveDropdown">
-                <Link 
-                className="dropdown-item" 
-                to="category/mind/"
-                >
-                  Mind
-                </Link>
-                <Link
-                  className="dropdown-item" 
-                  to="category/consciousness/"
-                  >
-                    Consciousness
-                  </Link>
-                  <Link className="dropdown-item" 
-                  to="category/perception/"
-                  >
-                    Perception
-                </Link>
-                <Link 
-                  className="dropdown-item" 
-                  to="category/philosophy/"
-                  >
-                    Philosophy
-                </Link>
-                <Link 
-                  className="dropdown-item" 
-                  to="category/social-sciences/"
-                  >
-                    Social Sciences
-                </Link>
-                <Link 
-                  className="dropdown-item"
-                  to="category/psychology/"
-                >
-                  Psychology
-                </Link>
-                <Link 
-                  className="dropdown-item" 
-                  to="category/web-design/"
-                  >
-                    Web Design
-                </Link>
-              </div>
+              <ul className="dropdown-menu" aria-labelledby="loveDropdown">
+                <li><Link className="dropdown-item" to="category/mind/">Mind</Link></li>
+                <li><Link className="dropdown-item" to="category/consciousness/">Consciousness</Link></li>
+                <li><Link className="dropdown-item" to="category/perception/">Perception</Link></li>
+                <li><Link className="dropdown-item" to="category/philosophy/">Philosophy</Link></li>
+                <li><Link className="dropdown-item" to="category/social-sciences/">Social Sciences</Link></li>
+                <li><Link className="dropdown-item" to="category/psychology/">Psychology</Link></li>
+                <li><Link className="dropdown-item" to="category/web-design/">Web Design</Link></li>
+              </ul>
             </li>
 
             <li className="navbar-text">and</li>
@@ -249,20 +144,15 @@ const Header = () => (
                 id="laughDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-haspopup="true"
                 aria-expanded="false"
               >
                 Laughter
               </a>
-              <div className="dropdown-menu" aria-labelledby="laughDropdown">
-                <Link 
-                  className="dropdown-item" 
-                  to="jokes/"
-                  >
-                    Jokes
-                  </Link>
-              </div>
+              <ul className="dropdown-menu" aria-labelledby="laughDropdown">
+                <li><Link className="dropdown-item" to="jokes/">Jokes</Link></li>
+              </ul>
             </li>
+
           </ul>
         </div>
       </div>
