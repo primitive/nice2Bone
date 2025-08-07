@@ -114,8 +114,8 @@ const Categories = () => {
         return [...prev, ...uniqueNew];
       });
 
-      pageNo.current += 1;
       setLoading(false);
+      pageNo.current += 1;
 
     } catch (error) {
       console.error("Fetch error:", error.message);

@@ -5,10 +5,10 @@
  */
 import React, { useState, useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
+
 import Preloader from "../pebbles/loader";
 import JokeList from "../rocks/joke-list";
 import siteConfig from "../utils/siteConfig";
-import { handleBeforeUnload } from "../helpers";
 // import ReactGA from "react-ga4";
 
 const Jokes = () => {
@@ -23,22 +23,20 @@ const Jokes = () => {
     triggerOnce: false,
   });
 
-  // initial mount setup
+  // initial setup
+  // sk-dev: task redo set title and body class on mount
   useEffect(() => {
     let isMounted = true;
 
     const fetchInitial = async () => {
       setPosts([]);
       pageNo.current = 1;
-      totalPagesRef.current = null;
       setGetMorePosts(true);
       setLoading(true);
 
       document.title = "Jokes | Nice2b.me";
       document.body.className = "";
       document.body.classList.add("jokes-list");
-
-      window.onbeforeunload = handleBeforeUnload;
       // ReactGA.pageview(window.location.pathname + window.location.search);
 
       await fetchPosts(isMounted, true);
@@ -51,7 +49,7 @@ const Jokes = () => {
     };
   }, []);
 
-  // observer trigger
+  // inView to trigger infinite load
   useEffect(() => {
     if (inView && !fetching.current && getMorePosts) {
       console.log("📦 Loading more jokes");
@@ -84,11 +82,11 @@ const Jokes = () => {
       const response = await fetch(endpoint);
 
       if (!response.ok) {
-        document.title = `${response.statusText} | Nice2b.me`;
+        document.title = `${response.statusText} | ${siteConfig.siteName}`;
         throw new Error(response.statusText);
       }
 
-      // total pages
+      // save total pages (once)
       if (totalPagesRef.current === null) {
         const total = parseInt(response.headers.get("x-wp-totalpages") || "1", 10);
         totalPagesRef.current = total;
@@ -104,14 +102,16 @@ const Jokes = () => {
         return;
       }
 
+      // extra check: deduplicate by ID before appending
       setPosts((prev) => {
         const existingIds = new Set(prev.map((p) => p.id));
         const uniqueNew = results.filter((p) => !existingIds.has(p.id));
         return [...prev, ...uniqueNew];
       });
 
-      pageNo.current += 1;
       setLoading(false);
+      pageNo.current += 1;
+
     } catch (error) {
       console.error("Fetch error:", error.message);
       if (isMounted) setLoading(false);
@@ -124,6 +124,14 @@ const Jokes = () => {
   if (!posts.length) {
     return (
       <div className="container">
+        <div className="row">
+          <div className="col text-center">
+            <h1 className="text-center">
+              {siteConfig.jokesHeader}
+            </h1>
+          </div>
+        </div>
+
         {loading ? (
           <div className="row">
             <div className="col text-center">
@@ -150,7 +158,14 @@ const Jokes = () => {
   // render content
   return (
     <div className="container">
-      <h1 className="text-center">Jokes</h1>
+      <div className="row">
+        <div className="col text-center">
+          <h1 className="text-center">
+            {siteConfig.jokesHeader}
+          </h1>
+        </div>
+      </div>
+
       <JokeList posts={posts} />
       <div ref={loadMoreRef} style={{ minHeight: "1px" }} />
     </div>

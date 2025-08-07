@@ -23,6 +23,7 @@ const Posts = () => {
     triggerOnce: false,
   });
 
+  // initial setup
   // sk-dev: task redo set title and body class on mount
   useEffect(() => {
     let isMounted = true;
@@ -111,8 +112,8 @@ const Posts = () => {
         return [...prev, ...uniqueNew];
       });
 
-      pageNo.current += 1;
       setLoading(false);
+      pageNo.current += 1;
 
     } catch (error) {
       console.error("Fetch error:", error.message);
