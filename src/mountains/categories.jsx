@@ -30,6 +30,13 @@ const Categories = () => {
     getMorePosts();
 
     console.log("init:", slug);
+
+    document.title = `Category: ${slug} | ${siteConfig.siteName}`;
+    document.body.className = '';
+    document.body.classList.add('category-list');
+
+    // Optionally: ReactGA.pageview(window.location.pathname + window.location.search);
+
   }, [slug]);
 
   // // ScrollMagic + Infinite scroll fetch setup
@@ -65,15 +72,15 @@ const Categories = () => {
     triggerOnce: false,
   });
 
-  useEffect(() => {
-    if (!slug) return;
+  // useEffect(() => {
+  //   if (!slug) return;
 
-    document.title = `Category: ${slug} | ${siteConfig.siteName}`;
-    document.body.className = '';
-    document.body.classList.add('category-list');
+  //   // document.title = `Category: ${slug} | ${siteConfig.siteName}`;
+  //   // document.body.className = '';
+  //   // document.body.classList.add('category-list');
 
-    // Optionally: ReactGA.pageview(window.location.pathname + window.location.search);
-  }, [slug]);
+  //   // // Optionally: ReactGA.pageview(window.location.pathname + window.location.search);
+  // }, [slug]);
 
 
   useEffect(() => {
