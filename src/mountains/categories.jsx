@@ -38,7 +38,7 @@ const Categories = () => {
       document.body.className = "";
       document.body.classList.add("category-list");
 
-      await getMorePosts(isMounted);
+      await getMorePosts(isMounted, true);
     };
 
     fetchInitial();
@@ -61,7 +61,9 @@ const Categories = () => {
   }, [inView, slug, getPostsWithCategory]);
 
   // main fetch function
-  const getMorePosts = async (isMounted = true) => {
+  const getMorePosts = async (isMounted = true, isInitial = false) => {
+    if (!isInitial && (fetching.current || !getPostsWithCategory)) return;
+
     if (process.env.NODE_ENV === "development") {
       console.log("getMorePosts CALLED", {
         fetching: fetching.current,
