@@ -1,111 +1,22 @@
 /**
- * The Jokes CPT List Component
+ * JokeList Component
  * @package Nice2B One
  * 2025
  */
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Preloader from "../pebbles/loader";
-import JokeLink from "../pebbles/joke-link";
-// import CatLink from "../pebbles/category-link";
-// import Placeholder from "./n2b_placeholder1.jpg";
-
+import JokeCard from "../rocks/joke-card";
 
 const JokeList = ({ posts }) => {
 
-  const renderPosts = () => {
-    return posts.map((post, i) => {
-      return (
-        <article className="col-md-4 card-outer" key={i}>
-          <div className="card">
-            <div className="card-body post-article post-details">
-              <h2 className="card-title">
-                <JokeLink slug={post.slug}
-                dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                >
-
-                </JokeLink>
-              </h2>
-
-              <div className="collapse" id={"jk-" + post.slug}>
-                <p
-                  dangerouslySetInnerHTML={{ __html: post.content.rendered }}
-                />
-              </div>
-
-              <div className="buttons">
-                <button
-                  className="btn btn-switch"
-                  type="button"
-                  href={"#jk-" + post.slug}
-                  data-bs-toggle="collapse"
-                  role="button"
-                  aria-expanded="false"
-                  aria-controls={"jk-" + post.slug}
-                >
-                  Go on...
-                </button>
-                {/* <Link
-                  className="btn btn-switch2"
-                  to={PrimitiveSettings.path + "jokes/" + post.slug + "/"}
-                >
-                  Go on, go on...
-                </Link> */}
-                <JokeLink slug={post.slug}
-                  className="btn btn-switch2"
-                  >
-                  Go on, go on...
-                </JokeLink>
-              </div>
-              <div className="card-meta">
-                <p className="text-muted text-center">
-                  <i className="fas fa-grin-squint-tears" title="jokes"></i>
-                  {post.type}
-                </p>
-
-                <p className="text-muted text-center post-tax">
-                  <i className="fas fa-cat" title="cat-egories"></i>
-                  {post.fun_category.length
-                    ? post.fun_category.map((item, index) => (
-                        <a
-                          key={item.toString()}
-                          href={
-                            PrimitiveSettings.path +
-                            "category/" +
-                            post.fun_category[index] +
-                            "/"
-                          }
-                        >
-                          {item + " "}
-                        </a>
-                      ))
-                    : ", "}
-                </p>
-              </div>
-            </div>
-          </div>
-        </article>
-      );
-    });
-  };
-
-  const renderEmpty = () => {
-    return (
-      <div className="row">
-        <div className="col text-center">
-          <Preloader />
-          <p className="display-font fs-2 blink">
-            Did I tell you the one about...
-          </p>
-        </div>
-      </div>
-    );
-  };
+  console.log(posts);
 
   return (
     <div className="row posts-container">
-      {posts ? renderPosts() : renderEmpty()}
+      {posts.map((post, i) => (
+        <JokeCard key={post.id} post={post} index={i} />
+      ))}
     </div>
   );
 };

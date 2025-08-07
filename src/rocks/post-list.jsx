@@ -14,16 +14,9 @@ const PostList = ({ posts }) => {
   
   return (
     <div className="row posts-container">
-      {posts.length ? (
-        posts.map((post, i) => (
-          <PostCard key={post.id || post.slug} post={post} index={i} />
-        ))
-      ) : (
-        <div className="col text-center">
-          <Preloader />
-          <p className="display-font fs-2 blink">Loading</p>
-        </div>
-      )}
+      {posts.map((post, i) => (
+        <PostCard key={post.id} post={post} index={i} />
+      ))}
     </div>
   );
 };
