@@ -79,7 +79,7 @@ const Categories = () => {
     }
 
     const currentPage = pageNo.current;
-    const endpoint = `${siteConfig.siteURL}wp-json/bedrock/v1/posts-by-category/${slug}?page=${currentPage}`;
+    const endpoint = `${siteConfig.siteURL}wp-json/bedrock/v1/posts-by-category/${slug}?page=${currentPage}&per_page=${siteConfig.postsPerPage}`;
     fetching.current = true;
 
     // You can also pass per_page, like:

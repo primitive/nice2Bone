@@ -1,5 +1,6 @@
 // siteConfig.js
 
+const DEFAULT_SITE_URL = "https://nice2b.me/";
 const DEFAULT_API_URL = "https://nice2b.me/wp-json/wp/v2/";
 
 const getSafeApiUrl = () => {
@@ -18,7 +19,24 @@ const getSafeApiUrl = () => {
   return raw;
 };
 
+const getSafeSiteUrl = () => {
+  const raw = process.env.REACT_APP_SITE_URL;
+
+  // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
+  if (
+    !raw ||
+    raw === "undefined" ||
+    raw === "null" ||
+    raw.trim() === ""
+  ) {
+    return DEFAULT_SITE_URL;
+  }
+
+  return raw;
+};
+
 const siteConfig = {
+  siteURL: getSafeSiteUrl(),
   apiURL: getSafeApiUrl(),
   siteName: "Nice 2B",
   version: "2025.0.0",
@@ -31,6 +49,7 @@ const siteConfig = {
   postsPreloadText: "Thinking, stand back...",
   postsNoneText: "No matching posts",
   postTaxPreloadText: "I like blinking, I do...",
+  postsPerPage: 12,
 };
 
 export default siteConfig;
