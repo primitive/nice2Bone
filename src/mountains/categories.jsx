@@ -5,6 +5,7 @@
  */
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useInView } from 'react-intersection-observer';
 import Preloader from "../pebbles/loader";
 import PostList from "../rocks/post-list";
 //import { initFadeInScrollMagic } from "../utils/initScrollFadeIn";
@@ -15,9 +16,9 @@ const Categories = () => {
   const { slug } = useParams();
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  //const [pageNo, setPageNo] = useState(1);
   const pageNo = useRef(1);
   const totalPagesRef = useRef(null);
+  const [initialFetchComplete, setInitialFetchComplete] = useState(false);
   const fetching = useRef(false);
   const [getPostsWithCategory, setGetPostsWithCategory] = useState(true);
 
@@ -27,40 +28,66 @@ const Categories = () => {
     pageNo.current = 1;
     setGetPostsWithCategory(true);
     setLoading(true);
+    getMorePosts();
   }, [slug]);
 
-  // ScrollMagic + Infinite scroll fetch setup
+  // // ScrollMagic + Infinite scroll fetch setup
+  // useEffect(() => {
+  //   if (!slug) return;
+
+  //   const controller = new ScrollMagic.Controller();
+  //   const scene = new ScrollMagic.Scene({
+  //     triggerElement: "#footer",
+  //     triggerHook: "onEnter",
+  //   })
+  //     .addTo(controller)
+  //     .on("enter", () => {
+  //       if (!fetching.current && getPostsWithCategory) {
+  //         getMorePosts();
+  //       }
+  //     });
+
+  //   document.title = `Category: ${slug} | ${siteConfig.siteName}`;
+  //   document.body.className = "";
+  //   document.body.classList.add("category-list");
+
+  //   //ReactGA.pageview(window.location.pathname + window.location.search);
+
+  //   return () => {
+  //     controller.destroy();
+  //   };
+  // //}, [pageNo, slug]);
+  // }, [slug]); // ✅ Only run once per slug change
+
+  const [loadMoreRef, inView] = useInView({
+    rootMargin: '200px 0px',
+    triggerOnce: false,
+  });
+
   useEffect(() => {
     if (!slug) return;
 
-    const controller = new ScrollMagic.Controller();
-    const scene = new ScrollMagic.Scene({
-      triggerElement: "#footer",
-      triggerHook: "onEnter",
-    })
-      .addTo(controller)
-      .on("enter", () => {
-        if (!fetching.current && getPostsWithCategory) {
-          getMorePosts();
-        }
-      });
-
     document.title = `Category: ${slug} | ${siteConfig.siteName}`;
-    document.body.className = "";
-    document.body.classList.add("category-list");
+    document.body.className = '';
+    document.body.classList.add('category-list');
 
-    //ReactGA.pageview(window.location.pathname + window.location.search);
+    // Optionally: ReactGA.pageview(window.location.pathname + window.location.search);
+  }, [slug]);
 
-    return () => {
-      controller.destroy();
-    };
-  //}, [pageNo, slug]);
-  }, [slug]); // ✅ Only run once per slug change
+  useEffect(() => {
+      console.log("init:", slug);
+    if (posts.length === 0 && !fetching.current && getPostsWithCategory) {
+      getMorePosts();
+    }
+  }, [slug]);
 
-  // useEffect(() => {
-  //   const fadeInController = initFadeInScrollMagic();
-  //   return () => fadeInController.destroy();
-  // }, [posts]);
+  useEffect(() => {
+    console.log("📍inView changed:", inView);
+    if (inView && !fetching.current && getPostsWithCategory) {
+      console.log("📦 Loading more posts");
+      getMorePosts();
+    }
+  }, [inView, slug, getPostsWithCategory]);
 
   const getMorePosts = () => {
     if (process.env.NODE_ENV === "development") {
@@ -108,20 +135,14 @@ const Categories = () => {
       return response.json();
     })
     .then((results) => {
+      setInitialFetchComplete(true); 
+
       if (!results || results.length === 0) {
         setGetPostsWithCategory(false);
         return;
       }
 
       setPosts((prev) => [...prev, ...results]);
-
-      // Only update if new posts are different
-      // setPosts((prev) => {
-      //   const existingIds = new Set(prev.map((p) => p.id));
-      //   const newPosts = results.filter((post) => !existingIds.has(post.id));
-      //   if (newPosts.length === 0) return prev; // No change, avoid triggering useEffect
-      //   return [...prev, ...newPosts];
-      // });
       setLoading(false);
       pageNo.current += 1;
     })
@@ -156,7 +177,9 @@ const Categories = () => {
         ) : (
           <div className="row">
             <div className="col text-center">
-              <p className="display-font fs-1 p-5">No posts in category <em>{slug}</em></p>
+              <p className="display-font fs-1 p-5">
+                No posts in category <em>{slug}</em>
+              </p>
               <a href="/" className="btn btn-primary btn-lg">
                 Run away Home...
               </a>
@@ -177,6 +200,7 @@ const Categories = () => {
           </div>
         </div>
       <PostList posts={posts} />
+      <div ref={loadMoreRef} style={{ minHeight: "1px" }} />
     </div>
   );
 };
