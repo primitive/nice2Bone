@@ -18,7 +18,6 @@ const Categories = () => {
   const [posts, setPosts] = useState([]);
   const pageNo = useRef(1);
   const totalPagesRef = useRef(null);
-  const [initialFetchComplete, setInitialFetchComplete] = useState(false);
   const fetching = useRef(false);
   const [getPostsWithCategory, setGetPostsWithCategory] = useState(true);
 
@@ -29,6 +28,8 @@ const Categories = () => {
     setGetPostsWithCategory(true);
     setLoading(true);
     getMorePosts();
+
+    console.log("init:", slug);
   }, [slug]);
 
   // // ScrollMagic + Infinite scroll fetch setup
@@ -74,12 +75,6 @@ const Categories = () => {
     // Optionally: ReactGA.pageview(window.location.pathname + window.location.search);
   }, [slug]);
 
-  useEffect(() => {
-      console.log("init:", slug);
-    if (posts.length === 0 && !fetching.current && getPostsWithCategory) {
-      getMorePosts();
-    }
-  }, [slug]);
 
   useEffect(() => {
     console.log("📍inView changed:", inView);
@@ -135,10 +130,10 @@ const Categories = () => {
       return response.json();
     })
     .then((results) => {
-      setInitialFetchComplete(true); 
 
       if (!results || results.length === 0) {
         setGetPostsWithCategory(false);
+        setLoading(false); // ← add this
         return;
       }
 
