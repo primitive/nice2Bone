@@ -5,10 +5,13 @@ export const isEmpty = (obj) => {
   return true;
 };
 
+
+/*
 export const handleBeforeUnload = () => {
   window.scrollTo(0, 0);
   console.log("before unload");
 };
+/*
 
 /*
   export function convertUnicode(input) {
@@ -19,3 +22,11 @@ export const handleBeforeUnload = () => {
   }
 */
 
+
+import He from "he";
+
+// handle html entities and strip any html tags
+export const cleanText = (html) => {
+  if (!html) return "";
+  return He.decode(html.replace(/<[^>]+>/g, ""));
+};
