@@ -24,7 +24,7 @@ const JokeCard = ({ post, index }) => {
       viewport={{ once: true, amount: 0.6 }}
     >
       <div className="card">
-        <JokeLink slug={post.slug}>
+        {/* <JokeLink slug={post.slug}>
           <img
             loading="lazy"
             src={post.featured_image_src || Placeholder}
@@ -32,7 +32,7 @@ const JokeCard = ({ post, index }) => {
             alt={post.title.rendered}
             title={post.title.rendered}
           />
-        </JokeLink>
+        </JokeLink> */}
 
         <div className="card-body post-article post-details">
           <h2 className="card-title">
@@ -55,28 +55,28 @@ const JokeCard = ({ post, index }) => {
               aria-expanded="false"
               aria-controls={collapseId}
             >
-              Go on...
+              Go on
             </button>
 
             <JokeLink className="btn btn-switch2" slug={post.slug}>
-              Go on, go on...
+              Go on, go on
             </JokeLink>
           </div>
 
           <div className="card-meta">
-            <p className="text-muted text-center">
+            {/* <p className="text-muted text-center">
               <i className="fas fa-grin-squint-tears" title="jokes" /> {post.type}
-            </p>
+            </p> */}
 
             <p className="post-meta text-muted d-flex justify-content-between">
               <span className="card-author">
-                <i className="fas fa-user-ninja" title="submitted by" />
+                <i className="fas fa-grin-squint-tears" title="submitted by" />
                 {post.author_name || "Anonymous"}
               </span>
-              <span className="card-published">
+              {/* <span className="card-published">
                 <i className="far fa-calendar-alt" title="dated" />
                 {post.published_date}
-              </span>
+              </span> */}
             </p>
 
             <p className="post-tax">
@@ -92,12 +92,12 @@ const JokeCard = ({ post, index }) => {
             </p>
           </div>
 
-          <div
+          {/* <div
             className="card-excerpt"
             dangerouslySetInnerHTML={{ __html: post.excerpt?.rendered || "" }}
           />
 
-          {/* <div className="buttons">
+          <div className="buttons">
             <JokeLink
               slug={post.slug}
               className="btn btn-sketch"
