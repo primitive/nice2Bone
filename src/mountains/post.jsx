@@ -15,42 +15,61 @@ import He from "he";
 const Post = () => {
   const { slug } = useParams();
   const [loading, setLoading] = useState(true);
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState(null);
 
   useEffect(() => {
     if (!slug) return;
 
+    const controller = new AbortController();
+    const { signal } = controller;
+
     setLoading(true);
-    setPost({});
+    setPost(null);
 
-    fetch(`${siteConfig.apiURL}posts?slug=${slug}`)
-      .then((response) => {
-        if (!response.ok) {
-          document.title = response.statusText + "| Nice2b.me";
-          throw Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then((res) => {
-        const fetchedPost = res[0] || {};
-        setPost(fetchedPost);
-        console.log("response", res[0]);
-
-        document.title = !isEmpty(fetchedPost)
-          ? He.decode(fetchedPost.title.rendered) + " | Nice2B One"
-          : "404 Post Not Found | Nice2B One";
-        setLoading(false);
-      })
-      .catch(() => {
-        setPost({});
-        setLoading(false);
-      });
-
+    // Ensure body class
     document.body.className = "";
     document.body.classList.add("single-post");
+    // ReactGA.pageview(window.location.pathname + window.location.search);
+
+    (async () => {
+      try {
+        const url = `${siteConfig.apiURL}posts?slug=${encodeURIComponent(slug)}`;
+        const res = await fetch(url, { signal });
+
+        if (!res.ok) {
+          document.title = `${res.statusText} | ${siteConfig.siteName}`;
+          throw new Error(res.statusText);
+        }
+
+        const data = await res.json();
+        const fetchedPost = data && data.length ? data[0] : null;
+
+        setPost(fetchedPost);
+        console.log("fetchedPost", fetchedPost);
+
+        document.title = fetchedPost
+          ? `${He.decode(fetchedPost.title?.rendered)} | ${siteConfig.siteName}`
+          : `404 Post Not Found | ${siteConfig.siteName}`;
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.error("Single post fetch error:", err.message);
+          setPost(null);
+          document.title = `Error | ${siteConfig.siteName}`;
+        }
+      } finally {
+        if (!signal.aborted) setLoading(false);
+      }
+    })();
+
+    // Cleanup: abort fetch
+    return () => {
+      controller.abort();
+    };
   }, [slug]);
 
-  if (isEmpty(post)) {
+  const noPost = !post || isEmpty(post);
+
+  if (noPost) {
     return (
       <div className="container">
         {loading ? (
