@@ -1,28 +1,37 @@
 /**
  * Post Single Component
  * @package Nice 2B
+ * 2025
  */
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Preloader from "../pebbles/loader";
-
+import PostLink from "../pebbles/post-link";
+import CatLink from "../pebbles/category-link";
+import TagLink from "../pebbles/tag-link";
 import Placeholder from "../n2b_placeholder1.jpg";
+import { cleanText } from "../helpers";
+
 
 const PostSingle = ({ post }) => {
-  const renderPosts = () => {
-    
     // sk-dev: debug
     console.log(post);
 
-    return (
+  const titleSafe = cleanText(post.title.rendered);
+  const categories = post.post_category || [];
+  const categorySlugs = post.post_category_slug || [];
+  const tags = post?.post_tag || [];
+  const tagSlugs = post?.post_tag_slug || [];
+
+  return (
+    <div className="row post-container">
       <div className="col">
-        <article className="card fade-in">
+        <article className="card mb-5 fade-in">
+          {/* Header image */}
           <img
             src={post.featured_image_src || Placeholder}
             className="card-img"
-            alt={post.title.rendered}
-            title={post.title.rendered}
+            alt={titleSafe}
+            title={titleSafe}
           />
           <div className="card-img-overlay text-center d-flex flex-column justify-content-center">
             <h1
@@ -31,8 +40,8 @@ const PostSingle = ({ post }) => {
             />
           </div>
 
-          <div className="card-body">
-            <p
+          <div className="card-body py-5 px-4">
+            <div
               className="card-text"
               dangerouslySetInnerHTML={{
                 __html: post.content.rendered,
@@ -40,82 +49,71 @@ const PostSingle = ({ post }) => {
             />
           </div>
 
+          {/* Meta */}
           <div className="card-footer card-meta">
-            <p className="card-text">
-              <small className="text-muted">
-                {post.author_name} &ndash; {post.published_date}
-              </small>
+            <p className="post-meta p-1 text-muted d-flex">
+              <span className="card-author">
+                <i className="fas fa-pen-fancy" title="penned by" />
+                {post.author_name}
+              </span>
+              <span className="card-published">
+                <i className="far fa-calendar-alt" title="dated" />
+                {post.published_date}
+              </span>
             </p>
-            <div className="entry-info">
+            <div className="entry-info p-1">
+              {/* Categories */}
+              <span className="me-3">
+                <i className="fas fa-folder-open" aria-hidden="true" />{" "}
+                {categories.length > 0 ? (
+                  categories.map((name, i) => {
+                    const slug = categorySlugs[i] || name;
+                    return (
+                      <CatLink key={slug} slug={slug}>
+                        {name}
+                        {i < categories.length - 1 && ", "}
+                      </CatLink>
+                    );
+                  })
+                ) : (
+                  <span className="text-muted">Uncategorised</span>
+                )}
+              </span>
+
+              {/* Tags */}
               <span>
-                <i className="fas fa-folder-open"></i>
-                {post.post_category?.length
-                  ? post.post_category.map((item, index) => (
-                      <Link
-                        key={item.toString()}
-                        rel="category"
-                        to={
-                          PrimitiveSettings.path +
-                          "category/" +
-                          post.post_category_slug[index] +
-                          "/"
-                        }
-                      >
-                        {item + " "}
-                      </Link>
-                    ))
-                  : ", "}
-              </span>{" "}
-              <span>
-                <i className="fas fa-tag"></i>
-                {post.post_tag?.length
-                  ? post.post_tag.map((item, index) => (
-                      <Link
-                        key={item.toString()}
-                        rel="tag"
-                        to={
-                          PrimitiveSettings.path +
-                          "tag/" +
-                          post.post_tag_slug[index] +
-                          "/"
-                        }
-                      >
-                        {item + " "}
-                      </Link>
-                    ))
-                  : ", "}
+                <i className="fas fa-tag" aria-hidden="true" />{" "}
+                {tags.length > 0 ? (
+                  tags.map((name, i) => {
+                    const slug = tagSlugs[i] || name;
+                    return (
+                      <TagLink key={slug} slug={slug}>
+                        {name}
+                        {i < tags.length - 1 && ", "}
+                      </TagLink>
+                    );
+                  })
+                ) : (
+                  <span className="text-muted">No tags</span>
+                )}
               </span>
             </div>
           </div>
+
+          {/* Optional footer actions (hook up when ready) */}
+          <div className="card-footer text-center bg-dark">
+            <PostLink slug="./"><i className="fas fa-left-long"></i> Previous Post</PostLink>
+            <a href="/" className="btn btn-primary mx-4">Back to posts</a>
+            <PostLink slug="./">Next Post <i className="fas fa-right-long"></i> </PostLink>
+          </div>
         </article>
       </div>
-    );
-  };
-
-  const renderEmpty = () => {
-    return (
-      <div className="row">
-        <div className="col text-center">
-          <Preloader />
-          <p className="display-font fs-2 blink">Loading</p>
-        </div>
-      </div>
-    );
-  };
-
-  // if (!posts) {
-  //   return null;
-  // }
-
-  return (
-    <div className="row post-container">
-      {post ? renderPosts() : renderEmpty()}
     </div>
   );
 };
 
 PostSingle.propTypes = {
-  post: PropTypes.object.isRequired,
+  post: PropTypes.object, // HOC handles loading/empty state
 };
 
 export default PostSingle;
