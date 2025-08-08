@@ -33,8 +33,9 @@
 
     <meta name="description" content="New Blog"/>
     <meta name="keywords" content=""/>
-    <meta name="author" content="2B One"/>
     <meta name="robots" content="index, follow"/>
+
+    <meta name="author" content="2B One"/>
     <link rel="profile" href="https://shaunknowles.uk" />
 
     <!-- <meta name="revisit-after" content="3 month"/>
