@@ -17,7 +17,7 @@ const JokeCard = ({ post, index }) => {
 
   return (
     <motion.article
-      className="col-md-4 card-outer"
+      className="col-md-4 card-outer pb-4"
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.66, ease: "easeOut", delay }}
