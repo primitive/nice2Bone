@@ -71,13 +71,13 @@ const Joke = () => {
           <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">Titter, titter, titter...</p>
+              <p className="ff-sketch fs-2 blink">Titter, titter, titter...</p>
             </div>
           </div>
         ) : (
           <div className="row ">
             <div className="col text-center">
-              <p className="display-font fs-1 p-5">No matching joke</p>
+              <p className="ff-sketch fs-1 p-5">No matching joke</p>
             </div>
           </div>
         )}

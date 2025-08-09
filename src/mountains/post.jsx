@@ -72,13 +72,13 @@ const Post = () => {
           <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">Thinking (stand back)...</p>
+              <p className="ff-sketch fs-2 blink">Thinking (stand back)...</p>
             </div>
           </div>
         ) : (
           <div className="row">
             <div className="col text-center">
-              <p className="display-font fs-1 p-5">No matching post</p>
+              <p className="ff-sketch fs-1 p-5">No matching post</p>
             </div>
           </div>
         )}

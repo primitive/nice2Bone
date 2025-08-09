@@ -141,7 +141,7 @@ const Jokes = () => {
           <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">
+              <p className="ff-sketch fs-2 blink">
                 Tickling me pink...
               </p>
             </div>

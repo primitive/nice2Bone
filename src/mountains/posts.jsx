@@ -141,13 +141,13 @@ const Posts = () => {
           <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">{siteConfig.postsPreloadText}</p>
+              <p className="ff-sketch fs-2 blink">{siteConfig.postsPreloadText}</p>
             </div>
           </div>
         ) : (
           <div className="row">
             <div className="col text-center">
-              <p className="display-font fs-1 p-5">{siteConfig.postsNoneText}</p>
+              <p className="ff-sketch fs-1 p-5">{siteConfig.postsNoneText}</p>
               <a href="/" className="btn btn-primary btn-lg">
                 Check your config
               </a>

@@ -146,13 +146,13 @@ const Categories = () => {
           <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">{siteConfig.postTaxPreloadText}</p>
+              <p className="ff-sketch fs-2 blink">{siteConfig.postTaxPreloadText}</p>
             </div>
           </div>
         ) : (
           <div className="row">
             <div className="col text-center">
-              <p className="display-font fs-1 p-5">
+              <p className="ff-sketch fs-1 p-5">
                 {slug
                   ? <>No posts in category <em>{slug}</em></>
                   : <>No category selected</>
