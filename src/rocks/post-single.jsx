@@ -13,8 +13,8 @@ import { cleanText } from "../helpers";
 
 
 const PostSingle = ({ post }) => {
-    // sk-dev: debug
-    console.log(post);
+  // debug
+  // console.log("JokeSingle post:", post);
 
   const titleSafe = cleanText(post.title.rendered);
   const categories = post.post_category || [];
@@ -25,8 +25,8 @@ const PostSingle = ({ post }) => {
   return (
     <div className="row post-container">
       <div className="col">
-        <article className="card mb-5 fade-in">
-          {/* Header image */}
+        <article className="card mb-5 rounded-bottom-3 fade-in">
+          {/* Header image with Title overlay */}
           <img
             src={post.featured_image_src || Placeholder}
             className="card-img"
@@ -40,6 +40,7 @@ const PostSingle = ({ post }) => {
             />
           </div>
 
+          {/* Body */}
           <div className="card-body py-5 px-4">
             <div
               className="card-text"
@@ -51,6 +52,7 @@ const PostSingle = ({ post }) => {
 
           {/* Meta */}
           <div className="card-footer card-meta">
+
             <p className="post-meta p-1 text-muted d-flex">
               <span className="card-author">
                 <i className="fas fa-pen-fancy" title="penned by" />
@@ -61,6 +63,7 @@ const PostSingle = ({ post }) => {
                 {post.published_date}
               </span>
             </p>
+            
             <div className="entry-info p-1">
               {/* Categories */}
               <span className="me-3">
@@ -101,9 +104,9 @@ const PostSingle = ({ post }) => {
           </div>
 
           {/* Optional footer actions (hook up when ready) */}
-          <div className="card-footer text-center bg-dark">
+          <div className="card-footer py-3 text-center bg-dark rounded-bottom-3">
             <PostLink slug="./"><i className="fas fa-left-long"></i> Previous Post</PostLink>
-            <a href="/" className="btn btn-primary mx-4">Back to posts</a>
+            <a href="/" className="btn btn-primary mx-4">Back to Posts</a>
             <PostLink slug="./">Next Post <i className="fas fa-right-long"></i> </PostLink>
           </div>
         </article>
