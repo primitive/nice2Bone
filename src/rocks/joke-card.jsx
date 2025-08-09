@@ -5,15 +5,20 @@
  */
 import React from "react";
 import { motion } from "framer-motion";
+import { cleanText } from "../helpers";
 import JokeLink from "../pebbles/joke-link";
 import CatLink from "../pebbles/joke-category-link";
-import Placeholder from "../n2b_placeholder1.jpg";
 
 const JokeCard = ({ post, index }) => {
   const delay = (index % 3) * 0.1;
   const categories = post.fun_category || [];
   const categorySlugs = post.fun_category_slug || [];
   const collapseId = `jk-${post.slug}`;
+  const isLong = cleanText(post.content.rendered).length > 60;
+
+  if (isLong) {
+    console.log(post.content.rendered );
+  }
 
   return (
     <motion.article
@@ -23,7 +28,7 @@ const JokeCard = ({ post, index }) => {
       transition={{ duration: 0.66, ease: "easeOut", delay }}
       viewport={{ once: true, amount: 0.6 }}
     >
-      <div className="card">
+      <div className="card text-center">
         {/* <JokeLink slug={post.slug}>
           <img
             loading="lazy"
@@ -43,10 +48,12 @@ const JokeCard = ({ post, index }) => {
           </h2>
 
           <div className="collapse" id={collapseId}>
-            <p dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+            <div className="fs-3" dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
           </div>
 
           <div className="buttons">
+
+          {!isLong && (
             <button
               className="btn btn-switch"
               type="button"
@@ -54,11 +61,18 @@ const JokeCard = ({ post, index }) => {
               data-bs-target={`#${collapseId}`}
               aria-expanded="false"
               aria-controls={collapseId}
+              // style={{
+              //   visibility:
+              //     post.content.rendered.replace(/<[^>]*>?/gm, "").length > 25
+              //       ? "hidden"
+              //       : "visible",
+              // }}
             >
               Go on
             </button>
+          )}
 
-            <JokeLink className="btn btn-switch2" slug={post.slug}>
+            <JokeLink className="btn mb-4 btn-switch2" slug={post.slug}>
               Go on, go on
             </JokeLink>
           </div>
