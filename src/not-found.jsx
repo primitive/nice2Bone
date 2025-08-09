@@ -13,7 +13,7 @@ const NotFound = () => (
       <article className="card fade-in fill-w">
         <div className="card-body text-center pb-5">
           <h1 className="card-title">404 Page Not Found!</h1>
-          <p className="card-text display-font fs-3 p-4">
+          <p className="card-text ff-sketch fs-3 p-4">
             The page you requested does not exist.
           </p>
           <p className="card-text">
