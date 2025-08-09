@@ -6,11 +6,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import siteConfig from "../utils/siteConfig";
+import { cleanText } from "../helpers";
 import PostSingle from "../rocks/post-single";
 // import ReactGA from "react-ga4";
 import Preloader from "../pebbles/loader";
 import { isEmpty } from "../helpers";
-import He from "he";
 
 const Post = () => {
   const { slug } = useParams();
@@ -26,7 +26,7 @@ const Post = () => {
     setLoading(true);
     setPost(null);
 
-    // Ensure body class
+    // Body class
     document.body.className = "";
     document.body.classList.add("single-post");
     // ReactGA.pageview(window.location.pathname + window.location.search);
@@ -48,7 +48,7 @@ const Post = () => {
         console.log("fetchedPost", fetchedPost);
 
         document.title = fetchedPost
-          ? `${He.decode(fetchedPost.title?.rendered)} | ${siteConfig.siteName}`
+          ? `${cleanText(foundPage.title?.rendered)} | ${siteConfig.siteName}`
           : `404 Post Not Found | ${siteConfig.siteName}`;
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -61,7 +61,6 @@ const Post = () => {
       }
     })();
 
-    // Cleanup: abort fetch
     return () => {
       controller.abort();
     };
@@ -73,14 +72,14 @@ const Post = () => {
     return (
       <div className="container">
         {loading ? (
-          <div className="row post-container">
+          <div className="row">
             <div className="col text-center">
               <Preloader />
               <p className="display-font fs-2 blink">Thinking (stand back)...</p>
             </div>
           </div>
         ) : (
-          <div className="row post-container">
+          <div className="row">
             <div className="col text-center">
               <p className="display-font fs-1 p-5">No matching post</p>
             </div>
