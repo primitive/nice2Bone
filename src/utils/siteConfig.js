@@ -39,6 +39,7 @@ const siteConfig = {
   siteURL: getSafeSiteUrl(),
   apiURL: getSafeApiUrl(),
   siteName: "Nice 2B",
+  description: "• ❦ • ❧  the living notebook of a phantom scribbler  • ❧ •",
   version: "2025.0.0",
   theme: "dark",
   enableSmartTags: true,
@@ -50,6 +51,9 @@ const siteConfig = {
   postsNoneText: "No matching posts",
   postTaxPreloadText: "I like blinking, I do...",
   postsPerPage: 12,
+  unused: "A curious mix of jokes, philosophy, and digital thought",
+  unused2: "Did I tell you the one about...",
+  jokesHeader: "Jokes",
 };
 
 export default siteConfig;
