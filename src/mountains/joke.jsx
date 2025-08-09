@@ -14,7 +14,7 @@ import Preloader from "../pebbles/loader";
 const Joke = () => {
   const { slug } = useParams();
   const [loading, setLoading] = useState(true);
-  const [joke, setJoke] = useState(null);
+  const [post, setPost] = useState(null);
 
   useEffect(() => {
     if (!slug) return;
@@ -23,7 +23,7 @@ const Joke = () => {
     const { signal } = controller;
 
     setLoading(true);
-    setJoke(null);
+    setPost(null);
 
     // Body class
     document.body.className = "";
@@ -42,18 +42,18 @@ const Joke = () => {
         }
 
         const data = await res.json();
-        const joke = data && data.length ? data[0] : null;
+        const post = data && data.length ? data[0] : null;
 
-        setPost(joke);
-        console.log("Joke", joke);
+        setPost(post);
+        console.log("Joke", post);
 
-        document.title = joke
-          ? `${cleanText(joke.title?.rendered)} | ${siteConfig.siteName}`
+        document.title = post
+          ? `${cleanText(post.title?.rendered)} | ${siteConfig.siteName}`
           : `404 Joke Not Found | ${siteConfig.siteName}`;
       } catch (err) {
         if (err.name !== "AbortError") {
           console.error("Single joke fetch error:", err.message);
-          setJoke(null);
+          setPost(null);
           document.title = `Error | ${siteConfig.siteName}`;
         }
       } finally {
@@ -64,7 +64,7 @@ const Joke = () => {
     return () => controller.abort();
   }, [slug]);
 
-  if (!joke) {
+  if (!post) {
     return (
       <div className="container">
         {loading ? (
@@ -87,7 +87,7 @@ const Joke = () => {
 
   return (
     <div className="container">
-      <JokeSingle post={joke} />
+      <JokeSingle post={post} />
     </div>
   );
 };
