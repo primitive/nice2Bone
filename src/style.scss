@@ -49,6 +49,7 @@ $title-font: 'Playfair Display', serif;
 $head-font: 'Playfair Display', serif; 
 $subhead-font: serif; 
 $display-font: 'Cabin Sketch', cursive;
+$note-font: 'Architects Daughter', Geneva, sans-serif;
 $mono-font: 'Courier New', monospace;
 
 // $post-title-font: 'Cabin Sketch', cursive;
@@ -132,7 +133,7 @@ $background-color: $paper;
 $background-image: url(https://nice2b.me/wp-content/uploads/noise.jpg);
 $background-image2: url(https://nice2b.me/wp-content/uploads/paper-lined-512x606-1.png);
 
-$background-image3: url(https://staging.nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
+$background-image3: url(https://nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
 
 
 $background-opacity: .12;
@@ -141,7 +142,7 @@ $background-opacity: .12;
   --bs-body-bg: #{$background-color};
   --bs-body-color: #{$body-color};
   --bs-border-radius: 0;
-  --bs-border-radius-sm: .3em;
+  --bs-border-radius-sm: .12em;
  
   --bs-navbar-toggler-border-radius: 0;
 
@@ -149,7 +150,7 @@ $background-opacity: .12;
   --bs-secondary: #{$secondary-color};
 
   --bs-card-bg: #{$stone};
-  --bs-card-border-radius: 0;
+  --bs-card-border-radius: .33em;
   --bs-dropdown-min-width: 12rem;
 }
 
@@ -278,7 +279,10 @@ h5 { font-size: 1.2em; }
 h6 { font-size: 1.1em; }
 
 .brand-font { font-family: $script-font; }
-.display-font { font-family: $display-font; }
+
+.ff-note { font-family: $note-font }
+.ff-sketch { font-family: $display-font;}
+.ff-script { font-family: $script-font; }
 
 #main-nav {
   padding-bottom: 0;
@@ -456,21 +460,22 @@ Buttons
 
 
 .btn-switch {
+  --_p: 100%;
+  --_i: -1;
+  --c: #fff;
   font-weight: bold;
   font-size: 2rem;
-  margin: 0;
+  margin: 0 0 .5em;
   cursor: pointer;
-  padding: .1em .3em;
-  --c: #fff;
-  /* text color */
-  background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p,100%)/300% no-repeat,
-    #004dff;
-  /* background color */
-  color: #0000;
+  padding: .1em .6em;
+
+  background: linear-gradient(90deg, transparent 33%, #fff5, transparent 67%) var(--_p,100%)/300% no-repeat,
+              $tertiary-dark;
+  color: transparent;
   border: none;
   transform: perspective(500px) rotateY(calc(20deg*var(--_i,-1)));
-  text-shadow: calc(var(--_i,-1)* 0.08em) -.01em 0   var(--c),
-    calc(var(--_i,-1)*-0.08em)  .01em 2px #0004;
+  text-shadow: calc(var(--_i,-1) * 0.08em) -.01em 0   var(--c),
+               calc(var(--_i,-1) * -0.08em)  .01em 2px #0004;
   outline-offset: .1em;
   transition: 0.3s;
 }
@@ -479,31 +484,33 @@ Buttons
 .btn-switch:focus-visible {
   --_p: 0%;
   --_i: 1;
+  background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p,0%)/300% no-repeat,
+    $tertiary-color;
 }
 
 .btn-switch:active {
   text-shadow: none;
   color: var(--c);
-  box-shadow: inset 0 0 9e9q #0005;
+  box-shadow: inset 0 0 9999px #0005;
   transition: 0s;
 }
 
 
 .btn-switch2 {
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin: 0;
   cursor: pointer;
-  padding: .1em .3em;
+  padding: .1em .6em;
 
   --c: #fff;
   /* text color */
   background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p,100%)/300% no-repeat,
-   #0dcaf0;
+   $pencil-blue-light;
   /* background color */
   color: #0000;
   border: none;
-  transform: perspective(500px) rotateY(calc(20deg*var(--_i,-1)));
+  transform: perspective(500px) rotateY(calc(20deg*var(--_i,1)));
   text-shadow: calc(var(--_i,-1)* 0.08em) -.01em 0   var(--c),
     calc(var(--_i,-1)*-0.08em)  .01em 2px #0004;
   outline-offset: .1em;
@@ -512,13 +519,15 @@ Buttons
 .btn-switch2:hover,
 .btn-switch2:focus-visible {
   --_p: 0%;
-  --_i: 1;
+  --_i: -1;
+    background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p,0%)/300% no-repeat,
+    $pencil-black;
 }
 
 .btn-switch2:active {
   text-shadow: none;
   color: var(--c);
-  box-shadow: inset 0 0 9e9q #0005;
+  box-shadow: inset 0 0 9e9q #0001;
   transition: 0s;
 }
 
@@ -533,8 +542,11 @@ Cards
 ****************************************/
 
 .card {
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  
+
+  --bs-card-border-width: 0;
+  --bs-card-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  box-shadow: var(--bs-card-box-shadow);
+
   .card-title {
     margin-top: .3em;
     margin-bottom: .5em;
@@ -552,7 +564,7 @@ Cards
 
   .card-text {
 
-    font-family: $body-font;
+    // font-family: $body-font;
 
     strong {
       font-family: $display-font;
@@ -658,19 +670,19 @@ Posts (Blog)
 
 
 
-.card-outer {
-  transform: translateY(100px);
-  transition: all 0.66s ease-out;
-}
-.card-outer.fade-in {
-  transform: translateY(0);
-}
-.col-md-4.card-outer {
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
+// .card-outer {
+//   transform: translateY(100px);
+//   transition: all 0.66s ease-out;
+// }
+// .card-outer.fade-in {
+//   transform: translateY(0);
+// }
+// .col-md-4.card-outer {
+//   padding-top: 1em;
+//   padding-bottom: 1em;
+// }
 .col-md-4.card-outer .card {
-  height: 600px;
+  min-height: 600px;
 }
 
 
@@ -751,53 +763,51 @@ CPT - Jokes
 
 ****************************************/
 
-.jokes-list .card-body {
-  text-align: center;
- }
 .jokes-list .card-title a {
  color: $quaternary-color;
 }
 .jokes-list .card-title a:hover, .jokes-list .card-title a:active {
   color: $tertiary-dark;
 }
-.jokes-list .card-body .collapse, .jokes-list .card-body .collapsing {
-  color: $tertiary-color;
-  font-family: $title-font;
-  font-size: 1.8rem;
-}
-.jokes-list span.button {
-  padding: 0;
-}
-.jokes-list span.button a {
-  padding: .6rem 1rem;
-  margin:0;
-  font-family: $mono-font;
-  background: $blue-mute;
-  text-transform: none;
-}
-.jokes-list span.button a:hover {
-  background: $blue-mute;
-}
-.jokes-list span.button-punch a {
-  font-family: $title-font;
-  background: $tertiary-color;
-  text-transform: none;
-  border-radius: 3px;
-}
-.jokes-list span.button-punch a:hover {
-  background: $tertiary-dark;
-}
+// .jokes-list .card-body .collapse,
+// .jokes-list .card-body .collapsing {
+//   color: $tertiary-color;
+//   font-family: $title-font;
+// }
 
-.joke-entry .card-title {
+
+// .jokes-list span.button {
+//   padding: 0;
+// }
+// .jokes-list span.button a {
+//   padding: .6rem 1rem;
+//   margin:0;
+//   font-family: $mono-font;
+//   background: $blue-mute;
+//   text-transform: none;
+// }
+// .jokes-list span.button a:hover {
+//   background: $blue-mute;
+// }
+// .jokes-list span.button-punch a {
+//   font-family: $title-font;
+//   background: $tertiary-color;
+//   text-transform: none;
+//   border-radius: 3px;
+// }
+// .jokes-list span.button-punch a:hover {
+//   background: $tertiary-dark;
+// }
+
+// SINGLE
+
+.joke-single .card-title {
   color: $retro-brown;
 }
-.joke-entry .card-text {
-  text-align: center;
-  font-size: 1.6rem;
-  font-family: $display-font;
-  color: $secondary-color;
-}
-// ###
+// .joke-single .card-text {
+//   font-size: 1.6rem;
+//   color: $secondary-color;
+// }
 
 
 
