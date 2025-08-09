@@ -1,4 +1,5 @@
 // import ScrollMagic from "scrollmagic";
+// sk-dev: DEPRECIATED
 
 export const initFadeInScrollMagic = () => {
   const controller = new ScrollMagic.Controller();
