@@ -14,33 +14,33 @@ import { cleanText } from "../helpers";
 
 const JokeSingle = ({ post }) => {
   // debug
-  // console.log("JokeSingle post:", post);
+  // console.log("JokeSingle joke:", joke);
 
-  const titleSafe = cleanText(post?.title?.rendered);
-  const categories = post.post_category || [];
-  const categorySlugs = post.post_category_slug || [];
+  const titleSafe = cleanText(post.title.rendered);
+  const categories = post.fun_category || [];
+  const categorySlugs = post.fun_category_slug || [];
 
-  const tags = post?.post_tag || [];
-  const tagSlugs = post?.post_tag_slug || [];
+  const tags = post?.fun_tag || [];
+  const tagSlugs = post?.fun_tag_slug || [];
 
   //const imgSrc = post?.joke_header || post?.featured_image_src || Placeholder;
 
   // Taxonomy fields from your Bedrock plugin (fallbacks included)
-  const funCats = post?.fun_category || [];
-  const funCatSlugs = post?.fun_category_slug || [];
+  // const funCats = post?.fun_category || [];
+  // const funCatSlugs = post?.fun_category_slug || [];
 
-  const structureCats = post?.structure_category || [];
-  const structureSlugs = post?.structure_category_slugs || [];
+  // const structureCats = post?.structure_category || [];
+  // const structureSlugs = post?.structure_category_slugs || [];
 
   // “fun_subject” is what your plugin currently exposes (tags-like)
-  const funTags = post?.fun_subject || [];
-  const funTagSlugs =
-    post?.fun_subject_slug || post?.fun_tags_slugs || []; // handle either name
+  // const funTags = post?.fun_subject || [];
+  // const funTagSlugs =
+  //   post?.fun_subject_slug || post?.fun_tags_slugs || []; // handle either name
 
   return (
-    <div className="row post-container">
+    <div className="row joke-single">
       <div className="col">
-        <article className="card mb-5 rounded-bottom-3 fade-in">
+        <article className="card mb-5 text-center rounded-bottom-3 fade-in">
           {/* Header image */}
           {/* <img
             src={imgSrc}
@@ -50,18 +50,17 @@ const JokeSingle = ({ post }) => {
             loading="lazy"
           /> */}
 
-          {/* Title overlay */}
-          <div className="card-img-overlay text-center d-flex flex-column justify-content-center">
+          {/* Title */}
             <h1
-              className="card-title mx-auto"
+              className="card-title mx-auto ff-sketch"
               dangerouslySetInnerHTML={{ __html: post.title.rendered }}
             />
-          </div>
+
 
           {/* Body */}
-          <div className="card-body py-5 px-4">
+          <div className="card-body pt-1 pb-5 px-4">
             <div
-              className="card-text"
+              className="card-text ff-note text-center fs-3"
               dangerouslySetInnerHTML={{ __html: post.content.rendered }}
             />
           </div>
@@ -71,13 +70,30 @@ const JokeSingle = ({ post }) => {
             
             <p className="post-meta p-1 text-muted">
               <small>
-                Post Type — <span className="text-uppercase">{post.type || "jokes"}</span>
+                Post Type — <span className="text-uppercase">{post.type}</span>
               </small>
             </p>
+{/* 
+                      <div className="entry-info">
+            <span ><i className="fas fa-folder-open"></i>
+              {this.state.post.fun_category.length ? this.state.post.fun_category.map((item, index) =>
+                (<Link key={item.toString()}
+                  rel="category" to={PrimitiveSettings.path + "jokes/by-type/" + item.replace(/\s+/g, '-').toLowerCase() + "/"}>{item + " "}
+                </Link>)) : ', '
+              }
+            </span>
+            <span><i className="fas fa-tag"></i>
+              {this.state.post.fun_subject.length ? this.state.post.fun_subject.map((item, index) =>
+                (<Link key={item.toString()}
+                  rel="tag" to={PrimitiveSettings.path + "jokes/about/" + item.replace(/\s+/g, '-').toLowerCase() + "/"}>{item + " "}
+                </Link>)) : ', '
+              }
+            </span>
+          </div> */}
 
             <div className="entry-info p-1">
               {/* Fun categories (by type) */}
-              <span className="me-3">
+              {/* <span className="me-3">
                 <i className="fas fa-folder-open" aria-hidden="true" />{" "}
                 {funCats.length > 0 ? (
                   funCats.map((name, i) => {
@@ -92,10 +108,10 @@ const JokeSingle = ({ post }) => {
                 ) : (
                   <span className="text-muted">No type</span>
                 )}
-              </span>
+              </span> */}
 
               {/* Structure categories */}
-              <span className="me-3">
+              {/* <span className="me-3">
                 <i className="fas fa-sitemap" aria-hidden="true" />{" "}
                 {structureCats.length > 0 ? (
                   structureCats.map((name, i) => {
@@ -110,10 +126,10 @@ const JokeSingle = ({ post }) => {
                 ) : (
                   <span className="text-muted">No structure</span>
                 )}
-              </span>
+              </span> */}
 
               {/* Fun subjects (tags) */}
-              <span>
+              {/* <span>
                 <i className="fas fa-tag" aria-hidden="true" />{" "}
                 {funTags.length > 0 ? (
                   funTags.map((name, i) => {
@@ -128,14 +144,15 @@ const JokeSingle = ({ post }) => {
                 ) : (
                   <span className="text-muted">No tags</span>
                 )}
-              </span>
+              </span> */}
+
             </div>
           </div>
 
           {/* Optional footer actions (hook up when ready) */}
           <div className="card-footer py-3 text-center bg-dark rounded-bottom-3">
             <JokeLink slug="./"><i className="fas fa-left-long"></i> Previous Joke</JokeLink>
-            <a href="/" className="btn btn-primary mx-4">All Jokes</a>
+            <a href="/jokes/" className="btn btn-primary mx-4">All Jokes</a>
             <JokeLink slug="./">Next Joke <i className="fas fa-right-long"></i> </JokeLink>
           </div>
         </article>
