@@ -5,49 +5,60 @@
  */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import He from "he";
+import { cleanText } from "../helpers";
 import siteConfig from "../utils/siteConfig";
 import NotFound from "../not-found";
 // import ReactGA from "react-ga4";
 import Preloader from "../pebbles/loader";
 import { processSmartTags } from "../fire/smartTags";
 
-
 const Page = () => {
   const { slug } = useParams();
-  const [ page, setPage ] = useState(null);
-  const [ loading, setLoading ] = useState(true);
+  const [page, setPage] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!slug) return;
-    // ReactGA.pageview(window.location.pathname + window.location.search);
 
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    // reset state
     setLoading(true);
     setPage(null);
 
+    // body class
     document.body.className = "";
     document.body.classList.add("page");
 
-    fetch(`${siteConfig.apiURL}pages?slug=${slug}`)
-      .then((response) => {
-        if (!response.ok) {
-          document.title = response.statusText + " | Nice2B One";
-          throw Error(response.statusText);
+    (async () => {
+      try {
+        const url = `${siteConfig.apiURL}pages?slug=${encodeURIComponent(slug)}`;
+        const res = await fetch(url, { signal });
+        if (!res.ok) {
+          document.title = `${res.statusText} | ${siteConfig.siteName}`;
+          throw new Error(res.statusText);
         }
-        return response.json();
-      })
-      .then((res) => {
-        const foundPage = res[0] || null;
+
+        const data = await res.json();
+        const foundPage = data && data.length ? data[0] : null;
+
         setPage(foundPage);
         document.title = foundPage
-          ? He.decode(foundPage.title.rendered) + " | Nice2B One"
-          : "404 Page Not Found | Nice2B One";
-        setLoading(false);
-      })
-      .catch(() => {
-        setPage(null);
-        setLoading(false);
-      });
+          ? `${cleanText(foundPage.title?.rendered)} | ${siteConfig.siteName}`
+          : `404 Page Not Found | ${siteConfig.siteName}`;
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.error("Page fetch error:", err.message);
+          setPage(null);
+          document.title = `Error | ${siteConfig.siteName}`;
+        }
+      } finally {
+        if (!signal.aborted) setLoading(false);
+      }
+    })();
+
+    return () => controller.abort();
   }, [slug]);
 
   if (loading) {
@@ -56,7 +67,7 @@ const Page = () => {
         <div className="row">
           <div className="col text-center">
             <Preloader />
-            <p className="display-font fs-2 blink">Thinking (stand back)...</p>
+            <p className="ff-sketch fs-2 blink">Thinking (stand back)...</p>
           </div>
         </div>
       </div>
@@ -67,14 +78,18 @@ const Page = () => {
     return <NotFound />;
   }
 
+  const titleSafe = cleanText(page.title?.rendered);
+  const headerSrc = page.page_header || null;
+
   return (
     <div className="container post-entry">
-      <article className={`card ${page.page_header ? "hasHeader" : "noHeader"}`}>
-        {page.page_header && (
+      <article className={`card mb-5 rounded-bottom-3 fade-in ${headerSrc ? "hasHeader" : "noHeader"}`}>
+        {headerSrc && (
           <img
             className="card-img-top"
-            src={page.page_header}
-            alt={He.decode(page.title.rendered)}
+            src={headerSrc}
+            alt={titleSafe}
+            title={titleSafe}
           />
         )}
         <div className="card-body">
@@ -82,12 +97,6 @@ const Page = () => {
             className="card-title"
             dangerouslySetInnerHTML={{ __html: page.title.rendered }}
           />
-          {/* <p
-            className="card-text"
-            dangerouslySetInnerHTML={{
-              __html: page.content.rendered,
-            }}
-          /> */}
           <div className="card-text">
             {processSmartTags(page.content.rendered)}
           </div>
