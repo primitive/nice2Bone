@@ -10,7 +10,6 @@ import { cleanText } from "../helpers";
 import PostSingle from "../rocks/post-single";
 // import ReactGA from "react-ga4";
 import Preloader from "../pebbles/loader";
-import { isEmpty } from "../helpers";
 
 const Post = () => {
   const { slug } = useParams();
@@ -42,13 +41,13 @@ const Post = () => {
         }
 
         const data = await res.json();
-        const fetchedPost = data && data.length ? data[0] : null;
+        const post = data && data.length ? data[0] : null;
 
-        setPost(fetchedPost);
-        console.log("fetchedPost", fetchedPost);
+        setPost(post);
+        console.log("Post", post);
 
-        document.title = fetchedPost
-          ? `${cleanText(foundPage.title?.rendered)} | ${siteConfig.siteName}`
+        document.title = post
+          ? `${cleanText(post.title?.rendered)} | ${siteConfig.siteName}`
           : `404 Post Not Found | ${siteConfig.siteName}`;
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -66,9 +65,7 @@ const Post = () => {
     };
   }, [slug]);
 
-  const noPost = !post || isEmpty(post);
-
-  if (noPost) {
+  if (!post) {
     return (
       <div className="container">
         {loading ? (

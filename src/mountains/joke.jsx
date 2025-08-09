@@ -10,7 +10,6 @@ import { cleanText } from "../helpers";
 import JokeSingle from "../rocks/joke-single";
 // import ReactGA from "react-ga4";
 import Preloader from "../pebbles/loader";
-import { isEmpty } from "../helpers";
 
 const Joke = () => {
   const { slug } = useParams();
@@ -43,13 +42,13 @@ const Joke = () => {
         }
 
         const data = await res.json();
-        const fetchedPost = data && data.length ? data[0] : null;
+        const joke = data && data.length ? data[0] : null;
 
-        setPost(fetchedPost);
-        console.log("fetchedJoke", fetchedPost);
+        setPost(joke);
+        console.log("Joke", joke);
 
-        document.title = found
-          ? `${cleanText(foundPage.title?.rendered)} | ${siteConfig.siteName}`
+        document.title = joke
+          ? `${cleanText(joke.title?.rendered)} | ${siteConfig.siteName}`
           : `404 Joke Not Found | ${siteConfig.siteName}`;
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -65,16 +64,14 @@ const Joke = () => {
     return () => controller.abort();
   }, [slug]);
 
-  const noPost = !post || isEmpty(post);
-
-  if (noPost) {
+  if (!joke) {
     return (
       <div className="container">
         {loading ? (
           <div className="row">
             <div className="col text-center">
               <Preloader />
-              <p className="display-font fs-2 blink">Tickling me pink...</p>
+              <p className="display-font fs-2 blink">Titter, titter, titter...</p>
             </div>
           </div>
         ) : (
