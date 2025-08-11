@@ -1,27 +1,11 @@
 // siteConfig.js
 
 const DEFAULT_SITE_URL = "https://nice2b.me/";
-const DEFAULT_API_URL = "https://nice2b.me/wp-json/wp/v2/";
-
-const getSafeApiUrl = () => {
-  const raw = process.env.REACT_APP_API_URL;
-
-  // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
-  if (
-    !raw ||
-    raw === "undefined" ||
-    raw === "null" ||
-    raw.trim() === ""
-  ) {
-    return DEFAULT_API_URL;
-  }
-
-  return raw;
-};
+const DEFAULT_WP_API_URL = "https://nice2b.me/wp-json/wp/v2/";
+const DEFAULT_BEDROCK_API_URL = "https://nice2b.me/wp-json/bedrock/v1/";
 
 const getSafeSiteUrl = () => {
   const raw = process.env.REACT_APP_SITE_URL;
-
   // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
   if (
     !raw ||
@@ -34,10 +18,42 @@ const getSafeSiteUrl = () => {
 
   return raw;
 };
+const getSafeWPApiUrl = () => {
+  const raw = process.env.REACT_APP_WP_API_URL;
+  // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
+  if (
+    !raw ||
+    raw === "undefined" ||
+    raw === "null" ||
+    raw.trim() === ""
+  ) {
+    return DEFAULT_WP_API_URL;
+  }
+
+  return raw;
+};
+const getSafeBedrockApiUrl = () => {
+  const raw = process.env.REACT_APP_BEDROCK_API_URL;
+  // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
+  if (
+    !raw ||
+    raw === "undefined" ||
+    raw === "null" ||
+    raw.trim() === ""
+  ) {
+    return DEFAULT_BEDROCK_API_URL;
+  }
+
+  return raw;
+};
 
 const siteConfig = {
+  //siteURL: getVar(["REACT_APP_SITE_URL"], DEFAULT_SITE_URL),
+  //apiURL:  getVar(["REACT_APP_API_URL"], DEFAULT_API_URL),
+  //apiBedrockURL: getVar(["REACT_APP_API_URL"], DEFAULT_API_URL),
   siteURL: getSafeSiteUrl(),
-  apiURL: getSafeApiUrl(),
+  apiURL: getSafeWPApiUrl(),
+  apiBedrockURL: getSafeBedrockApiUrl(),
   siteName: "Nice 2B",
   description: "• ❦ • ❧  the living notebook of a phantom scribbler  • ❧ •",
   version: "2025.0.0",
