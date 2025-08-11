@@ -1,6 +1,8 @@
 import path from "path"
 import { fileURLToPath } from "url"
-import webpack from "webpack"
+import webpack from "webpack";
+import dotenvx from "@dotenvx/dotenvx";
+
 
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 // --> extracts CSS into separate files. It creates a CSS file per JS file which contains CSS.
@@ -19,6 +21,15 @@ import WebpackShellPlugin from "webpack-shell-plugin-next"
 // ESM-friendly __dirname
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+
+// Load and parse .env
+const env = dotenvx.config().parsed || {};
+
+// Prepare DefinePlugin-compatible env variables
+const envKeys = Object.entries(env).reduce((acc, [key, val]) => {
+  acc[`process.env.${key}`] = JSON.stringify(val);
+  return acc;
+}, {});
 
 const devMode = process.env.NODE_ENV !== "production"
 //const devMode = false;
@@ -59,6 +70,7 @@ export default {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin(envKeys),
     new webpack.ContextReplacementPlugin(
       /\.\/locale$/,
       "empty-module",
@@ -70,15 +82,6 @@ export default {
       filename: "style.css",
       chunkFilename: "[id].css",
     }),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      Popper: ["popper.js", "default"],
-    }),
-
-    // new CompressionPlugin({
-    //   test: /\.js(\?.*)?$/i,
-    // }),
 
     new CopyPlugin({
       patterns: [
@@ -140,30 +143,11 @@ export default {
         ],
       },
       {
-        test: /\.(woff2?|svg)$/,
-        // loader: "url-loader?limit=10000&name=fonts/[name].[ext]",
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 1000,
-              name: "fonts/[name].[ext]",
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(ttf|eot)$/,
-        // loader: "file-loader?name=fonts/[name].[ext]",
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              limit: 1000,
-              name: "fonts/[name].[ext]",
-            },
-          },
-        ],
+        test: /\.(woff2?|ttf|eot|svg)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext][query]',
+        },
       },
     ],
   },
