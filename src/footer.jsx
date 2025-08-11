@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import siteConfig from "./utils/siteConfig";
 
 const Footer = () => (
   <footer id="footer">
@@ -17,7 +18,7 @@ const Footer = () => (
           </p>
 
           <p className="small mb-1">
-            Website crafted by the digital alchemy of <a href="https://primitiveweb.dev" className="ff-sketch">primitiveshaun.</a>
+            Website crafted by the digital alchemy of <a href="https://primitiveweb.design" className="ff-sketch">primitiveshaun.</a>
           </p>
 
           <p className="small mb-1">
@@ -25,12 +26,15 @@ const Footer = () => (
           </p>
 
           <p className="colophon small mb-2">
-              Beautiful stuff designed by <a href="" className="ff-sketch">Scibble &amp; Sketch</a>.
+              Beautiful stuff designed by <a href="" className="ff-sketch">Skribble</a>.
           </p>
+          {/* <p className="colophon small mb-2">
+              Beautiful stuff designed by <a href="" className="ff-sketch">Skribble &amp; Sketch</a>.
+          </p> */}
 
           <p className="copyright">
-            Copyright &copy; {PrimitiveSettings.title}{" "}
-            {new Date().getFullYear()} - Nice 2B One by{" "}
+            &copy; {siteConfig.siteName}{" "}
+            {new Date().getFullYear()} - {siteConfig.siteName}{" "}
             <a href="https://primitive.industries" className="ff-sketch">Primitive Industries</a>
           </p>
         </div>
