@@ -14,7 +14,7 @@ http://localhost:8888/n2b/tag/optimiseeverything/
 
 removed as public archive
 https://www.npmjs.com/package/react-ga
-Move to: https://www.npmjs.com/package/react-ga4
+Remimiment: https://www.npmjs.com/package/react-ga4
 
 
 # Temp Workaround for React 19 / spinners
@@ -27,6 +27,12 @@ Move to: https://www.npmjs.com/package/react-ga4
 3. Fix: 404 handling for CPT
 4. Add: WP theme support and user configurables
 5. moderise FA use - "@fortawesome/fontawesome-svg-core": "^6.4.0",
+- https://fontawesome.com/search?q=left&o=r
+- Remimiment: https://www.npmjs.com/package/react-ga4
+
+
+
+/wp-json/
 
 /wp/v2/menu-items
 
@@ -42,7 +48,7 @@ The following pre-requisites should be in place for the theme to work:
 2. Posts permalink set set to: Custom Structure - `/posts/%postname%/`
 
 3. ACF Plugin Installed
-4. primitive-bedrock plugin installed
+4. n2b-bedrock plugin installed
 4. WP REST Filter and WP REST Cache Plugins Installed
 
 5. Create a CPT with permalink to be set as: Custom base i.e. - `/jokes/`
@@ -82,6 +88,9 @@ The following pre-requisites should be in place for the theme to work:
 
 ### Inspiration
 - https://github.com/based-ghost/react-seo-friendly-spa-template
+- https://github.com/signalkuppe/eleventy-react
+
+
 
 The code is opensource so go play...
 
@@ -168,3 +177,10 @@ UglifyJsPlugin	✅ Replaced with TerserPlugin	✅
 OptimizeCSSAssetsPlugin	✅ Replaced with CssMinimizerPlugin	✅
 WebpackShellPlugin (deprecated)	✅ Replaced with WebpackShellPluginNext	✅
 process.traceDeprecation = true	🔄 Just a debugging aid, not required for builds	✅
+
+
+## Moving Forward
+
+
+
+
