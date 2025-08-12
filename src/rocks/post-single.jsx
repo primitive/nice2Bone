@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import PostLink from "../pebbles/post-link";
 import CatLink from "../pebbles/category-link";
 import TagLink from "../pebbles/tag-link";
+import Image from "../pebbles/image";
 import Placeholder from "../n2b_placeholder1.jpg";
 import { cleanText } from "../helpers";
 
@@ -27,11 +28,13 @@ const PostSingle = ({ post }) => {
       <div className="col">
         <article className="card mb-5 rounded-bottom-3 fade-in">
           {/* Header image with Title overlay */}
-          <img
-            src={post.featured_image_src || Placeholder}
+          <Image  
+            image={post.featured_image_src}
             className="card-img"
             alt={titleSafe}
             title={titleSafe}
+            fallback={Placeholder} 
+            eager
           />
           <div className="card-img-overlay text-center d-flex flex-column justify-content-center">
             <h1

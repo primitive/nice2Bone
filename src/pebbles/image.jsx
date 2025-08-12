@@ -6,7 +6,8 @@ const Image = forwardRef(function Image(
     image,            // featured_image_src object
     className,
     eager = false,
-    alt: altOverride,
+    alt: altText,
+    title: titleText,
     sizes,            // optional override for sizes attribute
     fallback,         // URL shown if image missing or fails
     ...rest
@@ -23,8 +24,8 @@ const Image = forwardRef(function Image(
         className={className || "pi-image"}
         src={fallback}
         loading={eager ? "eager" : "lazy"}
-        alt={altOverride || ""}
-        fetchpriority={eager ? "high" : undefined}
+        alt={altText || ""}
+        fetchPriority={eager ? "high" : undefined}
         {...rest}
       />
     ) : null;
@@ -53,13 +54,14 @@ const Image = forwardRef(function Image(
       width={width}
       height={height}
       loading={eager ? "eager" : "lazy"}
-      fetchpriority={eager ? "high" : undefined}
+      fetchPriority={eager ? "high" : undefined}
       srcSet={srcset || undefined}
       sizes={sizes || sizes_attribute || undefined}
-      alt={altOverride || alt || title || ""}
-      style={{
-        aspectRatio: `${(preferred?.width || full?.width) ?? 1} / ${(preferred?.height || full?.height) ?? 1}`
-      }}
+      alt={altText || alt || title || ""}
+      title={titleText || title || ""}
+      // style={{
+      //   aspectRatio: `${(preferred?.width || full?.width) ?? 1} / ${(preferred?.height || full?.height) ?? 1}`
+      // }}
       onError={() => {
         if (fallback) setErrored(true);
       }}
@@ -68,24 +70,24 @@ const Image = forwardRef(function Image(
   );
 });
 
-Image.propTypes = {
-  image: PropTypes.shape({
-    alt: PropTypes.string,
-    title: PropTypes.string,
-    full: PropTypes.shape({
-      url: PropTypes.string,
-      width: PropTypes.number,
-      height: PropTypes.number,
-    }),
-    sizes: PropTypes.object,
-    srcset: PropTypes.string,
-    sizes_attribute: PropTypes.string,
-  }),
-  className: PropTypes.string,
-  eager: PropTypes.bool,
-  alt: PropTypes.string,
-  sizes: PropTypes.string,
-  fallback: PropTypes.string,
-};
+// Image.propTypes = {
+//   image: PropTypes.shape({
+//     alt: PropTypes.string,
+//     title: PropTypes.string,
+//     full: PropTypes.shape({
+//       url: PropTypes.string,
+//       width: PropTypes.number,
+//       height: PropTypes.number,
+//     }),
+//     sizes: PropTypes.object,
+//     srcset: PropTypes.string,
+//     sizes_attribute: PropTypes.string,
+//   }),
+//   className: PropTypes.string,
+//   eager: PropTypes.bool,
+//   alt: PropTypes.string,
+//   sizes: PropTypes.string,
+//   fallback: PropTypes.string,
+// };
 
 export default Image;

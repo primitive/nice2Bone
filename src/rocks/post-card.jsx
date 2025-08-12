@@ -7,6 +7,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import PostLink from "../pebbles/post-link";
 import CatLink from "../pebbles/category-link";
+import Image from "../pebbles/image";
 import Placeholder from "../n2b_placeholder1.jpg";
 
 const PostCard = ({ post, index }) => {
@@ -24,12 +25,13 @@ const PostCard = ({ post, index }) => {
     >
       <div className="card">
         <PostLink slug={post.slug}>
-          <img
-            loading="lazy"
-            src={post.featured_image_src || Placeholder}
+          <Image  
+            image={post.featured_image_src}
             className="card-img-top"
             alt={post.title.rendered}
             title={post.title.rendered}
+            fallback={Placeholder} 
+            eager={index < 3}
           />
         </PostLink>
 
