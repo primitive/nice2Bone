@@ -1,60 +1,91 @@
-// function Image({ image, fallback, altFallback = "" }) {
-//   if (!image) {
-//     return <img src={fallback} alt={altFallback} />;
-//   }
+import React, { forwardRef, useState } from "react";
+import PropTypes from "prop-types";
 
-//   const { full, srcset, sizes_attribute, alt } = image;
+const Image = forwardRef(function Image(
+  {
+    image,            // featured_image_src object
+    className,
+    eager = false,
+    alt: altOverride,
+    sizes,            // optional override for sizes attribute
+    fallback,         // URL shown if image missing or fails
+    ...rest
+  },
+  ref
+) {
+  const [errored, setErrored] = useState(false);
 
-//   return (
-//     <img
-//       src={full?.url}
-//       width={full?.width}
-//       height={full?.height}
-//       srcSet={srcset || undefined}
-//       sizes={sizes_attribute || "(max-width: 768px) 100vw, 768px"}
-//       alt={alt || altFallback}
-//       loading="lazy"
-//     />
-//   );
-// }
-
-import React from "react";
-
-const Image = ({
-  image,                 // object from primitive_get_image_src
-  fallback,
-  className,
-  loading,               // optional: "lazy" or "eager"
-  sizes,                  // optional override for sizes
-  alt: altOverride,       // optional override
-  ...rest
-}) => {
-  if (!image) {
-    return (
+  // No image object → show fallback if provided
+  if (!image || errored) {
+    return fallback ? (
       <img
+        ref={ref}
+        className={className || "pi-image"}
         src={fallback}
-        className={className}
-        loading={loading || "lazy"}
+        loading={eager ? "eager" : "lazy"}
+        alt={altOverride || ""}
+        fetchpriority={eager ? "high" : undefined}
         {...rest}
       />
-    );
+    ) : null;
   }
 
-  const { full, srcset, sizes_attribute, alt, title } = image;
+  const {
+    full,
+    sizes: allSizes = {},
+    srcset,
+    sizes_attribute,
+    alt,
+    title,
+  } = image;
+
+  // Prefer medium_large → large → full
+  const preferred = allSizes?.medium_large || allSizes?.large || full || {};
+  const src = preferred.url || full?.url;
+  const width = preferred.width || full?.width;
+  const height = preferred.height || full?.height;
 
   return (
     <img
-      className={`frontity-lazy-image${className ? ` ${className}` : ""}`}
-      src={full?.url}
-      width={full?.width}
-      height={full?.height}
-      loading={loading || "lazy"}   // ✅ defaults to lazy unless prop is passed
+      ref={ref}
+      className={["pi-image img-fluid", className].filter(Boolean).join(" ")}
+      src={src}
+      width={width}
+      height={height}
+      loading={eager ? "eager" : "lazy"}
+      fetchpriority={eager ? "high" : undefined}
       srcSet={srcset || undefined}
       sizes={sizes || sizes_attribute || undefined}
       alt={altOverride || alt || title || ""}
+      style={{
+        aspectRatio: `${(preferred?.width || full?.width) ?? 1} / ${(preferred?.height || full?.height) ?? 1}`
+      }}
+      onError={() => {
+        if (fallback) setErrored(true);
+      }}
       {...rest}
     />
   );
+});
+
+Image.propTypes = {
+  image: PropTypes.shape({
+    alt: PropTypes.string,
+    title: PropTypes.string,
+    full: PropTypes.shape({
+      url: PropTypes.string,
+      width: PropTypes.number,
+      height: PropTypes.number,
+    }),
+    sizes: PropTypes.object,
+    srcset: PropTypes.string,
+    sizes_attribute: PropTypes.string,
+  }),
+  className: PropTypes.string,
+  eager: PropTypes.bool,
+  alt: PropTypes.string,
+  sizes: PropTypes.string,
+  fallback: PropTypes.string,
 };
 
 export default Image;
