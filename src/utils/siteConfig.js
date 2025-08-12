@@ -60,6 +60,7 @@ const siteConfig = {
   theme: "dark",
   enableSmartTags: true,
   apiTimeout: 10000,
+  basePath: "/",
   gaTrackingId: process.env.REACT_APP_GA_TRACKING_ID || null,
   siteBrandLink: "/",
   postsHeader: "Posts & Articles",
