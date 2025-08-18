@@ -10,6 +10,7 @@ import siteConfig from "../utils/siteConfig";
 import NotFound from "../not-found";
 // import ReactGA from "react-ga4";
 import Preloader from "../pebbles/loader";
+import Image from "../pebbles/image";
 import { processSmartTags } from "../fire/smartTags";
 
 const Page = () => {
@@ -65,7 +66,7 @@ const Page = () => {
     return (
       <div className="container">
         <div className="row">
-          <div className="col text-center">
+          <div className="col pt-5 text-center">
             <Preloader />
             <p className="ff-sketch fs-2 blink">Thinking (stand back)...</p>
           </div>
@@ -94,13 +95,73 @@ const Page = () => {
         )}
         <div className="card-body">
           <h1
-            className="card-title"
+            className="card-title p-2 pb-5 mb-5"
             dangerouslySetInnerHTML={{ __html: page.title.rendered }}
           />
           <div className="card-text">
             {processSmartTags(page.content.rendered)}
           </div>
         </div>
+
+          {/* Meta */}
+          <div className="card-footer card-meta">
+
+            <p className="post-meta p-1 text-muted d-flex">
+              <span className="card-author">
+                <i className="fas fa-pen-fancy" title="penned by" />
+                {page.author_name}
+              </span>
+              <span className="card-published">
+                <i className="far fa-calendar-alt" title="dated" />
+                {page.published_date}
+              </span>
+            </p>
+            
+            <div className="entry-info p-1">
+              {/* Categories */}
+              {/* <span className="me-3">
+                <i className="fas fa-folder-open" aria-hidden="true" />{" "}
+                {categories.length > 0 ? (
+                  categories.map((name, i) => {
+                    const slug = categorySlugs[i] || name;
+                    return (
+                      <CatLink key={slug} slug={slug}>
+                        {name}
+                        {i < categories.length - 1 && ", "}
+                      </CatLink>
+                    );
+                  })
+                ) : (
+                  <span className="text-muted">Uncategorised</span>
+                )}
+              </span> */}
+
+              {/* Tags */}
+              {/* <span>
+                <i className="fas fa-tag" aria-hidden="true" />{" "}
+                {tags.length > 0 ? (
+                  tags.map((name, i) => {
+                    const slug = tagSlugs[i] || name;
+                    return (
+                      <TagLink key={slug} slug={slug}>
+                        {name}
+                        {i < tags.length - 1 && ", "}
+                      </TagLink>
+                    );
+                  })
+                ) : (
+                  <span className="text-muted">No tags</span>
+                )}
+              </span> */}
+            </div>
+          </div>
+
+          {/* Optional footer actions (hook up when ready) */}
+          <div className="card-footer py-3 text-center bg-dark rounded-bottom-3">
+            {/* <PostLink slug="./"><i className="fas fa-left-long"></i> Previous Post</PostLink> */}
+            <a href="/" className="btn btn-primary mx-4">Back to Posts</a>
+            {/* <PostLink slug="./">Next Post <i className="fas fa-right-long"></i> </PostLink> */}
+          </div>
       </article>
     </div>
   );
