@@ -6,3 +6,6 @@ DEV_NOTES.txt
 # Ignore local and environment-specific overrides
 .env.local
 .env.*.local
+
+# Ignore mac config
+.DS_Store
