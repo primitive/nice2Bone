@@ -128,7 +128,7 @@ export default {
         use: "babel-loader",
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(jpe?g|png|gif|svg|webp|avif)$/i,
         use: [
           {
             loader: "file-loader",
