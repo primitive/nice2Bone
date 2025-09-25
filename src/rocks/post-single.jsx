@@ -9,7 +9,7 @@ import PostLink from "../pebbles/post-link";
 import CatLink from "../pebbles/category-link";
 import TagLink from "../pebbles/tag-link";
 import Image from "../pebbles/image";
-import Placeholder from "../n2b_placeholder1.jpg";
+import Placeholder from "../n2b_placeholder1.webp";
 import { cleanText } from "../helpers";
 
 
