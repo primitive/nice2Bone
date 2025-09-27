@@ -1,7 +1,7 @@
 {
   "name": "nice2b",
-  "version": "2.0.2",
-  "description": "Headless WordPress Blog theme with Infinite Scroll. React based SPA, CSR only (not SEO friendly).",
+  "version": "2.0.3",
+  "description": "Headless WordPress Blog theme with Infinite Scroll.",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
