@@ -87,7 +87,7 @@ $title-color: darkslategray;
 $meta-color:#616161;
 
 $lowlight: #616161;
-$dark-color:#2d2d2d;
+$color-dark:#2d2d2d;
 $button-color: #FDFDFF;
 
 $blue-mute: #6D728C;
@@ -159,10 +159,12 @@ $background-opacity: .12;
 
 Common element styles 
 ****************************************/
-
-body {
-  min-height: 100%;
+html {
   height: 100%;
+}
+body {
+  height: 100%;
+  overflow-x: hidden;
   background-color: var(--bs-body-bg);
   background-image: $background-image2;
 }
@@ -180,9 +182,15 @@ body::before {
   left: 0px;
 }
 
-#page-inner {
-  min-height: 100%;
+#root, #wrapper {
   height: 100%;
+}
+
+#page-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: height 1s ease;
 }
 
 
@@ -294,6 +302,7 @@ h6 { font-size: 1.1em; }
     position: absolute;
     bottom: -3.5rem;
     left: -1.2rem;
+    z-index: -1;
     font-size: 4.6rem;
     color: $primary-color;
   }
@@ -302,6 +311,7 @@ h6 { font-size: 1.1em; }
     position: absolute;
     bottom: -3.6rem;
     right: -0.9rem;
+    z-index: -1;
     font-size: 4.3rem;
     color: $primary-color;
   }
@@ -312,16 +322,13 @@ h6 { font-size: 1.1em; }
 }
 
 #main-nav .navbar-toggler {
-  background: rgba(255, 255, 255, .2);
-  background-blend-mode: overlay;
 
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-
-  border: 1px solid hsl(0deg, 100%, 100%);
-  border: 1px solid rgba(255, 255, 255, .3);
-
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, .6);
+    padding: 0.18em 0.26em;
+    border: 1px solid rgba(163,138,0,.6);
+    border-radius: 0.3em;
+    background: rgb(163,138,0);
+    background: linear-gradient(-12deg, rgba(163,138,0,1) 0%, rgba(209,176,0,1) 15%, rgba(255,229,92,1) 78%, rgba(255,237,138,1) 100%);
+    box-shadow: 0 4px 6px -1px #0000001a,0 2px 4px -2px #0000001a;
 }
 
 #main-nav .dropdown-menu,
@@ -656,6 +663,35 @@ Posts (Blog)
   .card-body {
     background-image: url(https://nice2b.me/wp-content/uploads/paper-white-grain-512x512-1.jpg);
   }
+
+  .card-title {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+  }
+  .card-title a {
+    position: relative;
+    z-index: 1;
+  }
+  .card-title a:hover {
+    color: $color-dark;
+  }
+  .card-title:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -.15em;
+    width: 95%;
+    height: .6rem;
+    transform: skew(-12deg) translateX(-50%);
+    background: rgba(157,255,32,0.3);
+    z-index: 0;
+    transition: all 0.5s ease-out;
+  }
+  .card-title:hover:after {
+    height: 95%;
+    background: rgba(213,255,32,0.6);
+  }
 }
 
 
@@ -695,11 +731,21 @@ Posts (Blog)
 
 Post (Single)
 ****************************************/
+.border-dotted {
+    //border: dotted 2px #41403e;
+    padding: 1rem;
+    margin: 1rem;
+    //border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, 0.3);
+}
+.bg-yellow {
+  background: #ffe55c;
+}
 
 .single-post {
-  #page-inner {
-    background-image: url(https://staging.nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
-  }
+  // #page-inner {
+  //   background-image: url(https://staging.nice2b.me/wp-content/uploads/2019/03/bg-scribble-1.png);
+  // }
   .card-img {
     max-height: 400px;
     object-fit: cover;
@@ -712,7 +758,36 @@ Post (Single)
       background-color: rgba(255, 255, 255, 0.8);
     }
   }
+
+
+  .wp-block-embed.is-type-video {
+    // border: 1px solid hsla(0, 100%, 100%, 1);
+    // box-shadow: 1px 2px 3px rgb(0 0 0 / 0.6);
+    // background-blend-mode: overlay;
+    // overflow: hidden;
+
+    // background: rgba(255, 255, 255, 0.2);
+    // border-radius: 10px;
+    // backdrop-filter: blur(6px);
+    // border: 1px solid rgba(255, 255, 255, 0.3);
+    @extend .border-dotted;
+    @extend .bg-yellow;
+
+    border-top: 3px solid $color-dark;
+    display: flex;
+    justify-content: center; /* centres horizontally */
+    align-items: center;     /* centres vertically if needed */
+
+    .wp-block-embed__wrapper {
+      border: 1px solid hsla(0, 100%, 100%, 1);
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      box-shadow: 1px 2px 3px rgb(0 0 0 / 0.6);
+      overflow: hidden;
+      background: #000000;
+    }
+  }
 }
+
 
 
 /**************************************** 
@@ -727,10 +802,8 @@ Pages
   }
 
   h1.card-title {
-    margin-bottom: 2.5rem;
-    padding: 0 0 1.5rem;
+ 
     font-size: 3rem;
-    line-height: 2;
     border-bottom: 1px solid $lowlight;
   }
 
@@ -763,12 +836,32 @@ CPT - Jokes
 
 ****************************************/
 
+.jokes-list {
+
+  .card-img-top {
+    aspect-ratio: 12/7;
+    object-fit: cover;
+    border-bottom: $secondary-light 1px solid;
+  }
+
+  .card {
+    background: powderblue;
+  }
+  .card-body {
+    background-image: url(https://nice2b.me/wp-content/uploads/paper-white-grain-512x512-1.jpg);
+  }
+}
+
 .jokes-list .card-title a {
- color: $quaternary-color;
+  //color: $quaternary-color;
+  color: $pencil-blue-light;
 }
-.jokes-list .card-title a:hover, .jokes-list .card-title a:active {
-  color: $tertiary-dark;
+.jokes-list .card-title a:hover, 
+.jokes-list .card-title a:active {
+  // color: $tertiary-dark;
+  color: $color-dark;
 }
+
 // .jokes-list .card-body .collapse,
 // .jokes-list .card-body .collapsing {
 //   color: $tertiary-color;
@@ -879,7 +972,7 @@ footer {
   text-align: center;
   line-height: 1.4rem;
   border-top: solid 4px $primary-color;
-  z-index: 998;
+  // z-index: 998;
 
   a {
     color: $pencil-yellow-light;
@@ -1114,6 +1207,7 @@ a.dropdown-item {
 	left: -60% !important;
 	width: 60% !important;
 }
+
 /* Burger */
 
 .burger {
