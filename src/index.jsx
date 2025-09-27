@@ -6,7 +6,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, Outlet, Link } from "react-router-dom";
-
+import siteConfig from "./utils/siteConfig";
 import Header from "./header";
 // import Header from "./header2";
 import Footer from "./footer";
@@ -20,9 +20,11 @@ import Tags from "./mountains/tags";
 import Page from "./mountains/page";
 
 import Jokes from "./mountains/jokes";
-import Joke from "./joke";
-import JokeTags from "./joke-tags";
-import JokeCats from "./joke-categories";
+import Joke from "./mountains/joke";
+
+// sk-dev: TODO
+// import JokeTags from "./joke-tags";
+// import JokeCats from "./joke-categories";
 
 
 // sk-dev: ga4 update untested
@@ -38,6 +40,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 //require("./style.scss");
 import "./style.scss";
 
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // includes Popper sk-dev: to move
+
 function App() {
 
   // sk-dev: env check + debug
@@ -48,8 +52,10 @@ function App() {
 
 
     // sk-dev: env check + debug
-    console.log('NODE_ENV:', process.env.NODE_ENV);
-    console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+    if (process.env.NODE_ENV === "development") {
+      console.log('NODE_ENV:', process.env.NODE_ENV);
+      console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+    }
 
     // sk-dev to-do GA4: track page views on route change
     // usePageView();
@@ -78,8 +84,9 @@ function App() {
           {/* custom post types */}
           <Route path={"jokes/"} element={<Jokes />} />
           <Route path={"jokes/:slug"} element={<Joke />} />
-          <Route path={"jokes/about/:slug"} element={<JokeTags />} />
-          <Route path={"jokes/by-type/:slug"} element={<JokeCats />} />
+
+          {/* <Route path={"jokes-about/:slug"} element={<JokeTags />} />
+          <Route path={"jokes/by-type/:slug"} element={<JokeCats />} /> */}
 
           {/* nested pages (grouped sections) */}
           <Route path={"think/:slug"} element={<Page />} />
@@ -121,12 +128,11 @@ function NoMatch() {
 
 {/* <BrowserRouter basename={PrimitiveSettings.path}></BrowserRouter> */}
 
-const basePath = PrimitiveSettings.path.replace(/\/$/, '');
 const container = document.getElementById("root");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename={basePath}>
+    <BrowserRouter basename={siteConfig.basePath}>
       <App />
     </BrowserRouter>
   </React.StrictMode>
