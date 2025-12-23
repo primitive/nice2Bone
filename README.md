@@ -2,7 +2,7 @@
 A WordPress REST API based blog theme/app (CSR ONLY)
 
 Crafted with Node.js v23, React 19, Bootstrap 5 and Webpack 5.
-This was one of my first experiments with React/WP.
+This started as one of my first experiments with React/WP.
 Looked lovely but was not suitable for Websites due to SEO or prod due to performance 
 
 ## Dev Notes
@@ -81,6 +81,19 @@ The following pre-requisites should be in place for the theme to work:
 | `format`       | Formats your files with Prettier                       |
 | `format:check` | Verifies formatting (useful for CI or PRs)             |
 
+
+### API Endpoints used
+https://nice2b.me/wp-json/bedrock/v1/config
+https://nice2b.me/wp-json/bedrock/v1/posts-by-category/mind
+
+
+https://nice2b.me/wp-json/bedrock/v1/jokes
+https://nice2b.me/wp-json/bedrock/v1/jokes/?slug=the-inventor-of-the-ferris-wheel-never-met-the-inventor-of-the-merry-go-round
+
+
+https://nice2b.me/wp-json/wp/v2/posts?slug=barclaycard-is-boff
+https://nice2b.me/wp-json/wp/v2/pages?slug=heros-and-heroines
+https://nice2b.me/wp-json/wp/v2/jokes/?slug=the-inventor-of-the-ferris-wheel-never-met-the-inventor-of-the-merry-go-round
 
 ### Refs
 - https://getbootstrap.com/docs/5.0/customize/css-variables/
