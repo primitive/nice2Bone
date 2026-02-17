@@ -5,7 +5,7 @@ const DEFAULT_WP_API_URL = "https://nice2b.me/wp-json/wp/v2/";
 const DEFAULT_BEDROCK_API_URL = "https://nice2b.me/wp-json/bedrock/v1/";
 
 const getSafeSiteUrl = () => {
-  const raw = process.env.REACT_APP_SITE_URL;
+  const raw = process.env.VITE_SITE_URL;
   // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
   if (
     !raw ||
@@ -19,7 +19,7 @@ const getSafeSiteUrl = () => {
   return raw;
 };
 const getSafeWPApiUrl = () => {
-  const raw = process.env.REACT_APP_WP_API_URL;
+  const raw = process.env.VITE_WP_API_URL;
   // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
   if (
     !raw ||
@@ -33,7 +33,7 @@ const getSafeWPApiUrl = () => {
   return raw;
 };
 const getSafeBedrockApiUrl = () => {
-  const raw = process.env.REACT_APP_BEDROCK_API_URL;
+  const raw = process.env.VITE_BEDROCK_API_URL;
   // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
   if (
     !raw ||
@@ -48,9 +48,9 @@ const getSafeBedrockApiUrl = () => {
 };
 
 const siteConfig = {
-  //siteURL: getVar(["REACT_APP_SITE_URL"], DEFAULT_SITE_URL),
-  //apiURL:  getVar(["REACT_APP_API_URL"], DEFAULT_API_URL),
-  //apiBedrockURL: getVar(["REACT_APP_API_URL"], DEFAULT_API_URL),
+  //siteURL: getVar(["VITE_SITE_URL"], DEFAULT_SITE_URL),
+  //apiURL:  getVar(["VITE_API_URL"], DEFAULT_API_URL),
+  //apiBedrockURL: getVar(["VITE_API_URL"], DEFAULT_API_URL),
   siteURL: getSafeSiteUrl(),
   apiURL: getSafeWPApiUrl(),
   apiBedrockURL: getSafeBedrockApiUrl(),
@@ -61,7 +61,7 @@ const siteConfig = {
   enableSmartTags: true,
   apiTimeout: 10000,
   basePath: "/",
-  gaTrackingId: process.env.REACT_APP_GA_TRACKING_ID || null,
+  gaTrackingId: process.env.VITE_GA_TRACKING_ID || null,
   siteBrandLink: "/",
   postsHeader: "Posts & Articles",
   postsPreloadText: "Thinking, stand back...",
