@@ -87,12 +87,12 @@ export default {
       patterns: [
         {
           from: "public/",
-          to: process.env.VITE_LOCAL_WP_THEME_DIR,
+          to: process.env.VITE_LOCAL_BUILD_DIR,
           noErrorOnMissing: true,
         },
         {
           from: "dist/",
-          to: path.join(process.env.VITE_LOCAL_WP_THEME_DIR, "dist"),
+          to: path.join(process.env.VITE_LOCAL_BUILD_DIR, "dist"),
           noErrorOnMissing: true,
         },
       ],
