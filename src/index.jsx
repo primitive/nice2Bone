@@ -54,7 +54,7 @@ function App() {
     // sk-dev: env check + debug
     if (process.env.NODE_ENV === "development") {
       console.log('NODE_ENV:', process.env.NODE_ENV);
-      console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+      console.log('VITE_API_URL:', process.env.VITE_API_URL);
     }
 
     // sk-dev to-do GA4: track page views on route change
