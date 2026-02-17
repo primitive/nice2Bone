@@ -38,7 +38,7 @@ function primitive_scripts() {
 
 	//$path = trailingslashit(parse_url($url, PHP_URL_PATH));
 
-	// $api_url = process.env.REACT_APP_API_URL;
+	// $api_url = process.env.VITE_API_URL;
 	// $api_url = get_rest_url();
 	// $api_url = "http://localhost:8888/n2b/wp-json/wp/v2/";
 
