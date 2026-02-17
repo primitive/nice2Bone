@@ -19,7 +19,7 @@ const getSafeSiteUrl = () => {
   return raw;
 };
 const getSafeWPApiUrl = () => {
-  const raw = process.env.VITE_WP_API_URL;
+  const raw = process.env.VITE_API_URL;
   // Return fallback if it's missing, empty, or explicitly 'undefined' or 'null'
   if (
     !raw ||
