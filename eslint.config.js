@@ -1,11 +1,7 @@
-import js from "@eslint/js";
-import reactPlugin from "eslint-plugin-react";
-import reactHooksPlugin from "eslint-plugin-react-hooks";
-import prettierPlugin from "eslint-plugin-prettier";
-import globals from "globals";
-import babelParser from "@babel/eslint-parser";
+import babelParser from "@babel/eslint-parser"
+import globals from "globals"
 
-const { browser, node } = globals;
+const { browser, node } = globals
 
 function cleanGlobals(globalSet) {
   return Object.fromEntries(
@@ -14,7 +10,6 @@ function cleanGlobals(globalSet) {
 }
 
 export default [
-  js.configs.recommended,
   {
     files: ["src/**/*.{js,jsx}"],
     languageOptions: {
@@ -32,23 +27,7 @@ export default [
         ...cleanGlobals(node),
       },
     },
-    plugins: {
-      react: reactPlugin,
-      "react-hooks": reactHooksPlugin,
-      prettier: prettierPlugin,
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-    rules: {
-      "no-unused-vars": "warn",
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-      "prettier/prettier": "warn",
-    },
+    plugins: {}, // no plugins
+    rules: {},   // no rules at all
   },
 ];
